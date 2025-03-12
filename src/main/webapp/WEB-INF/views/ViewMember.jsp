@@ -115,7 +115,7 @@
 									</h5>
 
 
-									<table class="table datatable datatable-table table-hover" id="myTable">
+									<%-- <table class="table datatable datatable-table table-hover" id="myTable">
 										<thead>
 											<tr>
                                                 <th>Member</th>
@@ -127,18 +127,24 @@
 
 										<tbody>
 											
-												<tr>
+												 <tr>
                                                     <td>${member.memberName }</td>
 				                                    <td>${member.age}</td>
 				                                    <td>${member.profilePhoto }</td>
-													<td><a href="#">Edit</a> |<a href="deletemember?memberId=${m.memberId}">Delete</a>
-													
-													 </td>
-												</tr>
+													<td><a href="#"><i class="bi bi-pencil-square"></i></a> |<a href="deletemember?memberId=${m.memberId}"><i class="bi bi-trash3-fill"></i></a>		
+													</td>
+												</tr> 
 											
 										</tbody>
 
-									</table>
+									</table> --%>
+									MemberName: ${member.memberName } <br><br>
+									Age: ${member.age} <br><br>
+									Profile photo: ${member.profilePhoto } <br><br>
+									<div style="color:red;">
+									<a href="#" style="color:red;">Edit</a> | 
+									<a href="deletemember?memberId=${m.memberId}" style="color:red;">Delete</i></a> <br><br>
+									</div>
 									<p style="color:blue; text-decoration: underline"><a href="listmembers"> Back </a> </p>
 
 

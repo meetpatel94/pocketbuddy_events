@@ -236,21 +236,21 @@ body{
         <!-- LOGIN FORM -->
         
                  <!-- LOGIN FORM -->
-<form action="saveuser" class="login-form" autocomplete="off" method="post">
+<form action="saveuser" class="login-form" method="post" enctype="multipart/form-data">
 
     <div class="input-box">
-        <input type="text" class="input-field" id="firstName" name ="firstName" required>
+        <input type="text" class="input-field" id="firstName" name ="firstName" >
         <label for="firstName" class="label">First Name</label>
         <i class='bx bx-user icon'></i>
     </div>
 
     <div class="input-box">
-        <input type="text" class="input-field" id="lastName" name = "lastName" required>
+        <input type="text" class="input-field" id="lastName" name = "lastName" >
         <label for="lastName" class="label">Last Name</label>
     </div>
 
     <div class="input-box">
-    <select id="gender" name="gender" class="input-field"  placeholder="" name="gender" required>
+    <select id="gender" name="gender" class="input-field"  placeholder="" name="gender">
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="trans">Transgender</option>
@@ -258,28 +258,35 @@ body{
     </select>
     <i class='bx bx-male-female icon'></i>
     </div>
-
+    
+    
 
     <div class="input-box">
-        <input type="text" class="input-field" id="log-email" name="email" required>
+        <input type="text" class="input-field" id="log-email" name="email" >
         <label for="log-email" class="label">Email</label>
-        <i class='bx bx-envelope icon'></i>
+     <i class='bx bx-envelope icon'></i>   
     </div>
     <div class="input-box">
-        <input type="password" class="input-field" id="password" name = "password" required>
+        <input type="password" class="input-field" id="password" name = "password" >
         <label for="password" class="label">Password</label>
         <i class='bx bx-lock-alt icon'></i>
     </div>
 
     <div class="input-box">
-        <input type="date" class="input-field" id="bornYear" name = "bornYear" required>
+        <input type="date" class="input-field" id="bornYear" name = "bornYear" >
         <label for="bornYear" class="label"></label>
     </div>
 
     <div class="input-box">
-        <input type="text" class="input-field" id="contactNum" name = "contactNum" required>
+        <input type="text" class="input-field" id="contactNum" name = "contactNum" >
         <label for="contactNum" class="label">Contact No.</label>
         <i class='bx bxs-contact icon'></i>
+    </div>
+    
+    <div class="input-box">
+        <input type="file" class="" id="profilePic" name="profilePic" >
+        <label for="profilePic" class="label"></label>
+        <span style="color:red;">*Upload Photo</span>
     </div>
 
     <div class="form-cols">

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.MemberEntity;
 import com.example.entity.UserEntity;
@@ -30,11 +31,11 @@ public class MemberController {
 
 	@PostMapping("savemember")
 	public String saveMember(MemberEntity entityMember, HttpSession session) {
-		
+		 
 //		UserEntity user = (UserEntity)session.getAttribute("user");
 //		Integer userId = user.getUserId();
 //		entityMember.setUserId(userId);		
-		repositoryMember.save(entityMember);
+     	repositoryMember.save(entityMember);
 		return "NewMember";
 	}
 

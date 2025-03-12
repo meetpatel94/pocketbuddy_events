@@ -217,6 +217,10 @@ body{
 .switch-form a{
     font-weight: 500;
 }
+.error-msg{
+    color: red;
+    text-align: center;
+}  
 
 /* RESPONSIVE STYLES */
 @media only screen and (max-width: 564px){
@@ -260,7 +264,7 @@ body{
         <div class="col-2">
         </div>
     </div>
-    ${error }
+     <span class="error-msg"><i class='bx bxs-error-circle'></i>${error }</span>
     <div class="input-box">
         <button class="btn-submit" id="SignInBtn">Update Password <i class='bx bxs-lock'></i></button>
     </div>

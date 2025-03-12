@@ -9,7 +9,7 @@
   	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  	<title>New Role | Expense Manager</title>
+  	<title>New User</title>
   	<meta content="" name="description">
   	<meta content="" name="keywords">
 <jsp:include page="AdminCss.jsp"></jsp:include>

@@ -217,6 +217,10 @@ body{
 .switch-form a{
     font-weight: 500;
 }
+.error-msg{
+    color: red;
+    text-align: center;
+}  
 
 /* RESPONSIVE STYLES */
 @media only screen and (max-width: 564px){
@@ -246,17 +250,14 @@ body{
         <div class="col-2">
         </div>
     </div>
-    ${error }
+     <span class="error-msg"><i class='bx bxs-error-circle'></i>${error }</span>
     <div class="input-box">
         <button class="btn-submit" id="SignInBtn">Send OTP <i class='bx bxs-bell-ring'></i></button>
     </div>
     <div class="switch-form">
         <span>Don't have an account? <a href="signup" onclick="registerFunction()">SignUp Here</a></span>
     </div>
-</form>
-            <!-- Login form inputs -->
-        </form>
-        <!-- REGISTER FORM -->
-    </div>
+  </form>
+</div>
 </body>
 </html>

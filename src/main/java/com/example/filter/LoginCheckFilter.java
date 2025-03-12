@@ -2,9 +2,7 @@ package com.example.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.springframework.stereotype.Component;
-
 import com.example.entity.UserEntity;
 
 import jakarta.servlet.Filter;
@@ -40,8 +38,8 @@ public class LoginCheckFilter implements Filter {
 		String url = req.getRequestURL().toString();
 		String uri = req.getRequestURI();
 		
-		System.out.println("Filter Call......." + uri);
-		System.out.println("URI is:" + uri);
+		//System.out.println("Filter Call......." + uri);
+		//System.out.println("URI is:" + uri);
 		
 		
 		if(publicURL.contains(uri) || uri.contains(".css") || uri.contains(".js") || uri.contains("dist")) {
@@ -49,14 +47,13 @@ public class LoginCheckFilter implements Filter {
 		}else {
 		
 			HttpSession session = req.getSession();
-		UserEntity user = (UserEntity) session.getAttribute("user");
+		    UserEntity user = (UserEntity) session.getAttribute("user");
 			
 		if(user == null ) {
 		req.getRequestDispatcher("login").forward(request, response);
-	}else {
+	    }else {
 		chain.doFilter(request, response);
-	}
-		
-	  }  
+	      }	   
+	   }  
 	}
 }

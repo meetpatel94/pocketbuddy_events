@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-					<li class="breadcrumb-item active">List User</li>
+					<li class="breadcrumb-item active">List Members</li>
 				</ol>
 			</nav>
 		</div>
@@ -52,38 +52,52 @@
 									</h5>
 
 
-									<table class="table datatable datatable-table table-hover" id="myTable">
+						<%-- 			<table class="table datatable datatable-table table-hover" id="myTable">
 										<thead>
 											<tr>
-												<th>FirstName</th>
-												<th>LastName</th>
-												<th>Email</th>
-												<th>Gender</th>
-												<!-- <th>City</th> -->
-												<th>ContactNum</th>
-												<th>Role</th>
-												<th>Action</th>
+                                                <th>FirstName</th>
+                                                <th>LastName</th>
+                                                <th>Email</th>
+                                                <th>Gender</th>
+                                                <th>ContactNum</th>
+                                                <th>Role</th>
+                                                <th>Action</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											<c:forEach items="${users }" var="u">
+											
 												<tr>
-													<td>${u.firstName}</td>
-													<td>${u.lastName}</td>
-													<td>${u.email}</td>
-													<td>${u.gender}</td>
-													<%-- <td>${u.city}</td> --%>
-													<td>${u.contactNum}</td>
-													<td>${u.role}</td>
-													<td><a href="#"><i class="bi bi-pencil-square"></i></a>|<a href="deleteuser?userId=${u.userId}"><i class="bi bi-trash3-fill"></i></a>|
-													 <a href="viewuser?userId=${u.userId}"><i class="bi bi-eye-fill"></i></a>
+                                                    <td>${user.firstName }</td>
+				                                    <td>${user.lastName}</td>
+				                                    <td>${user.email }</td>
+				                                    <td>${user.gender }</td>
+				                                    <td>${user.contactNum }</td>
+				                                    <td>${user.role }</td>
+													<td><a href="#"><i class="bi bi-eye-fill"></i></a> |<a href="deletemember?memberId=${m.memberId}"><i class="bi bi-trash3-fill"></i></a>
+													
 													 </td>
 												</tr>
-											</c:forEach>
+											
 										</tbody>
 
-									</table>
+									</table> --%>
+									&emsp; &emsp;
+									Profile Photo <br>
+									&emsp; &emsp;
+									 <img src="${user.profilePicPath }" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid black;"/><br>
+									First Name: ${user.firstName } <br>
+									Last Name: ${user.lastName} <br>
+									Email&emsp;&emsp;&nbsp;&nbsp;: ${user.email } <br>
+									Gender &emsp;   : ${user.gender } <br>
+									D.O.B. &emsp;&nbsp;&nbsp;   : ${user.bornYear } <br>
+									ContactNo.: ${user.contactNum } <br>
+									Role: ${user.role } <br><br>
+									<div style="color:red;">
+									<a href="#" style="color:red;">Edit</a> | 
+									<a href="deletemember?memberId=${m.memberId}" style="color:red;">Delete</a> <br><br>
+									</div>
+									<p style="color:blue; text-decoration: underline"><a href="listuser"> Back </a> </p>
 
 
 
@@ -132,9 +146,3 @@
 
 </body>
 </html>
-
-
-
-
-
-

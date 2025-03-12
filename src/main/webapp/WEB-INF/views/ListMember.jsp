@@ -104,8 +104,8 @@
                                                     <td>${m.memberName }</td>
 				                                    <td>${m.age}</td>
 				                                    <td>${m.profilePhoto }</td>
-													<td><a href="#">Edit</a> |<a href="deletemember?memberId=${m.memberId}">Delete</a>|
-													 <a href="viewmember?memberId=${m.memberId}">View</a>
+													<td><a href="#"><i class="bi bi-pencil-square"></i></a> |<a href="deletemember?memberId=${m.memberId}"><i class="bi bi-trash3-fill"></i></a>|
+													 <a href="viewmember?memberId=${m.memberId}"><i class="bi bi-eye-fill"></i></a>
 													 </td>
 												</tr>
 											</c:forEach>

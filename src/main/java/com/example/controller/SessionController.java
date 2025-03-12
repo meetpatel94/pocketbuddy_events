@@ -1,6 +1,9 @@
 package com.example.controller;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.Services.MailService;
-//import com.example.Service.MailService;
 import com.example.entity.UserEntity;
 import com.example.repository.UserRepository;
 
@@ -29,6 +34,9 @@ public class SessionController {
 	
 	@Autowired
 	PasswordEncoder encoder; 
+	
+	@Autowired
+	Cloudinary cloudinary;
 
 	@GetMapping(value = { "/", "login" } )
 	public String login(String email, String password) {
@@ -41,18 +49,41 @@ public class SessionController {
 	}
 
 	@PostMapping("saveuser")
-	public String saveuser(UserEntity userEntity) {
+	public String saveuser(UserEntity userEntity, MultipartFile profilePic) {
 		
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);     //salt
-//------->  Not use this line new keyword because it's gain more memory		
+//------->  Not use this line new keyword because it's gain more memory
 		
+		// cloudinary
+		System.out.println(profilePic.getOriginalFilename());
+		
+		if(profilePic.getOriginalFilename().endsWith(".jpg")) {
+			
+		}else {
+			return "Signup";
+		}
+		
+		try {
+			
+		Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//		System.out.println(result);
+//		System.out.println(result.get("url"));
+		
+		userEntity.setProfilePicPath(result.get("url").toString());
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Bcrypt
 		String encPassword = encoder.encode(userEntity.getPassword());
 		userEntity.setPassword(encPassword);
 		
-		userEntity.setRole("USER");
+		userEntity.setRole("USER");  
 	
 		repositoryUser.save(userEntity);	
-	//	serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
+//		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
 		return "Login";
 	}
 	
@@ -95,8 +126,27 @@ public class SessionController {
 		session.invalidate();
 		return "redirect:/login";
 	}
+	
+	@GetMapping("viewuser")
+	public String viewuser(Integer userId, Model model) {
+		System.out.println("view Member Id:"+userId);
+		Optional<UserEntity> op = repositoryUser.findById(userId);
+		if(op.isEmpty()) {
+			
+		}else {
+			UserEntity user = op.get();
+			model.addAttribute("user", user);
+		}
+		return "ViewPage";
+	}
 
-	@GetMapping("/forgetpassword")
+	@GetMapping("deleteuser")
+	public String deleteuser(Integer userId) {
+		repositoryUser.deleteById(userId);
+		return "redirect:/listuser";
+	}
+	
+	@GetMapping("forgetpassword")
 	public String forgetPassword() {
 		return "ForgetPassword";
 	}
