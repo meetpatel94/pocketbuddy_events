@@ -28,7 +28,7 @@
 			<h1>Admin Dashboard</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
 					<li class="breadcrumb-item active">Dashboard</li>
 				</ol>
 			</nav>
@@ -44,11 +44,11 @@
 
 						<!-- Sales Card -->
 						<div class="col-xxl-4 col-md-6">
-							<div class="card info-card sales-card">
+							<div class="card info-card sales-card neww">
 
 								<div class="filter">
 									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots"></i></a>
+										class="bi bi-three-dots" style="color: #33186B;"></i></a>
 									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<li class="dropdown-header text-start">
 											<h6>Filter</h6>
@@ -62,7 +62,7 @@
 
 								<div class="card-body">
 									<h5 class="card-title">
-										Sales <span>| Today</span>
+										Sales <span style="color: white;">| Today</span>
 									</h5>
 
 									<div class="d-flex align-items-center">
@@ -72,8 +72,8 @@
 										</div>
 										<div class="ps-3">
 											<h6>145</h6>
-											<span class="text-success small pt-1 fw-bold">12%</span> <span
-												class="text-muted small pt-2 ps-1">increase</span>
+											<span class="text-success small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">12%</span> <span
+												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">increase</span>
 
 										</div>
 									</div>
@@ -89,7 +89,7 @@
 
 								<div class="filter">
 									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots"></i></a>
+										class="bi bi-three-dots" style="color: #33186B;"></i></a>
 									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<li class="dropdown-header text-start">
 											<h6>Filter</h6>
@@ -103,7 +103,7 @@
 
 								<div class="card-body">
 									<h5 class="card-title">
-										Revenue <span>| This Month</span>
+										Revenue <span style="color: white;">| This Month</span>
 									</h5>
 
 									<div class="d-flex align-items-center">
@@ -113,8 +113,8 @@
 										</div>
 										<div class="ps-3">
 											<h6>$3,264</h6>
-											<span class="text-success small pt-1 fw-bold">8%</span> <span
-												class="text-muted small pt-2 ps-1">increase</span>
+											<span class="text-success small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">8%</span> <span
+												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">increase</span>
 
 										</div>
 									</div>
@@ -127,11 +127,11 @@
 						<!-- Customers Card -->
 						<div class="col-xxl-4 col-xl-12">
 
-							<div class="card info-card customers-card">
+							<div class="card info-card customers-card neww2">
 
 								<div class="filter">
 									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots"></i></a>
+										class="bi bi-three-dots" style="color: #33186B;"></i></a>
 									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<li class="dropdown-header text-start">
 											<h6>Filter</h6>
@@ -145,7 +145,7 @@
 
 								<div class="card-body">
 									<h5 class="card-title">
-										Customers <span>| This Year</span>
+										Customers <span style="color: white;">| This Year</span>
 									</h5>
 
 									<div class="d-flex align-items-center">
@@ -155,8 +155,8 @@
 										</div>
 										<div class="ps-3">
 											<h6>1244</h6>
-											<span class="text-danger small pt-1 fw-bold">12%</span> <span
-												class="text-muted small pt-2 ps-1">decrease</span>
+											<span class="text-danger small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">12%</span> <span
+												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">decrease</span>
 
 										</div>
 									</div>
@@ -169,11 +169,11 @@
 
 						<!-- Reports -->
 						<div class="col-12">
-							<div class="card">
+							<div class="card neww3">
 
 								<div class="filter">
 									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots"></i></a>
+										class="bi bi-three-dots" style="color: #33186B;"></i></a>
 									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<li class="dropdown-header text-start">
 											<h6>Filter</h6>
@@ -187,7 +187,7 @@
 
 								<div class="card-body">
 									<h5 class="card-title">
-										Reports <span>/Today</span>
+										Reports <span style="color: white;">/Today</span>
 									</h5>
 
 					<br><br>

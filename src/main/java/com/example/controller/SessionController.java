@@ -117,7 +117,7 @@ public class SessionController {
 			}	
 		}
 		
-		model.addAttribute("error", "Invalid Email Or Password");
+		model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Invalid Email Or Password");
 		return "Login";	
 	}
 	
@@ -157,7 +157,7 @@ public class SessionController {
 		Optional<UserEntity> op = repositoryUser.findByEmail(email);
 		if(op.isEmpty()) {
 			
-			model.addAttribute("error", "Email Not Found");
+			model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Email Not Found");
 			return "ForgetPassword";
 		}else {
 			//--> email valid   //--> send mail otp

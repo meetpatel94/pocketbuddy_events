@@ -52,9 +52,9 @@
 									</h5>
 
 
-									<table class="table datatable datatable-table table-hover" id="myTable">
-										<thead>
-											<tr>
+									<table class="table datatable datatable-table table-hover" id="myTable" >
+										<thead >
+											<tr style="background-color: #33186B !important;">
 												<th>FirstName</th>
 												<th>LastName</th>
 												<th>Email</th>
@@ -76,8 +76,7 @@
 													<%-- <td>${u.city}</td> --%>
 													<td>${u.contactNum}</td>
 													<td>${u.role}</td>
-													<td><a href="#"><i class="bi bi-pencil-square"></i></a>|<a href="deleteuser?userId=${u.userId}"><i class="bi bi-trash3-fill"></i></a>|
-													 <a href="viewuser?userId=${u.userId}"><i class="bi bi-eye-fill"></i></a>
+													<td><a href="edituser?userId=${u.userId }" style="color:green"><i class="bi bi-pencil-square"></i></a>|<a href="viewuser?userId=${u.userId}" ><i class="bi bi-eye-fill"></i></a>|<a href="deleteuser?userId=${u.userId}" style="color:red"><i class="bi bi-trash3-fill"></i></a>
 													 </td>
 												</tr>
 											</c:forEach>

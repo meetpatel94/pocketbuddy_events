@@ -15,24 +15,20 @@
 		</a>
 			<ul id="components-nav" class="nav-content collapse "
 				data-bs-parent="#sidebar-nav">
-				<li><a href="adduser"> <i class="bi bi-circle"></i><span>Add
+				<li><a href="adduser"> <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add
 							User</span>
 				</a></li>
-				<li><a href="listuser"> <i class="bi bi-circle"></i><span>List
+				<li><a href="listuser"> <i class="bi bi-search" style="font-size:14px;"></i><span>List
 							User</span>
 				</a></li>
 			</ul></li>
 			
 		<!-- End Components Nav -->
 
-
-
-
 		<li class="nav-item"><a class="nav-link collapsed"
 			data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> <i
-				class="bi bi-calendar-event-fill"></i><span>Events</span><i
-				class="bi bi-chevron-down ms-auto"></i>
-		</a>
+				class="bi bi-calendar-event-fill"></i><span>Events</span>
+				<i class="bi bi-chevron-down ms-auto"></i></a>
 			<ul id="icons-nav" class="nav-content collapse "
 				data-bs-parent="#sidebar-nav">
 				<li><a href="icons-bootstrap.html"> <i class="bi bi-circle"></i><span>Bootstrap
@@ -42,6 +38,23 @@
 							Icons</span>
 				</a></li>
 				<li><a href="icons-boxicons.html"> <i class="bi bi-circle"></i><span>Boxicons</span>
+				</a></li>
+			</ul></li>
+			
+			
+			<!-- State/City -->
+		<li class="nav-item"><a class="nav-link collapsed"
+			data-bs-target="#state-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-map-fill"></i><span>State/City</span><i
+				class="bi bi-chevron-down ms-auto"></i>
+		</a>
+			<ul id="state-nav" class="nav-content collapse "
+				data-bs-parent="#state-nav" style="list-style-color:red !important;">
+				<li><a href="newstate"> <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add New State</span>
+				</a></li>
+				
+				<li><a href="newcity">  <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add New City</span>
+				</a></li>
+				<li><a href="icons-remix.html"> <i class="bi bi-search" style="font-size:14px;"></i><span>List States</span>
 				</a></li>
 			</ul></li>
 			
@@ -62,9 +75,15 @@
 
 		<li class="nav-heading">Manage</li>
 
+<li class="nav-item"><a class="nav-link collapsed"
+			href="home"> <i class="bi bi-geo-fill"></i> <span>Home</span>
+		</a></li>
+
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="contactUs"> <i class="bi bi-person-lines-fill"></i> <span>Contact Us</span>
 		</a></li>
+		
+		
 		<!-- End Profile Page Nav -->
 
 		<li class="nav-item"><a class="nav-link collapsed"

@@ -3,7 +3,7 @@
 
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="admindashboard" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block" style="color:red;">Pocketbuddy</span>
       </a>
@@ -105,7 +105,7 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i class="bi bi-chat-left-text" style="color:white;"></i>
             <span class="badge bg-success badge-number">3</span>
           </a><!-- End Messages Icon -->
 
@@ -171,7 +171,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="${user.profilePicPath }" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">${user.firstName}</span>
           </a><!-- End Profile Iamge Icon -->
 

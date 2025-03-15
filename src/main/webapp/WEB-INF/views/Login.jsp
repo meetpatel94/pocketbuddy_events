@@ -9,8 +9,19 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <title>Login Page</title>
+    <link href="img/logo.png" rel="icon">
+    <title>PocketBuddy-Login Page</title>
     <style>
         /* IMPORT FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -47,20 +58,21 @@ a:hover{
 
 body{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: var(--background-color);
+    margin-right: 180px;
 }
 
 /* WRAPPER */
 .wrapper{
     position: relative;
     width: 430px;
-    height: 500px;
+    height: 480px;
     background-color: var(--white-color);
     border-radius: 15px;
-    padding: 120px 32px 64px;
+    padding: 120px 25px 64px;
     border: 1px solid var(--primary-color);
     box-shadow: 0 8px 15px var(--shadow-color);
     transition: var(--transition-3s);
@@ -217,7 +229,38 @@ body{
 .switch-form a{
     font-weight: 500;
 }
-
+.text-main{
+    position: fixed;
+    left: 60px;
+}
+.text-main .p1{
+    font-size: 60px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.text-main .p2{
+    font-size: 16px;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 1px 0;
+}
+#footer{
+    padding: 15px;
+    margin: 0;
+}
 /* RESPONSIVE STYLES */
 @media only screen and (max-width: 564px){
     .wrapper{
@@ -227,6 +270,12 @@ body{
     </style>
 </head>
 <body>
+<div class="text-main">
+        <p class="p1"><i class="fa-solid fa-location-dot"></i> Pocket Buddy</p>
+        <p class="p2">&emsp;Your go-to site for discovering nearby events,</p>
+        <p class="p2">&emsp;concerts, and shows.Stay updated, explore, and never miss out </p>
+        <p class="p2">&emsp;on exciting happenings around you!</p>
+    </div>
     <div class="wrapper">
         <div class="form-header">
             <div class="titles">
@@ -245,10 +294,10 @@ body{
         <label for="log-pass" class="label">Password</label>
         <i class='bx bx-lock-alt icon'></i>
     </div>
-    ${error }
+    <span style="color:red">${error }</span>
     <div class="form-cols">
         <div class="col-1"></div>
-        <div class="col-2">
+        <div class="col-4">
             <a href="forgetpassword">Forgot password?</a>
         </div>
     </div>
@@ -259,8 +308,12 @@ body{
         <span>Don't have an account? <a href="signup" onclick="registerFunction()">SignUp Here</a></span>
     </div>
 </form>
-
-
-    </div>
+</div>
+<footer id="footer" class="footer">
+        
+            © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
+            Reserved
+        
+    </footer>
 </body>
 </html>

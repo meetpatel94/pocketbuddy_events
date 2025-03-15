@@ -9,6 +9,7 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS -->
+    <link href="img/logo.png" rel="icon">
     <link rel="stylesheet" href="css/style.css">
     <title>SignUp Page</title>
     <style>
@@ -49,7 +50,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 160vh;
+    height: 180vh;
     background-color: var(--background-color);
 }
 
@@ -57,7 +58,7 @@ body{
 .wrapper{
     position: relative;
     width: 430px;
-    height: 797px;
+    height: 860px;
     background-color: var(--white-color);
     border-radius: 15px;
     padding: 120px 32px 64px;
@@ -217,14 +218,27 @@ body{
 .switch-form a{
     font-weight: 500;
 }
-
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 1px 0;
+}
+#footer{
+    padding: 15px;
+    margin: 0;
+}
 /* RESPONSIVE STYLES */
 @media only screen and (max-width: 564px){
     .wrapper{
         margin: 20px;
     }
 }
-    </style>
+</style>
 </head>
 <body>
     <div class="wrapper">
@@ -302,5 +316,11 @@ body{
         <span>I have already signup <a href="login" onclick="registerFunction()">Click Here</a></span>
     </div>
 </form>
+<footer id="footer" class="footer">
+        
+            © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
+            Reserved
+        
+    </footer>
 </body>
 </html>

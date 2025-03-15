@@ -1,4 +1,4 @@
-package com.example.filter;
+ package com.example.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,4 +56,5 @@ public class LoginCheckFilter implements Filter {
 	      }	   
 	   }  
 	}
+
 }

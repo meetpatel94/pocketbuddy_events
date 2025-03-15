@@ -1,21 +1,6 @@
-<%-- <form>
-   City Name:<input type="text" name="cityName"><br><br>
-   State Name:<select name="stateId">
-       <option>Select State</option> 
-       
-       <c:forEach items="${allstate }" var="s">
-           <option value="${s.stateId }">${s.stateName }</option>
-       </c:forEach> 
-       
-   </select><br><br>
-    <button type="submit" class="submit-btn">Submit</button>
-</form> --%>
-<!--   <form action="savestate" method="post">
-        State Name: <input type="text" name="stateName">
-        <input type="submit" value="submit">
-  </form> -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -25,7 +10,7 @@
   	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  	<title>New User</title>
+  	<title>Edit User</title>
   	<meta content="" name="description">
   	<meta content="" name="keywords">
 <jsp:include page="AdminCss.jsp"></jsp:include>
@@ -75,27 +60,29 @@
       		<nav>
         		<ol class="breadcrumb">
           			<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-          			<li class="breadcrumb-item active">Add New City</li>
+          			<li class="breadcrumb-item active"><a href="listuser">List User</a></li>
+          			<li class="breadcrumb-item active">Edit User</li>
         		</ol>
       		</nav>
     	</div><!-- End Page Title -->
-<br>
-<br>
+
     	<section class="section dashboard" style="color:black;">
-			<form>
-   City Name:<input type="text" name="cityName"><br><br>
-   State Name:<select name="stateId">
-       <option>Select State</option> 
-       
-       <c:forEach items="${allstate }" var="s">
-           <option value="${s.stateId }">${s.stateName }</option>
-       </c:forEach> 
-       
-   </select><br><br>
-    <button type="submit" class="submit-btn">Submit</button>
-</form>
-  <br>
-  <br>
+			<form action="updateuser" method="post" enctype="multipart/form-data">
+				First Name: <input type="text" name="firstName" value="${user.firstName }"> &emsp;
+				Last Name : <input type="text" name="lastName" value="${user.lastName }"/><br><br> 
+				Gender : <select name="gender" value="${user.gender }" >
+				<option value="male">Male</option>
+				<option value="female">Female</option>
+				<option value="trans">Transgender</option>
+				<option value="other">Other</option>
+				</select><br><br>
+	            Email : <input type="email" name="email" value="${user.email }"/><br><br>
+	            D.O.B. : <input type="date" name="bornYear" value="${user.bornYear }"/><br><br>
+	            ContactNo : <input type="text" name="contactNum" value="${user.contactNum }"/><br><br>
+	            <input type="hidden" name="userId" value="${user.userId }" />
+				<input type="submit" value="Save User"> <br><br>
+				<a href="listuser">Back</a>
+			</form>
     	</section>
  </div>
 

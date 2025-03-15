@@ -29,7 +29,7 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-					<li class="breadcrumb-item active">List Members</li>
+					<li class="breadcrumb-item active">View User</li>
 				</ol>
 			</nav>
 		</div>
@@ -94,8 +94,8 @@
 									ContactNo.: ${user.contactNum } <br>
 									Role: ${user.role } <br><br>
 									<div style="color:red;">
-									<a href="#" style="color:red;">Edit</a> | 
-									<a href="deletemember?memberId=${m.memberId}" style="color:red;">Delete</a> <br><br>
+									<a href="edituser?userId=${user.userId }" style="color:red;">Edit</a> | 
+									<a href="deletemember?memberId=${user.userId}" style="color:red;">Delete</a> <br><br>
 									</div>
 									<p style="color:blue; text-decoration: underline"><a href="listuser"> Back </a> </p>
 

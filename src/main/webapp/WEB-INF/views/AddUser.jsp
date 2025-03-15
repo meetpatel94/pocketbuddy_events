@@ -59,7 +59,7 @@
       		<nav>
         		<ol class="breadcrumb">
           			<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-          			<li class="breadcrumb-item active">New Member</li>
+          			<li class="breadcrumb-item active">Add User</li>
         		</ol>
       		</nav>
     	</div><!-- End Page Title -->

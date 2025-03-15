@@ -10,7 +10,7 @@
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
+  <link href="img/logo.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -46,8 +46,8 @@
 
       <div id="logo" class="pull-left">
         <!-- Uncomment below if you prefer to use a text logo -->
-        <h2 style="color: red;"><img src="img/logo.png" alt="" title="">Pocket<span>B</span>uddy</a></h2>
-        <h4 style="color: White;">Welcome, ${user.firstName } </h4>
+        <h2 style="color: red;"><img src="img/logo.png" alt="" title=""> Pocket<span>B</span>uddy</a></h2>
+        <h4 style="color: red; font-weight: 500;">Welcome,<strong> ${user.firstName }</strong> </h4>
         <!-- <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a> -->
       </div>
 
@@ -59,6 +59,8 @@
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
           <li class="buy-tickets"><a href="logout">Log Out</a></li>
+          <li class="buy-tickets"><img src="${user.profilePicPath }" alt="" 
+            style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>

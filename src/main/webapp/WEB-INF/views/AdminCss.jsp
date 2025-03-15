@@ -77,7 +77,7 @@ keyframes resizeanim { 0%, to { opacity:0
 .bi-bell{
 	color: #fff !important;
 }
-.bi-chat-left-text{
+.bi-chat-dots-fill{
 	color: #fff !important;
 }
 .toggle-sidebar-btn{
@@ -86,9 +86,21 @@ keyframes resizeanim { 0%, to { opacity:0
 .bi-search{
 	color: #fff !important;
 }
-.
-
 /* Here end css */
+
+/* Here main css */
+.card.info-card.revenue-card{
+	background-image: linear-gradient(120deg, #a8f078 3%, green 100%);
+}
+.neww{
+	background-image: linear-gradient(120deg, #658cf6 3%, #2b26bd 100%);
+}
+.neww2{
+	background-image: linear-gradient(120deg, #f64a61 3%, #e90404 100%);
+}
+.neww3{
+	background-image: linear-gradient(120deg, #b7b7b7 3%,  rgb(147, 138, 138) 100%);
+}
 
 .apexcharts-canvas ::-webkit-scrollbar {
 	-webkit-appearance: none;

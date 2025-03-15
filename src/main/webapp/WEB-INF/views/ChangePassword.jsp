@@ -49,7 +49,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 130vh;
+    height: 140vh;
     background-color: var(--background-color);
 }
 
@@ -221,7 +221,20 @@ body{
     color: red;
     text-align: center;
 }  
-
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 1px 0;
+}
+#footer{
+    padding: 15px;
+    margin: 0;
+}
 /* RESPONSIVE STYLES */
 @media only screen and (max-width: 564px){
     .wrapper{
@@ -264,7 +277,7 @@ body{
         <div class="col-2">
         </div>
     </div>
-     <span class="error-msg"><i class='bx bxs-error-circle'></i>${error }</span>
+     <span class="error-msg">${error }</span>
     <div class="input-box">
         <button class="btn-submit" id="SignInBtn">Update Password <i class='bx bxs-lock'></i></button>
     </div>
@@ -275,5 +288,11 @@ body{
             <!-- Login form inputs -->
         <!-- REGISTER FORM -->
     </div>
+    <footer id="footer" class="footer">
+        
+            © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
+            Reserved
+        
+    </footer>
 </body>
 </html>
