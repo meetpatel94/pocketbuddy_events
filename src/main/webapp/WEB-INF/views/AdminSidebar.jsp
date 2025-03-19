@@ -19,7 +19,7 @@
 							User</span>
 				</a></li>
 				<li><a href="listuser"> <i class="bi bi-search" style="font-size:14px;"></i><span>List
-							User</span>
+							Users</span>
 				</a></li>
 			</ul></li>
 			
@@ -44,19 +44,22 @@
 			
 			<!-- State/City -->
 		<li class="nav-item"><a class="nav-link collapsed"
-			data-bs-target="#state-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-map-fill"></i><span>State/City</span><i
-				class="bi bi-chevron-down ms-auto"></i>
-		</a>
-			<ul id="state-nav" class="nav-content collapse "
-				data-bs-parent="#state-nav" style="list-style-color:red !important;">
-				<li><a href="newstate"> <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add New State</span>
+        data-bs-target="#city-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-buildings"></i><span>City</span><i
+        class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="city-nav" class="nav-content collapse"
+        data-bs-parent="#sidebar-nav">
+        <li><a href="newstate"> <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add New State</span>
 				</a></li>
 				
 				<li><a href="newcity">  <i class="bi bi-plus-circle" style="font-size:15px;"></i><span>Add New City</span>
 				</a></li>
-				<li><a href="icons-remix.html"> <i class="bi bi-search" style="font-size:14px;"></i><span>List States</span>
+				<li><a href="#"> <i class="bi bi-search" style="font-size:14px;"></i><span>List States</span>
 				</a></li>
-			</ul></li>
+    </ul>
+     </li> 
+		
 			
 		<!-- Members -->
 		<li class="nav-item"><a class="nav-link collapsed"

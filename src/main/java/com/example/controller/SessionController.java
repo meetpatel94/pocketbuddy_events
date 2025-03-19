@@ -170,8 +170,7 @@ public class SessionController {
 			repositoryUser.save(user);
 			serviceMail.sendOtpForForgetPassword(email, user.getFirstName(), otp);
 			return "ChangePassword";
-		}
-		 		 
+		} 		 
 	}
 
 	//=====>Update/Change Password

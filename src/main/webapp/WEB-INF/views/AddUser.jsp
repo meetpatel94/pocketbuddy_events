@@ -66,18 +66,19 @@
 
     	<section class="section dashboard" style="color:black;">
 			<form action="saveuser" method="post">
-				First Name: <input type="text" name="firstName"> <br><br>
+				First Name: <input type="text" name="firstName"> &emsp;
 				Last Name: <input type="text" name="lastName"> <br><br> 
 			    Gender:<select name="gender"  required>
-                    <option value="male"> <i class="bi bi-gender-male"></i> Male</option>
-                    <option value="female"> <i class="bi bi-gender-female"></i> Female</option>
-                    <option value="trans"> <i class="bi bi-gender-trans"></i> Transgender</option>
-                    <option value="other"> <i class="bi bi-gender-ambiguous"></i> Other</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="trans">Transgender</option>
+                    <option value="other">Other</option>
                 </select> <br><br>
-	            Email : <input type="email" name="email"/><br><br>
+	            Email : <input type="email" name="email"/> &emsp;
 	            Password: <input type="password" name="password"> <br><br>
 	            Date Of birth: <input type="date" name="bornYear"> <br><br>
 	            Contact No.: <input type="text" name="contactNum"> <br><br>
+	            Upload Photo: <input type = "file" name ="profilePic"> <br> <br>
 				<input type="submit" value="Save Member">
 			</form>
     	</section>

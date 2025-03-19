@@ -25,11 +25,11 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>List User</h1>
+			<h1>List Users</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-					<li class="breadcrumb-item active">List User</li>
+					<li class="breadcrumb-item active">List Users</li>
 				</ol>
 			</nav>
 		</div>

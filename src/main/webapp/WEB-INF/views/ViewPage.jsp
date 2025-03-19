@@ -14,7 +14,69 @@
 
 
 <link  href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+    <style>
 
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 390px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+        }
+        .info {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .info p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        .info strong {
+            color: #333;
+        }
+        .actions {
+            margin-top: 15px;
+        }
+        .actions a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .edit {
+            background-color: #28a745;
+        }
+        .edit:hover {
+            background-color: green;
+        }
+        .delete {
+            background-color: #dc3545;
+        }
+        .delete:hover{
+            background-color: red;
+            transform: scale(2);
+        }   
+        .back {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .back:hover{
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
 
 </head>
 <body>
@@ -29,6 +91,7 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
+					<li class="breadcrumb-item"><a href="listuser">List users</a></li>
 					<li class="breadcrumb-item active">View User</li>
 				</ol>
 			</nav>
@@ -74,18 +137,15 @@
 				                                    <td>${user.gender }</td>
 				                                    <td>${user.contactNum }</td>
 				                                    <td>${user.role }</td>
-													<td><a href="#"><i class="bi bi-eye-fill"></i></a> |<a href="deletemember?memberId=${m.memberId}"><i class="bi bi-trash3-fill"></i></a>
-													
+													<td><a href="#"><i class="bi bi-eye-fill"></i></a> |<a href="deletemember?memberId=${m.memberId}"><i class="bi bi-trash3-fill"></i></a>				
 													 </td>
-												</tr>
-											
+												</tr>				
 										</tbody>
-
 									</table> --%>
-									&emsp; &emsp;
+								<%-- 	&emsp; &emsp;
 									Profile Photo <br>
 									&emsp; &emsp;
-									 <img src="${user.profilePicPath }" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid black;"/><br>
+									<img src="${user.profilePicPath }" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid black;"/><br>
 									First Name: ${user.firstName } <br>
 									Last Name: ${user.lastName} <br>
 									Email&emsp;&emsp;&nbsp;&nbsp;: ${user.email } <br>
@@ -97,12 +157,28 @@
 									<a href="edituser?userId=${user.userId }" style="color:red;">Edit</a> | 
 									<a href="deletemember?memberId=${user.userId}" style="color:red;">Delete</a> <br><br>
 									</div>
-									<p style="color:blue; text-decoration: underline"><a href="listuser"> Back </a> </p>
-
-
-
+									<p style="color:blue; text-decoration: underline"><a href="listuser"> Back </a> </p> --%>
+								<!-- Here Start  -->
+								 <div class="container">
+	<img src="${user.profilePicPath }" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid black;"/><br>
+        <div class="info">
+            <p><strong>First Name: &nbsp;</strong>${user.firstName } &emsp; <strong>Last Name: &nbsp;</strong>${user.lastName} </p>
+            <p><strong>Email: &nbsp;</strong>${user.email }</p>
+            <p><strong>Gender: &nbsp;</strong>${user.gender }</p>
+            <p><strong>D.O.B: &nbsp;</strong>${user.bornYear }</p>
+            <p><strong>Contact No.: &nbsp;</strong>${user.contactNum }</p>
+            <p><strong>Role: &nbsp;</strong>${user.role }</p>
+        </div>
+        <div class="actions">
+            <a href="edituser?userId=${user.userId }" class="edit">Edit</a>
+            <a href="deletemember?memberId=${user.userId}" class="delete">Delete</a>
+        </div>
+        <a href="listuser" class="back">Back</a>
+    </div>
+								
+								
+								
 								</div>
-
 							</div>
 						</div>
 						<!-- End Reports -->

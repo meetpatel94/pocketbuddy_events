@@ -31,4 +31,4 @@ public class PocketbuddyshoweventsApplication {
 				"api_secret", "QXzptG0NQdX7UMnuc6dWnwR31Sw");
 		return new Cloudinary(config);
 	}
-}
+} 

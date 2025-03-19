@@ -1,5 +1,4 @@
-<!-- Favicons -->
-<link href="assets/img/logo.png" rel="icon">
+<link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
@@ -51,55 +50,6 @@ keyframes resizeanim { 0%, to { opacity:0
 	position: relative;
 	direction: ltr !important;
 	user-select: none
-}
-/* Here Css Add */
-.header-nav .nav-profile{
-	color: #fff !important;
-}
-.nav-icon{
-	color: #000 !important;
-}
-.sidebar{
-	background: #353436 !important;
-}
-.sidebar-nav .nav-content a{
-	color: #ffffff !important;
-	background: #353436 !important;
-}
-.sidebar-nav .nav-link{
-	color: #ffffff !important;
-	background: #353436 !important;
-}
-#main{
-	color: #ffffff !important;
-	background: #d1d0d7 !important;
-}
-.bi-bell{
-	color: #fff !important;
-}
-.bi-chat-dots-fill{
-	color: #fff !important;
-}
-.toggle-sidebar-btn{
-	color: #fff !important;
-}
-.bi-search{
-	color: #fff !important;
-}
-/* Here end css */
-
-/* Here main css */
-.card.info-card.revenue-card{
-	background-image: linear-gradient(120deg, #a8f078 3%, green 100%);
-}
-.neww{
-	background-image: linear-gradient(120deg, #658cf6 3%, #2b26bd 100%);
-}
-.neww2{
-	background-image: linear-gradient(120deg, #f64a61 3%, #e90404 100%);
-}
-.neww3{
-	background-image: linear-gradient(120deg, #b7b7b7 3%,  rgb(147, 138, 138) 100%);
 }
 
 .apexcharts-canvas ::-webkit-scrollbar {
@@ -791,5 +741,55 @@ rect.legend-mouseover-inactive, .legend-mouseover-inactive rect,
 
 .apexcharts-rangebar-goals-markers {
 	pointer-events: none
+}
+.header-nav .nav-profile{
+	color: #fff !important;
+}
+.nav-icon{
+	color: #000 !important;
+}
+.sidebar{
+	background: #353436 !important;
+}
+.sidebar-nav .nav-content a{
+	color: #ffffff !important;
+	background: #353436 !important;
+}
+.sidebar-nav .nav-link{
+	color: #ffffff !important;
+	background: #353436 !important;
+}
+#main{
+	color: #ffffff !important;
+	background: #d1d0d7 !important;
+}
+.bi-bell{
+	color: #fff !important;
+}
+.bi-chat-dots-fill{
+	color: #fff !important;
+}
+.toggle-sidebar-btn{
+	color: #fff !important;
+}
+.bi-search{
+	color: #fff !important;
+}
+/* Here main css */
+
+.card.info-card.revenue-card{
+	background-image: linear-gradient(120deg, #a8f078 3%, green 100%);
+}
+.neww{
+	background-image: linear-gradient(120deg, #658cf6 3%, #2b26bd 100%);
+}
+.neww2{
+	background-image: linear-gradient(120deg, #f64a61 3%, #e90404 100%);
+}
+.neww3{
+	background-image: linear-gradient(120deg, #b7b7b7 3%,  rgb(147, 138, 138) 100%);
+} 
+.neww4{
+	background: linear-gradient(to right, #FF8142, #FFB578);
 }
 </style>

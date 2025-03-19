@@ -20,7 +20,7 @@
 <link href="assets/vendor/boxicons/css/boxicons.min.css"
 	rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link href="img/logo.png" rel="icon">
+    <link href="assets/img/favicon.png" rel="icon">
     <title>PocketBuddy-Login Page</title>
     <style>
         /* IMPORT FONT */
@@ -58,11 +58,11 @@ a:hover{
 
 body{
     display: flex;
-    justify-content: flex-end;
+     justify-content: flex-end;
+    margin-right: 180px;
     align-items: center;
     height: 90vh;
     background-color: var(--background-color);
-    margin-right: 180px;
 }
 
 /* WRAPPER */
@@ -270,7 +270,7 @@ footer{
     </style>
 </head>
 <body>
-<div class="text-main">
+ <div class="text-main">
         <p class="p1"><i class="fa-solid fa-location-dot"></i> Pocket Buddy</p>
         <p class="p2">&emsp;Your go-to site for discovering nearby events,</p>
         <p class="p2">&emsp;concerts, and shows.Stay updated, explore, and never miss out </p>

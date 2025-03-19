@@ -1,6 +1,7 @@
 package com.example.controller.admin;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,7 @@ public class AdminController {
 			dbuser.setEmail(entity.getEmail());
 			dbuser.setBornYear(entity.getBornYear());
 			dbuser.setContactNum(entity.getContactNum());
+			dbuser.setProfilePicPath(entity.getProfilePicPath());
 			repoUser.save(entity);
 		}	
 		return "redirect:/listuser";
