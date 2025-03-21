@@ -1,14 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Admin | List User</title>
+
+<jsp:include page="AdminCss.jsp"></jsp:include>
+
+
+<link  href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/venobox/venobox.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+  .container-fluid{
+   padding-left: 320px;
+  }
+  .header{
+   height:60px !important;
+  }
+  .align-items-center{
+   padding-left: 10px;
+  }
+  </style>
 
 </head>
 <body>
-<section id="venue" class="wow fadeInUp">
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
+
+	<jsp:include page="AdminSidebar.jsp"></jsp:include>
+
+
+	<!-- main content end  -->
+	<main>
+	<section id="venue" class="wow fadeInUp">
 
       <div class="container-fluid">
 
@@ -105,5 +143,47 @@
       </div>
 
     </section>
+    </main>
+    <!-- End  -->
+
+
+	<footer id="footer" class="footer" style="background-color:white">
+	<div class="copyright">
+		© Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
+		Reserved
+	</div>
+</footer>
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+	<jsp:include page="AdminJs.jsp"></jsp:include>
+	
+	
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+ 	<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
+  
+ 
+  
+
+  <!-- JavaScript Libraries -->
+  <jsp:include page="JS.jsp"></jsp:include>
+ 
+
+	<script type="text/javascript">
+
+	$( document ).ready(function() {
+		let table = new DataTable('#myTable',{
+			 
+		});
+	});
+	</script>
+
 </body>
 </html>
+
+
+
+
+
+

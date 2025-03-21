@@ -65,7 +65,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
+        &copy; Copyright <strong>PocketBuddy</strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!--
@@ -74,7 +74,7 @@
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
         -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+         <a href="https://bootstrapmade.com/"></a>
       </div>
     </div>
   </footer><!-- #footer -->

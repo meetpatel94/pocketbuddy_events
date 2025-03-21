@@ -1,7 +1,8 @@
 package com.example.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
-
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.entity.UserEntity;
 import com.example.repository.UserRepository;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	Cloudinary cloudinary;
 
 	@Autowired
 	UserRepository repoUser;
@@ -51,7 +59,7 @@ public class AdminController {
 	}
     
     @PostMapping("updateuser")
-	public String updateuser(UserEntity entity) {
+	public String updateuser(UserEntity entity, MultipartFile profilePic) {
 //		System.out.println(entity.getUserId());
 		
 		
@@ -67,6 +75,25 @@ public class AdminController {
 			dbuser.setBornYear(entity.getBornYear());
 			dbuser.setContactNum(entity.getContactNum());
 			dbuser.setProfilePicPath(entity.getProfilePicPath());
+			
+			if(profilePic.getOriginalFilename().endsWith(".jpg")) {
+				
+			} else {
+				return "Signup";
+				
+			} try {
+				
+			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//			System.out.println(result);
+//			System.out.println(result.get("url"));
+			
+			entity.setProfilePicPath(result.get("url").toString());
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			repoUser.save(entity);
 		}	
 		return "redirect:/listuser";
@@ -75,5 +102,9 @@ public class AdminController {
     @GetMapping("contactUs")
     public String contactus() {
     	return "ContactUsPage";
+    }
+    @GetMapping("events")
+    public String events() {
+    	return "EventsPage";
     }
 }

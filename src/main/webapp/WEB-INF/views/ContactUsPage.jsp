@@ -87,6 +87,7 @@
       		<nav>
         		<ol class="breadcrumb">
           			<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
+          			<li class="breadcrumb-item active">Contact Us</li>
         		</ol>
       		</nav>
     	</div><!-- End Page Title -->
@@ -158,8 +159,8 @@
   	</main><!-- End #main -->
 
   	<!-- ======= Footer ======= -->
-	<footer id="footer" class="footer">
-	<div class="copyright" style="color:white">
+	<footer id="footer" class="footer" style="background-color:white">
+	<div class="copyright" >
 		© Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
 		Reserved
 	</div>

@@ -55,15 +55,14 @@ public class SessionController {
 //------->  Not use this line new keyword because it's gain more memory
 		
 		// cloudinary
-		System.out.println(profilePic.getOriginalFilename());
+		//System.out.println(profilePic.getOriginalFilename());
 		
 		if(profilePic.getOriginalFilename().endsWith(".jpg")) {
 			
-		}else {
+		} else {
 			return "Signup";
-		}
-		
-		try {
+			
+		} try {
 			
 		Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
 //		System.out.println(result);
@@ -79,9 +78,7 @@ public class SessionController {
 		// Bcrypt
 		String encPassword = encoder.encode(userEntity.getPassword());
 		userEntity.setPassword(encPassword);
-		
 		userEntity.setRole("USER");  
-	
 		repositoryUser.save(userEntity);	
 //		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
 		return "Login";

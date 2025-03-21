@@ -78,7 +78,7 @@
 	            Password: <input type="password" name="password"> <br><br>
 	            Date Of birth: <input type="date" name="bornYear"> <br><br>
 	            Contact No.: <input type="text" name="contactNum"> <br><br>
-	            Upload Photo: <input type = "file" name ="profilePic"> <br> <br>
+	            Upload Photo: <input type = "file" name ="profilePic"><br><br>
 				<input type="submit" value="Save Member">
 			</form>
     	</section>

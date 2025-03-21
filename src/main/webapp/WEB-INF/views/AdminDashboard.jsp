@@ -12,7 +12,33 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <title>Admin Page</title>
+<style>
+}
+.chart-container {
+    width: 60%;
+    max-width: 800px;
+    height: 400px;  /* FIXED HEIGHT */
+    background-color: rgb(149, 23, 23);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+canvas {
+    width: 845px !important;
+    height: 425px !important;
+}
 
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #33186B;
+}
+</style>
 <jsp:include page="AdminCss.jsp"></jsp:include>
 
 
@@ -213,9 +239,13 @@
 								<div class="card-body">
 									<h5 class="card-title">
 										Reports <span style="color: white;">/Today</span>
+										<div class="chart-container">
+                                              <h2>Visitor Insights</h2>
+                                              <canvas id="visitorChart"></canvas>
+                                        </div><br>
 									</h5>
-					<br><br>
-					<br><br>
+					                    <br><br>
+					                    <br><br>
 								</div>
 							</div>
 						</div>
@@ -246,5 +276,55 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
   
    <script src="assets/js/main.js"></script>
+   
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const ctx = document.getElementById('visitorChart').getContext('2d');
+          new Chart(ctx, {
+              type: 'line',
+              data: {
+                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                  datasets: [
+                      {
+                          label: 'Loyal Customers',
+                          data: [300, 280, 250, 200, 220, 270, 320, 310, 300, 290, 250, 230],
+                          borderColor: 'purple',
+                          borderWidth: 3,
+                          tension: 0.4
+                      },
+                      {
+                          label: 'New Customers',
+                          data: [250, 220, 180, 200, 260, 350, 330, 310, 290, 270, 260, 230],
+                          borderColor: 'red',
+                          borderWidth: 3,
+                          tension: 0.4
+                      },
+                      {
+                          label: 'Unique Customers',
+                          data: [320, 300, 280, 230, 240, 290, 310, 320, 300, 310, 280, 250],
+                          borderColor: 'green',
+                          borderWidth: 3,
+                          tension: 0.4
+                      }
+                  ]
+              },
+              options: {
+                  responsive: true,
+                  maintainAspectRatio: false,  // FIX CHART STRETCHING
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                          max: 400
+                      }
+                  },
+                  plugins: {
+                      legend: {
+                          position: 'bottom'
+                      }
+                  }
+              }
+          });
+      });        
+  </script>
 </body>
 </html>

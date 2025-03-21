@@ -1,4 +1,4 @@
- package com.example.filter;
+/* package com.example.filter;
 
 import java.io.IOException;
 
@@ -58,4 +58,4 @@ public class LoginCheckFilter implements Filter {
 	   }  
 	}
 
-}
+}*/

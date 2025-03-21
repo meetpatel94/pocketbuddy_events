@@ -31,13 +31,13 @@
 				<i class="bi bi-chevron-down ms-auto"></i></a>
 			<ul id="icons-nav" class="nav-content collapse "
 				data-bs-parent="#sidebar-nav">
-				<li><a href="icons-bootstrap.html"> <i class="bi bi-circle"></i><span>Bootstrap
+				<li><a href="events"> <i class="bi bi-circle"></i><span>All Events
+							</span>
+				</a></li>
+				<li><a href="#"> <i class="bi bi-circle"></i><span>Remix
 							Icons</span>
 				</a></li>
-				<li><a href="icons-remix.html"> <i class="bi bi-circle"></i><span>Remix
-							Icons</span>
-				</a></li>
-				<li><a href="icons-boxicons.html"> <i class="bi bi-circle"></i><span>Boxicons</span>
+				<li><a href="#"> <i class="bi bi-circle"></i><span>Boxicons</span>
 				</a></li>
 			</ul></li>
 			

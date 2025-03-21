@@ -748,8 +748,25 @@ rect.legend-mouseover-inactive, .legend-mouseover-inactive rect,
 .nav-icon{
 	color: #000 !important;
 }
+/* .sidebar{
+	background: #353436 !important;
+} */
+body{
+	background: #d1d0d7 !important;
+}
 .sidebar{
 	background: #353436 !important;
+	width: 280px !important;
+	margin-top: 18px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	border-radius: 10px;
+}
+header{
+	margin: 10px 10px 0px 10px;
+	border-radius: 10px;
+	position: sticky !important;
+	top: 10;
 }
 .sidebar-nav .nav-content a{
 	color: #ffffff !important;
@@ -774,6 +791,15 @@ rect.legend-mouseover-inactive, .legend-mouseover-inactive rect,
 }
 .bi-search{
 	color: #fff !important;
+}
+.footer{
+ background-color: white;
+ border-radius: 10px;
+ margin-right: 10px;
+ margin-bottom: 10px;
+}
+#main{
+ margin-top: 10px !important
 }
 /* Here main css */
 
