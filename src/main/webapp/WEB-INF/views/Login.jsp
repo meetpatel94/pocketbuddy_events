@@ -20,7 +20,8 @@
 <link href="assets/vendor/boxicons/css/boxicons.min.css"
 	rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link href="assets/img/favicon.png" rel="icon">
+     <link href="img/logo.png" rel="icon"> 
+    <!--  <link href="loogo.png" rel="icon"> -->
     <title>PocketBuddy-Login Page</title>
     <style>
         /* IMPORT FONT */
@@ -58,7 +59,7 @@ a:hover{
 
 body{
     display: flex;
-     justify-content: flex-end;
+    justify-content: flex-end;
     margin-right: 180px;
     align-items: center;
     height: 90vh;

@@ -58,6 +58,7 @@
           <li><a href="#hotels">Hotels</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#" onclick="openPopup()">Rate Us</a></li>
           <li class="buy-tickets"><a href="logout">Log Out</a></li>
           <li class="buy-tickets"><img src="${user.profilePicPath }" alt="" 
             style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>

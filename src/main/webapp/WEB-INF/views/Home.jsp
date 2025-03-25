@@ -47,13 +47,142 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+   <style>
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: white;
+    padding: 20px 20px 0px 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    width: 440px;
+    text-align: center;
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    z-index: 1000;
+}
+
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Star Rating */
+.stars {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.star {
+    font-size: 35px;
+    cursor: pointer;
+    color: lightgray;
+    transition: color 0.2s ease-in-out;
+}
+
+.star:hover,
+.star.active {
+    color: gold;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+select, input[type="number"], input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Close Button */
+.close {
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.close:hover {
+    background: darkred;
+}
+
+/* Emoji Display */
+.emoji {
+    font-size: 40px;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.emoji.show {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .popup {
+        width: 90%;
+    }
+}
+</style>
 </head>
 
 <body>
 
     <!--========================== Header ============================-->
     <jsp:include page="Header.jsp"></jsp:include>
-
+    
+    <!--========================== RatingPopupPage ============================-->
+    <jsp:include page="RatingPopupPage.jsp"></jsp:include>
+    
     <!--========================== Intro Section ============================-->
     <jsp:include page="Intro.jsp"></jsp:include>
 

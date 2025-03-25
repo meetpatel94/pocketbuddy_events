@@ -79,6 +79,10 @@
 		<li class="nav-heading">Manage</li>
 
 <li class="nav-item"><a class="nav-link collapsed"
+			href="listrateduser"><i class="bi bi-star-fill"></i> <span>Rating Users</span>
+		</a></li>
+
+<li class="nav-item"><a class="nav-link collapsed"
 			href="home"> <i class="bi bi-geo-fill"></i> <span>Home</span>
 		</a></li>
 

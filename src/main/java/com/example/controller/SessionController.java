@@ -50,24 +50,18 @@ public class SessionController {
 
 	@PostMapping("saveuser")
 	public String saveuser(UserEntity userEntity, MultipartFile profilePic) {
-		
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);     //salt
-//------->  Not use this line new keyword because it's gain more memory
-		
-		// cloudinary
-		//System.out.println(profilePic.getOriginalFilename());
-		
-		if(profilePic.getOriginalFilename().endsWith(".jpg")) {
+			
+		// cloudinary - photo upload
+		//System.out.println(profilePic.getOriginalFilename());	
+		if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+		   profilePic.getOriginalFilename().endsWith(".png")) {
 			
 		} else {
-			return "Signup";
-			
-		} try {
-			
+			return "Signup";	
+		} try  {	
 		Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
 //		System.out.println(result);
 //		System.out.println(result.get("url"));
-		
 		userEntity.setProfilePicPath(result.get("url").toString());
 		
 		} catch (IOException e) {
@@ -76,10 +70,19 @@ public class SessionController {
 		}
 		
 		// Bcrypt
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);     //salt
+//------->  Not use this line new keyword because it's gain more memory
+		
 		String encPassword = encoder.encode(userEntity.getPassword());
 		userEntity.setPassword(encPassword);
-		userEntity.setRole("USER");  
-		repositoryUser.save(userEntity);	
+		
+		//set role user
+		userEntity.setRole("USER"); 
+		
+		//save data in table
+		repositoryUser.save(userEntity);
+		
+		//send welcome main after user signup
 //		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
 		return "Login";
 	}

@@ -28,7 +28,7 @@
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">  
   <jsp:include page="AdminCss.jsp"></jsp:include>
 
 
@@ -71,6 +71,37 @@
 .align-items-center {
     align-items: center !important;
 }
+
+/*
+       .section-header h2{
+                font-size: 36px;
+                text-transform: uppercase;
+                text-align: center;
+                font-weight: 700;
+                margin-bottom: 20px;        
+        }
+        .contact-phone{
+            padding-left: 40px;
+        }
+        #sendmessage{
+            display: none;
+            color:red;
+        }
+        .contact-info{
+            color: #432E54;
+        }
+        button{
+           background: #f82249;
+           border: 0;
+           padding: 10px 40px;
+           color: #fff;
+           transition: 0.4s;
+           border-radius: 50px;
+           cursor: pointer;
+        }
+        .validation{
+           color: red;
+        } */  
 </style>
 </head>
 <body>
