@@ -34,7 +34,7 @@
       </select>
 
       <label for="rating">Rate:</label>
-      <input type="number" name="rating" id="rating" min="1" max="5" required>
+      <input type="number" name="rating" id="rating" min="1" max="5" required disabled>
 
       <label for="description">Description:</label>
       <input type="text" name="description" id="description" placeholder="Write a comment...">

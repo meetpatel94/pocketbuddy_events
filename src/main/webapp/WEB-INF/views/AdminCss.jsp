@@ -799,11 +799,11 @@ header{
  margin-bottom: 10px;
 }
 #main{
- margin-top: 10px !important
+ margin-top: 0px !important
 }
 /* Here main css */
 
-.card.info-card.revenue-card{
+/* .card.info-card.revenue-card{
 	background-image: linear-gradient(120deg, #a8f078 3%, green 100%);
 }
 .neww{
@@ -817,5 +817,90 @@ header{
 } 
 .neww4{
 	background: linear-gradient(to right, #FF8142, #FFB578);
+} */
+/* Here Start */
+.header{
+  animation: slideDown 1s forwards 0.2s !important;
 }
+/* Animations */
+@keyframes slideDown {
+  from {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+.sidebar {
+  animation: slideleft 1s forwards 0.2s !important;
+} 
+@keyframes slideleft {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+.main{
+  transform: translateY(50%);
+  animation: slideup 1s forwards 0.1s !important;
+}
+.footer{
+  animation: scaleIn 0.7s forwards 0.4s;
+}
+@keyframes slideup {
+  from {
+      transform: translateY(50%);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.header-nav ul li{
+   animation: scaleIn 0.7s forwards 0.4s;
+} 
+.animat, .logo{
+   animation: scaleIn 0.7s forwards 0.4s;
+} 
+.header i{
+   animation: scaleIn 0.7s forwards 0.4s;
+}
+@keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+       
+.nav-item:nth-child(1){ animation: sideleft 1s forwards 0.2s !important;}
+.nav-item:nth-child(2){ animation: sideleft 1s forwards 0.3s !important;}
+.nav-item:nth-child(3){ animation: sideleft 1s forwards 0.4s !important;}
+.nav-item:nth-child(4){ animation: sideleft 1s forwards 0.5s !important;}
+.nav-item:nth-child(5){ animation: sideleft 1s forwards 0.6s !important;}
+.nav-item:nth-child(6){ animation: sideleft 1s forwards 0.7s !important;}
+.nav-item:nth-child(7){ animation: sideleft 1s forwards 0.8s !important;}
+.nav-item:nth-child(8){ animation: sideleft 1s forwards 0.9s !important;}
+.nav-item:nth-child(9){ animation: sideleft 1s forwards 1s !important;}
+
+@keyframes sideleft {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}     
+
 </style>

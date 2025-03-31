@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,318 +7,420 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- CSS -->
-    <link href="img/logo.png" rel="icon">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <title>PocketBuddy-SignUp Page</title>
     <style>
         /* IMPORT FONT */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* COLOR VARIABLES */
-:root {
-    --primary-color: #0D1936;
-    --secondary-color: #535354;
-    --background-color: #EFEFEF;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --white-color: #FFF;
-    --black-color: #000;
-    --input-border-color: #E3E4E6;
-    --transition-3s: 0.3s;
-}
+        /* COLOR VARIABLES */
+        :root {
+            --primary-color: #0D1936;
+            --secondary-color: #535354;
+            --background-color: #EFEFEF;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --white-color: #FFF;
+            --black-color: #000;
+            --input-border-color: #E3E4E6;
+            --transition-3s: 0.3s;
+        }
 
-/* GLOBAL STYLES */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+        /* GLOBAL STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* REUSABLE ELEMENTS */
-a{
-    text-decoration: none;
-    color: var(--black-color);
-    transition: var(--transition-3s);
-}
-a:hover{
-    text-decoration: underline;
-}
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            padding: 20px;
+        }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 180vh;
-    background-color: var(--background-color);
-}
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* WRAPPER */
-.wrapper{
-    position: relative;
-    width: 430px;
-    height: 860px;
-    background-color: var(--white-color);
-    border-radius: 15px;
-    padding: 120px 32px 64px;
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 8px 15px var(--shadow-color);
-    transition: var(--transition-3s);
-    overflow: hidden;
-}
-/* FORM HEADER */
-.form-header{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 140px;
-    height: 70px;
-    background-color: var(--primary-color);
-    border-radius: 0 0 20px 20px;
-}
-.form-header::before, .form-header::after{
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 30px;
-}
-.form-header::before{
-    left: -30px;
-    border-top-right-radius: 50%;
-    box-shadow: 15px 0 0 var(--primary-color);
-}
-.form-header::after{
-    right: -30px;
-    border-top-left-radius: 50%;
-    box-shadow: -15px 0 0 var(--primary-color);
-}
-/* TITLES */
-.titles{
-    position: relative;
-}
-.title-login, .title-register{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    color: var(--white-color);
-    font-size: 24px;
-    transition: var(--transition-3s);
-}
-.title-register{
-    top: 50px;
-}
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-/* FORMS */
-.login-form, .register-form{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 85%;
-    transition: var(--transition-3s);
-}
-.register-form{
-    left: 150%;
-}
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-/* INPUT FIELDS */
-.input-box{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-.input-field{
-    width: 100%;
-    height: 55px;
-    font-size: 16px;
-    background: transparent;
-    color: var(--black-color);
-    padding: 0 20px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 30px;
-    outline: none;
-    transition: var(--transition-3s);
-}
-.input-field:focus{
-    border: 1px solid var(--primary-color);
-}
-.label{
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    color: var(--secondary-color);
-    transition: 0.2s;
-    cursor: text;
-}
-.input-field:focus ~ .label,
-.input-field:valid ~ .label{
-    top: 0;
-    font-size: 14px;
-    background-color: var(--white-color);
-    color: var(--primary-color);
-    padding: 0 10px;
-}
-.input-field:valid ~ .label{
-    color: var(--secondary-color);
-}
-.icon{
-    position: absolute;
-    top: 50%;
-    right: 25px;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: var(--secondary-color);
-}
-/* FORGOT PASSWORD & TERMS AND CONDITIONS */
-.form-cols{
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-}
-.col-1{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-/* SUBMIT BUTTON */
-.btn-submit{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 50px;
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: var(--transition-3s);
-}
-.btn-submit:hover{
-    gap: 15px;
-}
-.btn-submit i{
-    font-size: 20px;
-}
-/* SWITCH FORM */
-.switch-form{
-    text-align: center;
-}
-.switch-form a{
-    font-weight: 500;
-}
-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    text-align: center;
-    padding: 1px 0;
-}
-#footer{
-    padding: 15px;
-    margin: 0;
-}
-/* RESPONSIVE STYLES */
-@media only screen and (max-width: 564px){
-    .wrapper{
-        margin: 20px;
-    }
-}
-</style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* WRAPPER */
+        .wrapper {
+            position: relative;
+            width: 430px;
+            max-width: 100%;
+            background-color: var(--white-color);
+            border-radius: 15px;
+            padding: 120px 32px 70px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 8px 15px var(--shadow-color);
+            margin: 43px 0;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* FORM HEADER */
+        .form-header {
+            position: absolute;
+            top: 0;
+            left: 34%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 140px;
+            height: 70px;
+            background-color: var(--primary-color);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .title-login {
+            color: var(--white-color);
+            font-size: 24px;
+        }
+
+        /* FORM STYLES */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* INPUT BOX */
+        .input-box {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.5s ease-out forwards;
+        }
+
+        /* Staggered animations for input fields */
+        .input-box:nth-child(1) { animation-delay: 0.2s; }
+        .input-box:nth-child(2) { animation-delay: 0.3s; }
+        .input-box:nth-child(3) { animation-delay: 0.4s; }
+        .input-box:nth-child(4) { animation-delay: 0.5s; }
+        .input-box:nth-child(5) { animation-delay: 0.6s; }
+        .input-box:nth-child(6) { animation-delay: 0.7s; }
+        .input-box:nth-child(7) { animation-delay: 0.8s; }
+        .input-box:nth-child(8) { animation-delay: 0.9s; }
+
+        .input-field {
+            width: 100%;
+            height: 55px;
+            padding: 0 20px;
+            border: 1px solid var(--input-border-color);
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 25, 54, 0.1);
+        }
+
+        .label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .input-field:focus ~ .label,
+        .input-field:not(:placeholder-shown) ~ .label {
+            top: 0;
+            font-size: 14px;
+            background-color: var(--white-color);
+            padding: 0 10px;
+            color: var(--primary-color);
+        }
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .input-field:focus ~ .icon {
+            color: var(--primary-color);
+        }
+
+        /* FILE INPUT */
+        .file-input-container {
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+            height: 55px;
+            border: 1px solid var(--input-border-color);
+            border-radius: 30px;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label {
+            position: absolute;
+            left: 20px;
+            color: var(--secondary-color);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-input-text {
+            margin-left: 40px;
+            color: var(--secondary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-wrapper:has(input:focus) {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 25, 54, 0.1);
+        }
+        
+        .file-input-note {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            padding-left: 20px;
+            animation: fadeIn 0.5s 1.1s both;
+        }
+
+        /* SUBMIT BUTTON */
+        .btn-submit {
+            width: 100%;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s 1s both;
+        }
+
+        .btn-submit:hover {
+            background-color: #152857;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 25, 54, 0.2);
+        }
+
+        .btn-submit:hover i {
+            transform: translateX(5px);
+        }
+
+        .btn-submit i {
+            transition: transform 0.3s ease;
+        }
+
+        /* FOOTER */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 15px 0;
+            z-index: 10;
+            animation: fadeIn 0.8s 1.2s both;
+        }
+       span[style="color:red"] {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards 1.0s;
+        }
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .wrapper {
+                padding: 100px 20px 70px;
+            }
+            
+            .input-field {
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="form-header">
-            <div class="titles">
-                <div class="title-login">SignUp</div>
+            <div class="title-login">SignUp</div>
+        </div>
+        
+        <form action="saveuser" class="login-form" method="post" enctype="multipart/form-data">
+            <div class="input-box">
+                <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " >
+                <label for="firstName" class="label">First Name</label>
+                <i class='bx bx-user icon'></i>
             </div>
-        </div>
-        <!-- LOGIN FORM -->
+
+            <div class="input-box">
+                <input type="text" class="input-field" id="lastName" name="lastName" placeholder=" " >
+                <label for="lastName" class="label">Last Name</label>
+                <i class='bx bx-user icon'></i>
+            </div>
+
+            <div class="input-box">
+                <select class="input-field" id="gender" name="gender" >
+                    <option value="">--Select Gender--</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="trans">Transgender</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="gender" class="label">Gender</label>
+                <i class='bx bx-male-female icon'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="email" class="input-field" id="email" name="email" placeholder=" " >
+                <label for="email" class="label">Email</label>
+                <i class='bx bx-envelope icon'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="password" class="input-field" id="password" name="password" placeholder=" " >
+                <label for="password" class="label">Password</label>
+                <i class='bx bx-lock-alt icon'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="date" class="input-field" id="bornYear" name="bornYear" placeholder=" " >
+                <label for="bornYear" class="label">Date of Birth</label>
+                
+            </div>
+
+            <div class="input-box">
+                <input type="tel" class="input-field" id="contactNum" name="contactNum" placeholder=" " >
+                <label for="contactNum" class="label">Contact No.</label>
+                <i class='bx bxs-phone icon'></i>
+            </div>
+            
+              <div class="input-box file-input-container">
+                <div class="file-input-wrapper">
+                    <label class="file-input-label"></label>
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*" >
+                    <span class="file-input-text" id="fileDisplay">No file chosen</span>
+                    <i class='bx bx-upload icon'></i>
+                </div>
+                <div class="file-input-note">*Upload Photo</div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Submit <i class='bx bx-log-in'></i>
+            </button>
+        </form><br>
         
-                 <!-- LOGIN FORM -->
-<form action="saveuser" class="login-form" method="post" enctype="multipart/form-data">
-
-    <div class="input-box">
-        <input type="text" class="input-field" id="firstName" name ="firstName" >
-        <label for="firstName" class="label">First Name</label>
-        <i class='bx bx-user icon'></i>
+        <p>You already SignUp !<a href="login"> <span>Click Here</span></a></p>
     </div>
-
-    <div class="input-box">
-        <input type="text" class="input-field" id="lastName" name = "lastName" >
-        <label for="lastName" class="label">Last Name</label>
-    </div>
-
-    <div class="input-box">
-    <select id="gender" name="gender" class="input-field"  placeholder="" name="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="trans">Transgender</option>
-        <option value="other"> Other</option>
-    </select>
-    <i class='bx bx-male-female icon'></i>
-    </div>
-    
-    
-
-    <div class="input-box">
-        <input type="text" class="input-field" id="log-email" name="email" >
-        <label for="log-email" class="label">Email</label>
-     <i class='bx bx-envelope icon'></i>   
-    </div>
-    <div class="input-box">
-        <input type="password" class="input-field" id="password" name = "password" >
-        <label for="password" class="label">Password</label>
-        <i class='bx bx-lock-alt icon'></i>
-    </div>
-
-    <div class="input-box">
-        <input type="date" class="input-field" id="bornYear" name = "bornYear" >
-        <label for="bornYear" class="label"></label>
-    </div>
-
-    <div class="input-box">
-        <input type="text" class="input-field" id="contactNum" name = "contactNum" >
-        <label for="contactNum" class="label">Contact No.</label>
-        <i class='bx bxs-contact icon'></i>
-    </div>
-    
-    <div class="input-box">
-        <input type="file" class="" id="profilePic" name="profilePic" >
-        <label for="profilePic" class="label"></label>
-        <span style="color:red;">*Upload Photo</span>
-    </div>
-
-    <div class="form-cols">
-        <div class="col-1"></div>
-        <div class="col-1">
-           
-        </div>
-    </div>
-    <div class="input-box">
-        <button class="btn-submit" id="SignInBtn">Submit <i class='bx bx-log-in'></i></button>
-    </div>
-    <div class="switch-form">
-        <span>I have already signup <a href="login" onclick="registerFunction()">Click Here</a></span>
-    </div>
-</form>
-<footer id="footer" class="footer">
-        
-            © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
-            Reserved
-        
+    <footer>
+        © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights Reserved
     </footer>
+
+    <script>
+        // File input display
+        document.getElementById('profilePic').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+            document.getElementById('fileDisplay').textContent = fileName;
+        });
+
+        // Input field interactions
+        document.querySelectorAll('.input-field').forEach(input => {
+            // Focus/blur effects
+            input.addEventListener('focus', function() {
+                this.parentNode.querySelector('.icon').style.color = 'var(--primary-color)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentNode.querySelector('.icon').style.color = 'var(--secondary-color)';
+            });
+            
+            // Initialize labels for pre-filled values
+            if(input.value) {
+                const event = new Event('input');
+                input.dispatchEvent(event);
+            }
+        });
+
+        // Add animation class to body to prevent flash of unstyled content
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '1';
+        });
+    </script>
 </body>
 </html>

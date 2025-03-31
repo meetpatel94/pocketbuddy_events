@@ -3,8 +3,6 @@ package com.example.controller;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,9 +34,9 @@ public class SessionController {
 	PasswordEncoder encoder; 
 	
 	@Autowired
-	Cloudinary cloudinary;
+	Cloudinary cloudinary; 
 
-	@GetMapping(value = { "/", "login" } )
+	@GetMapping( "login" )
 	public String login(String email, String password) {
 		return "Login";
 	}
@@ -58,7 +56,8 @@ public class SessionController {
 			
 		} else {
 			return "Signup";	
-		} try  {	
+		} try  {
+			
 		Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
 //		System.out.println(result);
 //		System.out.println(result.get("url"));
@@ -83,7 +82,7 @@ public class SessionController {
 		repositoryUser.save(userEntity);
 		
 		//send welcome main after user signup
-//		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
+		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
 		return "Login";
 	}
 	
@@ -203,6 +202,10 @@ public class SessionController {
 	@GetMapping("home")
 	public String home() {
 		return "Home";
+	}
+	@GetMapping( value = { "/", "defaultpage" } )
+	public String defaultpage() {
+		return "DefaultPage";
 	}
 
 }

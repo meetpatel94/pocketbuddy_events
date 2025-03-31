@@ -42,14 +42,10 @@ public class MemberController {
 	@GetMapping("listmembers")
 	public String listMembers(Model model) {
 		List<MemberEntity> memberList = repositoryMember.findAll();
-		
-		
 		model.addAttribute("memberList", memberList);
 						
-		
 		return "ListMember";
 	}
-	
 	
 	//----> View member
 	@GetMapping("viewmember")

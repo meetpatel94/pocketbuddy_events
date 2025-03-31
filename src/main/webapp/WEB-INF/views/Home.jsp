@@ -17,7 +17,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TheEvent - Bootstrap Event Template</title>
+  <title>PocketBuddy-ShowNearByEvents</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -174,7 +174,6 @@ input[type="submit"]:hover {
 }
 </style>
 </head>
-
 <body>
 
     <!--========================== Header ============================-->
@@ -194,11 +193,14 @@ input[type="submit"]:hover {
     <!--======================== Speakers Section ==========================-->
     <jsp:include page="Speaker.jsp"></jsp:include>
 
+    <!--======================== Event Schedule Section ==========================-->
+    <jsp:include page="EventSchedule.jsp"></jsp:include>
+
     <!--========================== Event Venue Section ============================-->
     <jsp:include page="EventVenue.jsp"></jsp:include>  
 
     <!--========================== Hotels Section ============================-->
-    <jsp:include page="Hotel.jsp"></jsp:include>
+    <%-- <jsp:include page="Hotel.jsp"></jsp:include> --%>
 
     <!--========================== Gallery Section ============================-->
     <jsp:include page="Gallery.jsp"></jsp:include>
@@ -212,11 +214,13 @@ input[type="submit"]:hover {
     <!--========================== Subscribe Section ============================-->
     <jsp:include page="Subscribe.jsp"></jsp:include>
     
+    <!--========================== BuyTicket Section ============================-->
+    <jsp:include page="BuyTicketSection.jsp"></jsp:include>
+    
     <!--========================== Contact Section ============================-->
     <jsp:include page="ContactUs.jsp"></jsp:include>
 
 </main>
-
 
   <!--============================== Footer ============================-->
   <jsp:include page="Footer.jsp"></jsp:include>

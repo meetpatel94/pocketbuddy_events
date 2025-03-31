@@ -7,14 +7,14 @@
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block" style="color:red;">Pocketbuddy</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn" onclick="toggleSidebar()"></i>
     </div><!-- End Logo -->
     
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword" class="animat">
+
       </form>
     </div><!-- End Search Bar -->
 
@@ -23,7 +23,7 @@
 
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
+            <i class="bi bi-search" id="bi-list"></i>
           </a>
         </li><!-- End Search Icon-->
 
@@ -168,11 +168,11 @@
 
         </li><!-- End Messages Nav -->
 
-        <li class="nav-item dropdown pe-3">
+        <li class="nav-items dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="${user.profilePicPath }" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">${user.firstName}</span>
+          <img src="${user.profilePicPath }" alt="Profile" class="rounded-circle animat">
+            <span class="d-none d-md-block dropdown-toggle ps-2">${user.firstName}&nbsp;${user.lastName}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -215,7 +215,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            <li> 
               <a class="dropdown-item d-flex align-items-center" href="logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>

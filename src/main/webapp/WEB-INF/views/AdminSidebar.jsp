@@ -9,7 +9,7 @@
 
 		<li class="nav-item"><a class="nav-link collapsed"
 			data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-				<i class="bi bi-person-fill"></i><span>Users</span><i
+				<i class="bi bi-people-fill"></i><span>Users</span><i
 				class="bi bi-chevron-down ms-auto"></i>
 				
 		</a>
@@ -25,7 +25,7 @@
 			
 		<!-- End Components Nav -->
 
-		<li class="nav-item"><a class="nav-link collapsed"
+		 <li class="nav-item"><a class="nav-link collapsed"
 			data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> <i
 				class="bi bi-calendar-event-fill"></i><span>Events</span>
 				<i class="bi bi-chevron-down ms-auto"></i></a>
@@ -39,11 +39,11 @@
 				</a></li>
 				<li><a href="#"> <i class="bi bi-circle"></i><span>Boxicons</span>
 				</a></li>
-			</ul></li>
+			</ul></li> 
 			
 			
 			<!-- State/City -->
-		<li class="nav-item"><a class="nav-link collapsed"
+	<!-- 	<li class="nav-item"><a class="nav-link collapsed"
         data-bs-target="#city-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-buildings"></i><span>City</span><i
         class="bi bi-chevron-down ms-auto"></i>
@@ -59,12 +59,12 @@
 				</a></li>
     </ul>
      </li> 
-		
+		 -->
 			
 		<!-- Members -->
 		<li class="nav-item"><a class="nav-link collapsed"
         data-bs-target="#members-nav" data-bs-toggle="collapse" href="#"> 
-        <i class="bi bi-people-fill"></i><span>Members</span>
+        <i class="bi bi-award-fill"></i><span>Members</span>
         <i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="members-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
