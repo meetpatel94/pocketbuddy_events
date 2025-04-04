@@ -13,12 +13,24 @@ public class MemberEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer memberId;
 	private String memberName;
+	private String role;
 	private Integer age;
 //	private Integer userId;
 //	private Integer houseId;
 	private String profilePhoto;
+
+	
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public Integer getMemberId() {
 		return memberId;

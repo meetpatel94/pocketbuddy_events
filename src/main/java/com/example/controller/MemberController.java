@@ -34,8 +34,9 @@ public class MemberController {
 		 
 //		UserEntity user = (UserEntity)session.getAttribute("user");
 //		Integer userId = user.getUserId();
-//		entityMember.setUserId(userId);		
-     	repositoryMember.save(entityMember);
+//		entityMember.setUserId(userId);	
+		entityMember.setRole("Member");
+     	repositoryMember.save(entityMember);	
 		return "NewMember";
 	}
 

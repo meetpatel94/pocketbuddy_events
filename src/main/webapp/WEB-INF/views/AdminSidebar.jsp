@@ -68,8 +68,10 @@
         <i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="members-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+    
+            <li><a href="newmember"> <i class="bi bi-circle"></i><span>Add Member</span></a></li>
         <li><a href="listmembers"> <i class="bi bi-circle"></i><span>Members List</span></a></li>
-        <li><a href="newmember"> <i class="bi bi-circle"></i><span>Add Member</span></a></li>
+
     </ul>
 </li>
 		

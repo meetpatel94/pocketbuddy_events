@@ -90,15 +90,18 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="#">
+              <form method="POST" action="buyticket">
                 <div class="form-group">
-                  <input type="text" class="form-control" name="your-name" placeholder="Your Name">
+                  <input type="text" class="form-control" name="firstName" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" name="your-email" placeholder="Your Email">
+                  <input type="text" class="form-control" name="email" placeholder="Your Email" required>
                 </div>
                 <div class="form-group">
-                  <select id="ticket-type" name="ticket-type" class="form-control" >
+                  <input type="date" class="form-control" name="date" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <select id="ticket-type" name="access" class="form-control" required >
                     <option value="">-- Select Your Ticket Type --</option>
                     <option value="standard-access">Standard Access</option>
                     <option value="pro-access">Pro Access</option>

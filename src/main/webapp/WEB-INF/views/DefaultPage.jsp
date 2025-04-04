@@ -172,6 +172,155 @@ input[type="submit"]:hover {
         width: 90%;
     }
 }
+.events-container {
+    font-family: 'Segoe UI', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.trending-shows h2 {
+    color: #ff4757;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.shows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.show-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.show-card:hover {
+    transform: translateY(-5px);
+}
+
+.show-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.price-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.show-info {
+    padding: 15px;
+}
+
+.show-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.artist {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.venue-date {
+    color: #888;
+    font-size: 13px;
+    margin: 0 0 10px 0;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+
+.interested {
+    color: #888;
+    display: flex;
+    align-items: center;
+}
+
+.interested::before {
+    content: "•";
+    margin: 0 5px;
+    color: #ff4757;
+}
+
+.other-events h2 {
+    color: #333;
+    margin: 30px 0 20px 0;
+    font-size: 22px;
+}
+/* Previous CSS remains the same, add these new styles */
+
+.show-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 180px); /* Adjust based on image height */
+}
+
+.book-btn {
+    margin-top: auto;
+    padding: 10px 15px;
+    background-color: #ff4757;
+    color: white !important;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+.book-btn a{
+   color: white !important;
+}
+.book-btn:hover {
+    background-color: #ff6b81;
+    transform: translateY(-2px);
+}
+
+/* Make sure the card has proper height distribution */
+.show-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .shows-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .shows-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
 <body>
@@ -196,6 +345,7 @@ input[type="submit"]:hover {
           <li><a href="#sponsors">Sponsors</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
+         
           <li class="buy-tickets"><a href="login">Login</a></li>
           <li class="buy-tickets"><img src="img/user-img.png" alt="" 
             style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
@@ -218,6 +368,12 @@ input[type="submit"]:hover {
     <!--======================== Speakers Section ==========================-->
     <jsp:include page="Speaker.jsp"></jsp:include>
 
+    <!--======================== Music Shows Section ==========================-->
+    <jsp:include page="MusicShows.jsp"></jsp:include>
+    
+    <!--======================== UpComing Music Shows Section ==========================-->
+    <jsp:include page="UpComingMusicEvents.jsp"></jsp:include>
+    
     <!--======================== Event Schedule Section ==========================-->
     <jsp:include page="EventSchedule.jsp"></jsp:include>
 
@@ -268,7 +424,7 @@ input[type="submit"]:hover {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access" disabled>Buy Now</button>
                 </div>
               </div>
             </div>
@@ -289,7 +445,7 @@ input[type="submit"]:hover {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access" disabled>Buy Now</button>
                 </div>
               </div>
             </div>
@@ -311,7 +467,7 @@ input[type="submit"]:hover {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access" disabled>Buy Now</button>
                 </div>
 
               </div>

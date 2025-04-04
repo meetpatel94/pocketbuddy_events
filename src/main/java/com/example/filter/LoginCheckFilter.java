@@ -1,4 +1,4 @@
-/* package com.example.filter;
+package com.example.filter;
 
 import java.io.IOException;
 
@@ -20,6 +20,7 @@ public class LoginCheckFilter implements Filter {
 	ArrayList<String> publicURL = new ArrayList<>();
 	
 	public LoginCheckFilter() {
+		publicURL.add("/defaultpage");
 		publicURL.add("/login");
 		publicURL.add("/signup");
 		publicURL.add("/saveuser");
@@ -43,7 +44,16 @@ public class LoginCheckFilter implements Filter {
 		//System.out.println("URI is:" + uri);
 		
 		
-		if(publicURL.contains(uri) || uri.contains(".css") || uri.contains(".js") || uri.contains("dist")) {
+		if(publicURL.contains(uri) ||
+				uri.contains(".css") || 
+				uri.contains(".js") || 
+				uri.contains("dist") ||
+				uri.contains("css") ||
+				uri.contains(".jpg") ||
+				uri.contains(".webp") ||
+				uri.contains(".png") ||
+		        uri.contains("lib")) 
+		{
 			chain.doFilter(request, response);
 		}else {
 		
@@ -51,11 +61,11 @@ public class LoginCheckFilter implements Filter {
 		    UserEntity user = (UserEntity) session.getAttribute("user");
 			
 		if(user == null ) {
-		req.getRequestDispatcher("login").forward(request, response);
+		req.getRequestDispatcher("defaultpage").forward(request, response);
 	    }else {
 		chain.doFilter(request, response);
 	      }	   
 	   }  
 	}
 
-}*/
+}

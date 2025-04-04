@@ -1,334 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link href="img/logo.png" rel="icon"> 
-<title>PocketBuddy-Admin Dashboard</title>
-<style>
-}
-.chart-container {
-    width: 60%;
-    max-width: 800px;
-    height: 400px;  /* FIXED HEIGHT */
-    background-color: rgb(149, 23, 23);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-}
-canvas {
-    width: 845px !important;
-    height: 425px !important;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    color: #33186B;
-}
-</style>
-<jsp:include page="AdminCss.jsp"></jsp:include>
-
-
-</head>
-<body>
-	<jsp:include page="AdminHeader.jsp"></jsp:include>
-
-	<jsp:include page="AdminSidebar.jsp"></jsp:include>
-
-	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>Admin Dashboard</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
-
-		<section class="section dashboard">
-			<div class="row">
-
-				<!-- Left side columns -->
-				<div class="col-lg-12">
-					<div class="row">
-
-						<!-- Sales Card -->
-						<div class="col-xxl-4 col-md-4">
-							<div class="card info-card sales-card neww">
-
-								<div class="filter">
-									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots" style="color: #33186B;"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<li class="dropdown-header text-start">
-											<h6>Filter</h6>
-										</li>
-										<li><a class="dropdown-item" href="#">Today</a></li>
-										<li><a class="dropdown-item" href="#">This Month</a></li>
-										<li><a class="dropdown-item" href="#">This Year</a></li>
-									</ul>
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">
-										Sales <span style="color: white;">| Today</span>
-									</h5>
-									<div class="d-flex align-items-center">
-										<div
-											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-											<i class="bi bi-cart"></i>
-										</div>
-										<div class="ps-3">
-											<h6>145</h6>
-											<span class="text-success small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">12%</span> <span
-												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">increase</span>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<!-- End Sales Card -->
-						
-						<!-- Start New Card -->
-								<div class="col-xxl-4 col-md-4">
-							<div class="card info-card sales-card neww4">
-
-								<div class="filter">
-									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots" style="color: #33186B;"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<li class="dropdown-header text-start">
-											<h6>Filter</h6>
-										</li>
-
-										<li><a class="dropdown-item" href="#">Today</a></li>
-										<li><a class="dropdown-item" href="#">This Month</a></li>
-										<li><a class="dropdown-item" href="#">This Year</a></li>
-									</ul>
-								</div>
-
-								<div class="card-body">
-									<h5 class="card-title">
-										Peoples Views <span style="color: white;">| Today</span>
-									</h5>
-
-									<div class="d-flex align-items-center">
-										<div
-											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-											<i class="bi bi-eye-fill"></i>
-										</div>
-										<div class="ps-3">
-											<h6>4050</h6>
-											<span class="text-success small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">58%</span> <span
-												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">increase</span>
-
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-            <!-- End New Card -->
-
-						<!-- Revenue Card -->
-						<div class="col-xxl-4 col-md-4">
-							<div class="card info-card revenue-card">
-
-								<div class="filter">
-									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots" style="color: #33186B;"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<li class="dropdown-header text-start">
-											<h6>Filter</h6>
-										</li>
-										<li><a class="dropdown-item" href="#">Today</a></li>
-										<li><a class="dropdown-item" href="#">This Month</a></li>
-										<li><a class="dropdown-item" href="#">This Year</a></li>
-									</ul>
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">
-										Revenue <span style="color: white;">| This Month</span>
-									</h5>
-									<div class="d-flex align-items-center">
-										<div
-											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-											<i class="bi bi-currency-dollar"></i>
-										</div>
-										<div class="ps-3">
-											<h6>$3,264</h6>
-											<span class="text-success small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">8%</span> <span
-												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">increase</span>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<!-- End Revenue Card -->
-
-						<!-- Customers Card -->
-						<div class="col-xxl-4 col-xl-12">
-							<div class="card info-card customers-card neww2">
-								<div class="filter">
-									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots" style="color: #33186B;"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<li class="dropdown-header text-start">
-											<h6>Filter</h6>
-										</li>
-										<li><a class="dropdown-item" href="#">Today</a></li>
-										<li><a class="dropdown-item" href="#">This Month</a></li>
-										<li><a class="dropdown-item" href="#">This Year</a></li>
-									</ul>
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">
-										Customers <span style="color: white;">| This Year</span>
-									</h5>
-									<div class="d-flex align-items-center">
-										<div
-											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-											<i class="bi bi-people"></i>
-										</div>
-										<div class="ps-3">
-											<h6>1244</h6>
-											<span class="text-danger small pt-1 fw-bold" style="color: rgb(102, 194, 199) !important">12%</span> <span
-												class="text-muted small pt-2 ps-1" style="color: rgb(102, 194, 199) !important">decrease</span>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-						<!-- End Customers Card -->
-
-						<!-- Reports -->
-						<div class="col-12">
-							<div class="card neww3">
-
-								<div class="filter">
-									<a class="icon" href="#" data-bs-toggle="dropdown"><i
-										class="bi bi-three-dots" style="color: #33186B;"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<li class="dropdown-header text-start">
-											<h6>Filter</h6>
-										</li>
-
-										<li><a class="dropdown-item" href="#">Today</a></li>
-										<li><a class="dropdown-item" href="#">This Month</a></li>
-										<li><a class="dropdown-item" href="#">This Year</a></li>
-									</ul>
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">
-										Reports <span style="color: white;">/Today</span>
-										<div class="chart-container">
-                                              <h2>Visitor Insights</h2>
-                                              <canvas id="visitorChart"></canvas>
-                                        </div><br>
-									</h5>
-					                    <br><br>
-					                    <br><br>
-								</div>
-							</div>
-						</div>
-						<!-- End Reports -->
-					</div>
-				</div>
-				<!-- End Left side columns -->
-				<!-- Right side columns -->
-				<!-- End Right side columns -->
-			</div>
-		</section>
-	</main>
-	<!-- main content end  -->     
-
-	<jsp:include page="AdminFooter.jsp"></jsp:include>
-
-	<jsp:include page="AdminJs.jsp"></jsp:include>
-	  
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  
-   <script src="assets/js/main.js"></script>
-   
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          const ctx = document.getElementById('visitorChart').getContext('2d');
-          new Chart(ctx, {
-              type: 'line',
-              data: {
-                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                  datasets: [
-                      {
-                          label: 'Loyal Customers',
-                          data: [300, 280, 250, 200, 220, 270, 320, 310, 300, 290, 250, 230],
-                          borderColor: 'purple',
-                          borderWidth: 3,
-                          tension: 0.4
-                      },
-                      {
-                          label: 'New Customers',
-                          data: [250, 220, 180, 200, 260, 350, 330, 310, 290, 270, 260, 230],
-                          borderColor: 'red',
-                          borderWidth: 3,
-                          tension: 0.4
-                      },
-                      {
-                          label: 'Unique Customers',
-                          data: [320, 300, 280, 230, 240, 290, 310, 320, 300, 310, 280, 250],
-                          borderColor: 'green',
-                          borderWidth: 3,
-                          tension: 0.4
-                      }
-                  ]
-              },
-              options: {
-                  responsive: true,
-                  maintainAspectRatio: false,  // FIX CHART STRETCHING
-                  scales: {
-                      y: {
-                          beginAtZero: true,
-                          max: 400
-                      }
-                  },
-                  plugins: {
-                      legend: {
-                          position: 'bottom'
-                      }
-                  }
-              }
-          });
-      });        
-  </script>
-</body>
-</html> --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -503,8 +173,8 @@ h2 {
             border-radius: 10px;
         }
     </style>
-    
     <jsp:include page="AdminCss.jsp"></jsp:include>
+    
 </head>
 <body>
     <jsp:include page="AdminHeader.jsp"></jsp:include>
@@ -520,7 +190,6 @@ h2 {
                 </ol>
             </nav>
         </div>
-
         <section class="section dashboard">
             <div class="row">
                 <!-- Sales Card -->
@@ -538,13 +207,14 @@ h2 {
                             </ul>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Sales <span>| Today</span></h5>
+                            <h5 class="card-title">Users <span>| OverAll</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-cart"></i>
+                                    <i class="bi bi-people"></i>
                                 </div>
-                                <div class="ps-3">
-                                    <h6>145</h6>
+                                <div class="ps-3">   
+                                    <h6>${totaluser }</h6>
+                                    <h6>${totaluser }</h6>
                                     <span class="text-success small pt-1 fw-bold">12%</span>
                                     <span class="text-muted small pt-2 ps-1">increase</span>
                                 </div>
@@ -552,7 +222,6 @@ h2 {
                         </div>
                     </div>
                 </div>
-
                 <!-- Views Card -->
                 <div class="col-xxl-4 col-md-6 fade-in" style="animation-delay: 0.2s;">
                     <div class="card info-card sales-card neww4">
@@ -582,7 +251,6 @@ h2 {
                         </div>
                     </div>
                 </div>
-
                 <!-- Revenue Card -->
                 <div class="col-xxl-4 col-md-6 fade-in" style="animation-delay: 0.3s;">
                     <div class="card info-card revenue-card">
@@ -612,7 +280,6 @@ h2 {
                         </div>
                     </div>
                 </div>
-
                 <!-- Customers Card -->
                 <div class="col-xxl-4 col-md-6 fade-in" style="animation-delay: 0.4s;">
                     <div class="card info-card customers-card neww2">
@@ -628,21 +295,21 @@ h2 {
                             </ul>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Customers <span>| This Year</span></h5>
+                            <h5 class="card-title">Subscribe Members <span>| This Year</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-people"></i>
+                                    <i class="bi bi-award-fill"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>1244</h6>
-                                    <span class="text-danger small pt-1 fw-bold">12%</span>
+                                <h6>${totalMembers }</h6>
+                                    <!-- <h6>1244</h6> -->
+                                    <span class="text-danger small pt-1 fw-bold">9%</span>
                                     <span class="text-muted small pt-2 ps-1">decrease</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <!-- Reports Section -->
                 <div class="col-12 fade-in" style="animation-delay: 0.5s;">
                     <div class="card neww3">
@@ -676,7 +343,8 @@ h2 {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    
+    <script>
+    </script>
     <script>
         // Initialize Chart
         document.addEventListener("DOMContentLoaded", function () {
@@ -784,10 +452,98 @@ h2 {
             
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // Run once on load
-        });
-        
+        });     
+    </script>
+    <script>
+    const toggleBtn = document.querySelector(".toggle-sidebar-btn");
+    const sidebar = document.querySelector(".sidebar");
+    const main = document.getElementById("main");
+    const footer = document.getElementById("footer");
+
+    toggleBtn.addEventListener("click", function () {
+        if (sidebar.style.display === "none") {
+            // If sidebar is hidden, show it and reset margin
+            sidebar.style.display = "block";
+            main.style.marginLeft = "300px"; // Adjust according to sidebar width
+            footer.style.marginLeft = "0px";
+        } else {
+            // If sidebar is visible, hide it and adjust margin
+            sidebar.style.display = "none";
+            main.style.marginLeft = "0px";
+            footer.style.marginLeft = "0px";
+        }
+    });
+    </script>
+</body>
+</html> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+      rel="icon"
+      href="aset/assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["aset/assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
     </script>
 
-  
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="aset/assets/css/demo.css" />
+    <style>
+     main{
+        margin-left:20px;
+     }
+    </style>
+</head>
+<body>
+   
+   <!-- sidebar -->
+   <div class="wrapper">
+   <jsp:include page="ADMIN_Sidebar.jsp"></jsp:include>
+   
+   <!-- header -->
+   <jsp:include page="ADMIN_Header.jsp"></jsp:include>
+   
+   <!-- container  -->
+   <div class="container">
+    <jsp:include page="ADMIN_Home.jsp"></jsp:include>
+
+    <!-- footer -->
+    <jsp:include page="ADMIN_Footer.jsp"></jsp:include>
+    </div>
+    </div>
+     
+    <!-- JS -->
+    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
+
+
+
 </body>
 </html>

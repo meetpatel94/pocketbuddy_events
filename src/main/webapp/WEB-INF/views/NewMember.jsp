@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -66,7 +66,7 @@
     	</div><!-- End Page Title -->
 
     	<section class="section dashboard">
-			<form action="savemember" method="post" enctype="multipart/form-data">
+			<form action="savemember" method="post">
 				Member Name: <input type="text" name="memberName"> <br><br> 
 				Age : <input type="text" name="age"/><br><br> 
 	            ProfilePhoto : <input type="file" name="profilePhoto"/><br><br>
@@ -117,4 +117,101 @@
 
 </body>
 
+</html> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+      rel="icon"
+      href="aset/assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["aset/assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="aset/assets/css/demo.css" />
+<style>
+main{
+ margin-left:20px;
+}
+</style>
+</head>
+<body>
+   
+   <!-- sidebar -->
+   <div class="wrapper">
+   <jsp:include page="ADMIN_Sidebar.jsp"></jsp:include>
+   
+   <!-- header -->
+   <jsp:include page="ADMIN_Header.jsp"></jsp:include>
+   
+   <!-- container  -->
+   	 <div class="container">
+     	<main id="main" class="main">
+       <div class="nen">
+    	<div class="pagetitle">
+      		<h1>Add Member</h1>
+      		<nav>
+        		<ol class="breadcrumb">
+          			<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
+          			<li class="breadcrumb-item active">Add Member</li>
+        		</ol>
+      		</nav>
+    	</div><!-- End Page Title -->
+
+    	<section class="section dashboard">
+			<form action="savemember" method="post">
+				Member Name: <input type="text" name="memberName"> <br><br> 
+				Age : <input type="text" name="age"/><br><br> 
+	            ProfilePhoto : <input type="file" name="profilePhoto"/><br><br>
+	          
+				<input type="submit" value="Save Member">
+			</form>
+    	</section>
+ </div>
+
+  	</main>
+    <!-- main content end  -->
+
+    <!-- footer -->
+    <jsp:include page="ADMIN_Footer.jsp"></jsp:include>
+    </div>
+    
+    
+     
+    <!-- JS -->
+    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
+
+
+
+</body>
 </html>

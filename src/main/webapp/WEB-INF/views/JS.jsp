@@ -16,6 +16,21 @@
   <script src="lib/wow/wow.min.js"></script>
   <script src="lib/venobox/venobox.min.js"></script>
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+	    // Add data labels for mobile view
+	    if (window.innerWidth <= 480) {
+	        const headers = ['Date', 'Event', 'Venue', 'Action'];
+	        const cells = document.querySelectorAll('td');
+	        
+	        cells.forEach((cell, index) => {
+	            const headerIndex = index % headers.length;
+	            cell.setAttribute('data-label', headers[headerIndex]);
+	        });
+	    }
+	});
+  </script>
 
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>

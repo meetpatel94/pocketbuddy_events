@@ -50,11 +50,11 @@
             </p>
 
             <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+              <a href="https://x.com/?lang=en" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.facebook.com/" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="https://www.instagram.com/accounts/login/?hl=en" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="https://support.google.com/answer/2451065?hl=en" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="" class="linkedin"><i class="fa fa-linkedin"></i></a>
             </div>
 
           </div>

@@ -10,7 +10,7 @@
  <section id="speakers" class="wow fadeInUp">
       <div class="container">
         <div class="section-header">
-          <h2>Event Speakers</h2>
+          <h2>Business Event Speakers</h2>
           <p>Here are some of our speakers</p>
         </div>
 

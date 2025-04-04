@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.entity.UserEntity;
+import com.example.repository.MemberRepository;
 import com.example.repository.UserRepository;
 
 @Controller
@@ -26,9 +27,31 @@ public class AdminController {
 	@Autowired
 	UserRepository repoUser;
 	
+	@Autowired
+	MemberRepository memberRepository;
+	
     @GetMapping("admindashboard")
-	public  String admindashboard() {
-		return "AdminDashboard";
+	public  String admindashboard(Model model) {
+    	
+    	//====> Users
+    	//total users
+    	Long totalUsers = repoUser.count();
+    	
+    	Integer totaluser = repoUser.findByRole("USER").size();
+    	
+    	Integer totalAdmin = repoUser.findByRole("ADMIN").size();
+    	
+    	model.addAttribute("totaluser", totaluser);
+    	
+    	//====>Members
+    	Long totalMember = memberRepository.count();
+    	
+    	Integer totalMembers = memberRepository.findByRole("Member").size();
+    	
+    	model.addAttribute("totalMembers", totalMembers);
+    	
+		//return "AdminDashboard";
+    	return "ADMIN_Dashboard";
 	}
     
     
@@ -76,7 +99,8 @@ public class AdminController {
 			dbuser.setContactNum(entity.getContactNum());
 			dbuser.setProfilePicPath(entity.getProfilePicPath());
 			
-			if(profilePic.getOriginalFilename().endsWith(".jpg")) {
+			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+			   profilePic.getOriginalFilename().endsWith(".png")) {
 				
 			} else {
 				return "Signup";
@@ -106,5 +130,11 @@ public class AdminController {
     @GetMapping("events")
     public String events() {
     	return "EventsPage";
+
+    }
+    @GetMapping("eventshows")
+    public String eventshows() {
+    	return "EventShows";
+
     }
 }

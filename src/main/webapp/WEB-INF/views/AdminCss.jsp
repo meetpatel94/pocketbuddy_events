@@ -834,9 +834,10 @@ header{
   }
 }
 .sidebar {
+  transform: translateX(0);
   animation: slideleft 1s forwards 0.2s !important;
 } 
-@keyframes slideleft {
+/* @keyframes slideleft {
   from {
       transform: translateX(-100%);
       opacity: 0;
@@ -845,7 +846,7 @@ header{
       transform: translateX(0);
       opacity: 1;
   }
-}
+} */
 .main{
   transform: translateY(50%);
   animation: slideup 1s forwards 0.1s !important;

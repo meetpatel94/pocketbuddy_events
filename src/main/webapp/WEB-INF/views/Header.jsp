@@ -41,8 +41,12 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+<style>
+.logout{
+    background-color:#432e543b;
+}
+</style>
 </head>
-
 <body>
 
   <!--==========================
@@ -69,8 +73,8 @@
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#" onclick="openPopup()">Rate Us</a></li>
-          <li class="buy-tickets"><a href="#buy-tickets">Buy Tickets  <i class="bi bi-ticket-perforated" style="font-size:16px"></i></a></li>
-          <li class="buy-tickets"><a href="logout" style="background-color:#432E54">Log Out</a></li>
+<!--           <li class="buy-tickets"><a href="#buy-tickets">Buy Tickets  <i class="bi bi-ticket-perforated" style="font-size:16px"></i></a></li> -->
+          <li class="buy-tickets"><a href="logout" class="logout" style="background-color:#432E54">Log Out</a></li>
           <li class="buy-tickets"><img src="${user.profilePicPath }" alt="" 
             style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
         </ul>
