@@ -265,47 +265,49 @@
     </script>
 </body>
 </html>--%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link
-      rel="icon"
-      href="img/logo.png"
-      type="image/x-icon"
-    />
+<title>Admin | List Members</title>
 
-    <!-- Fonts and icons -->
-    <script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["aset/assets/css/fonts.min.css"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
+<!-- Favicon -->
+<link rel="icon" href="img/logo.png" type="image/x-icon">
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
-    <link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+<!-- Fonts and icons -->
+<script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: { families: ["Public Sans:300,400,500,600,700"] },
+    custom: {
+      families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+      ],
+      urls: ["aset/assets/css/fonts.min.css"],
+    },
+    active: function () {
+      sessionStorage.fonts = true;
+    },
+  });
+</script>
 
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="aset/assets/css/demo.css" />
+<!-- CSS Files -->
+<link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+<link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+<link rel="stylesheet" href="aset/assets/css/demo.css" />
+
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
 <style>
     /* Custom Table Styles */
     .datatable-table {
@@ -358,7 +360,6 @@
         transform: translateX(5px);
     }
  
-    
     .datatable-table tbody td {
         padding: 12px 10px;
         vertical-align: middle;
@@ -408,6 +409,22 @@
         font-size: 0.9rem;
     }
     
+    /* DataTables Buttons */
+    .dt-buttons .btn {
+        background-color: #33186B !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 4px !important;
+        margin-right: 5px !important;
+        padding: 6px 12px !important;
+        font-size: 13px !important;
+    }
+    
+    .dt-buttons .btn:hover {
+        background-color: #4a2a8a !important;
+        color: white !important;
+    }
+    
     /* Animations */
     @keyframes fadeInUp {
         from {
@@ -439,6 +456,13 @@
         .action-buttons a {
             margin: 0 3px;
         }
+        
+        .dt-buttons {
+            margin-bottom: 10px;
+        }
+        .dt-buttons .btn {
+            margin-bottom: 5px;
+        }
     }
     
     td.action-buttons {
@@ -455,13 +479,22 @@
         width: 100%;
         margin: 0 auto;
     }
-    .datatable-table > thead > tr > th {
-	padding-left:5px;
-    }	
-     main{
-        margin-left:20px;
-     }
     
+    .datatable-table > thead > tr > th {
+        padding-left:5px;
+    }
+    
+    main {
+        margin-left:20px;
+    }
+    
+    /* Profile photo styling */
+    .profile-photo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 </style>
 </head>
 <body>
@@ -499,7 +532,7 @@
                                     
 
                                     <div class="table-responsive animate-table">
-                                       <table class="table datatable datatable-table table-hover" id="myTable">
+                                        <table class="table datatable datatable-table table-hover" id="myTable">
                                             <thead>
                                                 <tr>
                                                     <th>Member</th>
@@ -514,7 +547,12 @@
                                                         <td>${m.memberName}</td>
                                                         <td>${m.age}</td>
                                                         <td>
-                                                            ${m.profilePhoto }
+                                                            <c:if test="${not empty m.profilePhoto}">
+                                                                <img src="${m.profilePhoto}" class="profile-photo" alt="Profile Photo">
+                                                            </c:if>
+                                                            <c:if test="${empty m.profilePhoto}">
+                                                                No photo
+                                                            </c:if>
                                                         </td>
                                                         <td class="action-buttons">
                                                             <a href="#" class="edit-btn" title="Edit">
@@ -551,12 +589,18 @@
      
     <!-- JS -->
     <jsp:include page="ADMIN_Js.jsp"></jsp:include>
- <jsp:include page="AdminJs.jsp"></jsp:include>
+    <jsp:include page="AdminJs.jsp"></jsp:include>
     
-
+    <!-- DataTables and Buttons JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <script type="text/javascript">
@@ -564,13 +608,61 @@
         // Initialize DataTable with enhanced options
         let table = new DataTable('#myTable', {
             responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: '<i class="fas fa-copy"></i> Copy',
+                    titleAttr: 'Copy to clipboard',
+                    className: 'btn btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2] // Export Member, Age, Profile columns
+                    }
+                },
+                {
+                    extend: 'csv',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    titleAttr: 'Export to CSV',
+                    className: 'btn btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    titleAttr: 'Export to Excel',
+                    className: 'btn btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    titleAttr: 'Export to PDF',
+                    className: 'btn btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    titleAttr: 'Print table',
+                    className: 'btn btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                }
+            ],
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search users...",
-                lengthMenu: "Show _MENU_ users per page",
-                info: "Showing _START_ to _END_ of _TOTAL_ users",
-                infoEmpty: "No users found",
-                infoFiltered: "(filtered from _MAX_ total users)"
+                searchPlaceholder: "Search members...",
+                lengthMenu: "Show _MENU_ members per page",
+                info: "Showing _START_ to _END_ of _TOTAL_ members",
+                infoEmpty: "No members found",
+                infoFiltered: "(filtered from _MAX_ total members)"
             },
             initComplete: function() {
                 // Add animation to table rows after load
@@ -581,7 +673,14 @@
                     stagger: 0.05,
                     ease: "power2.out"
                 });
-            }
+            },
+            columnDefs: [
+                {
+                    targets: 3, // Action column
+                    orderable: false,
+                    searchable: false
+                }
+            ]
         });
         
         // Add hover effect to table rows
@@ -603,13 +702,11 @@
         
         // Add confirmation for delete action
         $('.delete-btn').on('click', function(e) {
-            if(!confirm('Are you sure you want to delete this user?')) {
+            if(!confirm('Are you sure you want to delete this member?')) {
                 e.preventDefault();
             }
         });
     });
     </script>
-
-
 </body>
 </html>

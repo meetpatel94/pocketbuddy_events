@@ -321,12 +321,16 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+#intro {
+ background: url(../img/intro-bg.jpg) top center;
+}
 </style>
 </head>
 <body>
 
     <!--========================== Header ============================-->
-      <header id="header">
+<!-- #header -->
+<header id="header">
     <div class="container">
 
       <div id="logo" class="pull-left">
@@ -338,21 +342,26 @@ h1 {
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li> 
-          <li><a href="#venue">Events</a></li>
-           <li><a href="#schedule">Schedule</a></li>
-          <!-- <li><a href="#hotels">Hotels</a></li> -->
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#sponsors">Sponsors</a></li>
+          <li class="menu-has-children"><a href="#">Events</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="home">Business</a></li>
+              <li><a class="dropdown-item" href="musicshow">Music</a></li>
+              <li><a class="dropdown-item" href="concert">Concerts</a></li>
+              <li><a class="dropdown-item" href="dance">Dances</a></li>
+              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
+            </ul>
+          </li>
+          <li><a href="#schedule">Schedule</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
-         
-          <li class="buy-tickets"><a href="login">Login</a></li>
+          <li><a href="#" onclick="openPopup()">Rate Us</a></li>
+          <li class="buy-tickets"><a href="logout" class="logout" style="background-color:#432E54">Log Out</a></li>
           <li class="buy-tickets"><img src="img/user-img.png" alt="" 
-            style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
+           style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
-  </header><!-- #header -->
+  </header>
     
     <!--========================== RatingPopupPage ============================-->
     <jsp:include page="RatingPopupPage.jsp"></jsp:include>
@@ -368,11 +377,11 @@ h1 {
     <!--======================== Speakers Section ==========================-->
     <jsp:include page="Speaker.jsp"></jsp:include>
 
-    <!--======================== Music Shows Section ==========================-->
-    <jsp:include page="MusicShows.jsp"></jsp:include>
+    <!--======================== Business Seminars Section ==========================-->
+    <jsp:include page="BusinessSeminar.jsp"></jsp:include>
     
-    <!--======================== UpComing Music Shows Section ==========================-->
-    <jsp:include page="UpComingMusicEvents.jsp"></jsp:include>
+    <!--======================== UpComing Businesss events Section ==========================-->
+    <jsp:include page="UpComing.jsp"></jsp:include>
     
     <!--======================== Event Schedule Section ==========================-->
     <jsp:include page="EventSchedule.jsp"></jsp:include>
@@ -515,7 +524,67 @@ h1 {
     </section>
     
     <!--========================== Contact Section ============================-->
-    <jsp:include page="ContactUs.jsp"></jsp:include>
+    <section id="contact" class="section-bg wow fadeInUp " >
+      <div class="container">
+        <div class="section-header">
+          <h2 style="color:#432E54;">Contact Us</h2>
+        </div>
+        <div class="row contact-info">
+          <div class="col-md-4">
+            <div class="contact-address">
+              <i class="ion-ios-location-outline"></i>
+              <h3>Address</h3>
+              <address style="color:#007bff;">A108 Adam Street, NY 535022, USA</address>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-phone">
+              <i class="ion-ios-telephone-outline"></i>
+              <h3>Phone Number</h3>
+              <p ><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-email">
+              <i class="ion-ios-email-outline"></i>
+              <h3>Email</h3>
+              <p><a href="mailto:info@example.com">info@example.com</a></p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form">
+          <div id="sendmessage">Your message has been sent. Thank you!</div>
+          <div id="errormessage"></div>
+          <form action="savecomments" method="post" role="form" >
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required />
+                <div class="validation"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
+              <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message" required></textarea>
+              <div class="validation"></div>
+            </div>
+            <div class="text-center"><button type="submit" title="login First" disabled>Send Message</button></div><span style="color:red;">*Login First</span>
+          </form>
+        </div>
+
+      </div>
+    </section>
+    
 
 </main>
 

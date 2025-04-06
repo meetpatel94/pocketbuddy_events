@@ -21,6 +21,10 @@ public class LoginCheckFilter implements Filter {
 	
 	public LoginCheckFilter() {
 		publicURL.add("/defaultpage");
+		publicURL.add("/musicshow");
+		publicURL.add("/concert");
+		publicURL.add("/dance");
+		publicURL.add("/comedy");
 		publicURL.add("/login");
 		publicURL.add("/signup");
 		publicURL.add("/saveuser");

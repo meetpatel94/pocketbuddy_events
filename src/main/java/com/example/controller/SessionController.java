@@ -203,10 +203,32 @@ public class SessionController {
 	public String home() {
 		return "Home";
 	}
+	
+	@GetMapping("musicshow")
+	public String musicshow() {
+		return "MusicShowPage";
+	}
+	
+	@GetMapping("concert")
+	public String concert() {
+		return "ConcertPage";
+	}
+	
+	@GetMapping("dance")
+	public String dance() {
+		return "DancePage";
+	}
+	
+	@GetMapping("comedy")
+	public String comedy() {
+		return "ComedyPage";
+	}
+	
 	@GetMapping( value = { "/", "defaultpage" } )
 	public String defaultpage() {
 		return "DefaultPage";
 	}
+	
 	
 
 }

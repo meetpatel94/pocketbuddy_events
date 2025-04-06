@@ -97,12 +97,17 @@
               </li>
               <li>
                 <a href="eventshows">
-                  <span class="sub-item">Events</span>
+                  <span class="sub-item">UpComing Events List</span>
                 </a>
               </li>
               <li>
                 <a href="listbuyers">
                   <span class="sub-item">Event Participant Users</span>
+                </a>
+              </li>
+              <li>
+                <a href="commentspage">
+                  <span class="sub-item">Comments Users</span>
                 </a>
               </li>  
             </ul>
@@ -134,12 +139,12 @@
         </li>
 
         <!-- Contact Us Link -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="contactus">
             <i class="fas fa-envelope"></i>
             <p>Contact Us</p>
           </a>
-        </li>
+        </li> -->
 
         <!-- Log Out Link -->
         <li class="nav-item">

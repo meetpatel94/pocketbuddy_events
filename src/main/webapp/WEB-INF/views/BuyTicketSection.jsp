@@ -100,6 +100,17 @@
                 <div class="form-group">
                   <input type="date" class="form-control" name="date" placeholder="" required>
                 </div>
+                
+                <div class="form-group">
+                  <select id="ticket-type" name="event" class="form-control" required >
+                    <option value="standard-access">Music</option>
+                    <option value="pro-access">Dance</option>
+                    <option value="premium-access">Comady</option>
+                    <option value="premium-access">Concerts</option>
+                  </select>
+                </div>
+                
+                
                 <div class="form-group">
                   <select id="ticket-type" name="access" class="form-control" required >
                     <option value="">-- Select Your Ticket Type --</option>

@@ -312,7 +312,7 @@ h1 {
 
 /*hereeee  */
 #intro {
- background: url(../img/intro-bg.jpg) top center;
+ background: url(../img/dance.webp) top center;
 }
 </style>
 </head>
@@ -332,20 +332,12 @@ h1 {
     <!--========================== About Section ============================-->
     <jsp:include page="AboutPage.jsp"></jsp:include>
   
-    <!--======================== Speakers Section ==========================-->
-    <jsp:include page="Speaker.jsp"></jsp:include>
-    
-    <!--======================== Business Seminars Section ==========================-->
-    <jsp:include page="BusinessSeminar.jsp"></jsp:include>
+   <!--======================== Speakers Section ==========================-->
+<%--     <jsp:include page=""></jsp:include> --%>
 
-    <!--======================== UpComing Businesss events Section ==========================-->
-    <jsp:include page="UpComing.jsp"></jsp:include>
-
-    <!--======================== Event Schedule Section ==========================-->
-    <jsp:include page="EventSchedule.jsp"></jsp:include>
-
-    <!--========================== Event Venue Section ============================-->
-    <jsp:include page="EventVenue.jsp"></jsp:include>  
+   <!--======================== Speakers Section ==========================-->
+ <%--    <jsp:include page=""></jsp:include> --%>
+ 
 
     <!--========================== Hotels Section ============================-->
     <%-- <jsp:include page="Hotel.jsp"></jsp:include> --%>

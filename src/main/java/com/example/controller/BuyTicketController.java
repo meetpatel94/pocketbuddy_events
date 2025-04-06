@@ -19,7 +19,7 @@ public class BuyTicketController {
 	BuyTicketRepository repoTicketBuy;
 	
 	@PostMapping("buyticket")
-	public String buyticket( BuyTicketEntity ticketBuyerEntity,Model model) {
+	public String buyticket( BuyTicketEntity ticketBuyerEntity) {
 		
 		repoTicketBuy.save(ticketBuyerEntity);
 		return "Home";

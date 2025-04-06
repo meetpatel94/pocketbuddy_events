@@ -1,0 +1,45 @@
+package com.example.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.entity.CommentEntity;
+import com.example.repository.CommentRepository;
+
+@Controller
+public class CommentController {
+	
+	@Autowired
+	CommentRepository repoComment;
+
+	@GetMapping("comment")
+	public String comment() {
+		return "Home";	
+	}
+	
+	@PostMapping("savecomments")
+	public String savecomments(CommentEntity entityComment) {
+		repoComment.save(entityComment);
+		return "Home";
+	}
+	
+	@GetMapping("commentspage")
+	public String commentspage(Model model) {
+		
+		List<CommentEntity> commentList = repoComment.findAll();
+		model.addAttribute("comments", commentList);
+		
+		return "CommentsPage";
+	}
+	
+	@GetMapping("deletecomments")
+	public String deletecomments(Integer commentUserId) {
+		repoComment.deleteById(commentUserId);
+		return "redirect:/commentspage";
+	}
+}
