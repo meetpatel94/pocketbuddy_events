@@ -239,6 +239,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Date</th>
+                                                    <th>Seats</th>
                                                     <th>Access</th>
                                                    <!--  <th>Action</th> -->
                                                 </tr>
@@ -249,6 +250,7 @@
                                                         <td>${b.firstName }</td>
                                                         <td>${b.email }</td>
                                                         <td>${b.date }</td>
+                                                        <td>${b.seats }</td>
                                                         <td>${b.access }</td>
                                                        <%--  <td class="action-buttons">
                                                             <a href="#" class="edit-btn" title="Edit">

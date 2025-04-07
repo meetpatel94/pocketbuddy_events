@@ -121,6 +121,10 @@
     License: https://bootstrapmade.com/license/
   ======================================================= -->
 <style>
+
+nav ul li a{
+ text-decoration:none !important;
+}
 .logout{
     background-color:#432e543b;
 }
@@ -167,7 +171,7 @@
               <li><a class="dropdown-item" href="musicshow">Music</a></li>
               <li><a class="dropdown-item" href="concert">Concerts</a></li>
               <li><a class="dropdown-item" href="dance">Dances</a></li>
-              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
+              <!-- <li><a class="dropdown-item" href="comedy">Comedy</a></li> -->
             </ul>
           </li>
           <li><a href="#schedule">Schedule</a></li>

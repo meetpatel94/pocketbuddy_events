@@ -309,6 +309,10 @@ h1 {
     height: 100%;
 }
 
+nav ul li a{
+ text-decoration:none !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .shows-grid {
@@ -348,14 +352,14 @@ h1 {
               <li><a class="dropdown-item" href="musicshow">Music</a></li>
               <li><a class="dropdown-item" href="concert">Concerts</a></li>
               <li><a class="dropdown-item" href="dance">Dances</a></li>
-              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
+             <!--  <li><a class="dropdown-item" href="comedy">Comedy</a></li> -->
             </ul>
           </li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#" onclick="openPopup()">Rate Us</a></li>
-          <li class="buy-tickets"><a href="logout" class="logout" style="background-color:#432E54">Log Out</a></li>
+          <li class="buy-tickets"><a href="logout" class="logout" style="background-color:#432E54">LogIn</a></li>
           <li class="buy-tickets"><img src="img/user-img.png" alt="" 
            style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
         </ul>
@@ -401,18 +405,15 @@ h1 {
     <!--========================== F.A.Q Section ============================-->
     <jsp:include page="FAQ.jsp"></jsp:include>
 
-    <!--========================== Subscribe Section ============================-->
-    <jsp:include page="Subscribe.jsp"></jsp:include>
+    <%-- <!--========================== Subscribe Section ============================-->
+    <jsp:include page="Subscribe.jsp"></jsp:include> --%>
     
     <!--========================== BuyTicket Section ============================-->
-      <!--==========================
-      Buy Ticket Section
-    ============================-->
     <section id="buy-tickets" class="section-with-bg wow fadeInUp">
       <div class="container">
 
         <div class="section-header">
-          <h2>Buy Tickets</h2>
+          <h2>Booking Seats</h2>
           <p>Velit consequatur consequatur inventore iste fugit unde omnis eum aut.</p>
         </div>
 
@@ -433,7 +434,7 @@ h1 {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access" disabled>Book Now</button>
                 </div>
               </div>
             </div>
@@ -454,7 +455,7 @@ h1 {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access" disabled>Book Now</button>
                 </div>
               </div>
             </div>
@@ -476,7 +477,7 @@ h1 {
                 </ul>
                 <hr>
                 <div class="text-center">
-                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access" disabled>Buy Now</button>
+                  <button type="button" title="login first" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access" disabled>Book Now</button>
                 </div>
 
               </div>
@@ -491,7 +492,7 @@ h1 {
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" >Buy Tickets</h4>
+              <h4 class="modal-title" >Book Seats</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -513,7 +514,7 @@ h1 {
                   </select>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn">Buy Now</button>
+                  <button type="submit" class="btn">Book Now</button>
                 </div>
               </form>
             </div>

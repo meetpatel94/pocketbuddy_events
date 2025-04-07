@@ -177,7 +177,7 @@
               <span class="interested"><i class="fas fa-user"></i> 215 interested</span>
               <span class="sold">50% sold</span>
             </div>
-            <a href="#buy-tickets" class="book-btn">Book Now</a>
+            <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
           </div>
         </div>
         
@@ -194,7 +194,7 @@
               <span class="interested"><i class="fas fa-user"></i> 532 interested</span>
               <span class="sold">75% sold</span>
             </div>
-            <a href="#buy-tickets" class="book-btn">Book Now</a>
+            <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
           </div>
         </div>
         
@@ -211,7 +211,7 @@
               <span class="interested"><i class="fas fa-user"></i> 890 interested</span>
               <span class="sold">90% sold</span>
             </div>
-            <a href="#buy-tickets" class="book-btn">Book Now</a>
+            <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
           </div>
         </div>
         
@@ -228,7 +228,7 @@
               <span class="interested"><i class="fas fa-user"></i> 320 interested</span>
               <span class="sold">40% sold</span>
             </div>
-            <a href="#buy-tickets" class="book-btn">Book Now</a>
+            <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
           </div>
         </div>
         
@@ -245,7 +245,7 @@
               <span class="interested"><i class="fas fa-user"></i> 180 interested</span>
               <span class="sold">25% sold</span>
             </div>
-            <a href="#buy-tickets" class="book-btn">Book Now</a>
+            <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
           </div>
         </div>
       </div>

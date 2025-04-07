@@ -85,7 +85,7 @@
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#events">
             <i class="fas fa-calendar-alt"></i>
-            <p>Events</p>
+            <p>Events Management</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="events">
@@ -105,11 +105,7 @@
                   <span class="sub-item">Event Participant Users</span>
                 </a>
               </li>
-              <li>
-                <a href="commentspage">
-                  <span class="sub-item">Comments Users</span>
-                </a>
-              </li>  
+                
             </ul>
           </div>
         </li>
@@ -128,6 +124,13 @@
             <i class="fas fa-star"></i>
             <p>Rating Users</p>
           </a>
+        </li>
+        
+        <li class="nav-item">
+           <a href="commentspage">
+            <i class="fas fa-comments"></i>
+            <p>Comments Users</p>
+           </a>
         </li>
 
         <!-- Home Link -->

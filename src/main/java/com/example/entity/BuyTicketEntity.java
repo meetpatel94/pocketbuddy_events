@@ -15,6 +15,7 @@ public class BuyTicketEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer participateUserId;
 //	private Integer userId;
+	private Integer seats;
 	private String firstName;
 	private String email;
 	private String date;
@@ -55,6 +56,12 @@ public class BuyTicketEntity {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public Integer getSeats() {
+		return seats;
+	}
+	public void setSeats(Integer seats) {
+		this.seats = seats;
 	}
 	
 	

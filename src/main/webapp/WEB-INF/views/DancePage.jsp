@@ -333,14 +333,10 @@ h1 {
     <jsp:include page="AboutPage.jsp"></jsp:include>
   
    <!--======================== Speakers Section ==========================-->
-<%--     <jsp:include page=""></jsp:include> --%>
-
-   <!--======================== Speakers Section ==========================-->
- <%--    <jsp:include page=""></jsp:include> --%>
- 
-
-    <!--========================== Hotels Section ============================-->
-    <%-- <jsp:include page="Hotel.jsp"></jsp:include> --%>
+     <jsp:include page="DanceCards.jsp"></jsp:include>
+     
+     <!--======================== Speakers Section ==========================-->
+     <jsp:include page="UpComingDance.jsp"></jsp:include>
 
     <!--========================== Gallery Section ============================-->
     <jsp:include page="Gallery.jsp"></jsp:include>

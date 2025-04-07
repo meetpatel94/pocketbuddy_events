@@ -273,7 +273,7 @@ h1 {
 .book-btn {
     margin-top: auto;
     padding: 10px 15px;
-    background-color: #ff4757;
+    background-color: #432E54 !important;
     color: white !important;
     border: none;
     border-radius: 5px;
@@ -325,7 +325,15 @@ h1 {
     <jsp:include page="RatingPopupPage.jsp"></jsp:include>
     
     <!--========================== Intro Section ============================-->
-    <jsp:include page="Intro.jsp"></jsp:include>
+    <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <h1 class="mb-4 pb-0"><br><span>Music</span>signifies the vibrant energy of the place!</h1>
+      <p class="mb-4 pb-0">10-12 December, Downtown Conference Center, New York</p>
+      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+        data-autoplay="true"></a>
+      <a href="#about" class="about-btn scrollto">About The Event</a>
+    </div>
+  </section>
 
 <main id="main">
   
@@ -338,12 +346,195 @@ h1 {
     <!--======================== Music Shows Section ==========================-->
     <jsp:include page="MusicShows.jsp"></jsp:include>
 
-
     <!--======================== UpComing Music Shows Section ==========================-->
     <jsp:include page="UpComingMusicEvents.jsp"></jsp:include>
 
     <!--======================== Event Schedule Section ==========================-->
-    <jsp:include page="EventSchedule.jsp"></jsp:include>
+
+<section id="schedule" class="section-with-bg">
+  <div class="container wow fadeInUp">
+    <div class="section-header">
+      <h2>Music Festival Schedule</h2>
+      <p>Check out the artist lineup for each day</p>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#day-1" role="tab" data-toggle="tab">Day 1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#day-2" role="tab" data-toggle="tab">Day 2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#day-3" role="tab" data-toggle="tab">Day 3</a>
+      </li>
+    </ul>
+
+    <h3 class="sub-heading">Experience non-stop music, lights, and energy over three unforgettable days.</h3>
+
+    <div class="tab-content row justify-content-center">
+
+      <!-- Day 1 -->
+      <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-1">
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>03:00 PM</time></div>
+          <div class="col-md-10">
+            <h4>Gates Open</h4>
+            <p>Welcome to Day 1 of the music fest! Get your wristbands and merch.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>04:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/download.jpg" alt="DJ Nova">
+            </div>
+            <h4>Opening Set <span>DJ Nova</span></h4>
+            <p>Setting the vibe with chill electronic beats and house mixes.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>06:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images1.jpg" alt="Luna Groove">
+            </div>
+            <h4>Live Band <span>Luna Groove</span></h4>
+            <p>Indie fusion band bringing you soul, funk, and a lot of rhythm.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>08:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images2.jpg" alt="MC Blaze">
+            </div>
+            <h4>Rap Showcase <span>MC Blaze</span></h4>
+            <p>High-energy hip-hop with powerful verses and crowd interaction.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>10:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images3.jpg" alt="DJ Sonic">
+            </div>
+            <h4>Headliner <span>DJ Sonic</span></h4>
+            <p>EDM and trance takeover with massive visuals and laser show.</p>
+          </div>
+        </div>
+      </div>
+      <!-- End Day 1 -->
+
+      <!-- Day 2 -->
+      <div role="tabpanel" class="col-lg-9 tab-pane fade" id="day-2">
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>03:00 PM</time></div>
+          <div class="col-md-10">
+            <h4>Gates Open</h4>
+            <p>Grab a drink, find your crew, and get ready for Day 2!</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>04:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images4.jpg" alt="Synthwave Saints">
+            </div>
+            <h4>Retro Set <span>Synthwave Saints</span></h4>
+            <p>Take a ride through nostalgic 80s synths and vaporwave vibes.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>06:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images5.jpg" alt="Aurora Vox">
+            </div>
+            <h4>Vocal Performance <span>Aurora Vox</span></h4>
+            <p>Powerful solo act with stunning vocals and visual storytelling.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>08:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images6.jpg" alt="The Beatroots">
+            </div>
+            <h4>Funk & Jazz Fusion <span>The Beatroots</span></h4>
+            <p>Get groovy with a live mix of funk, jazz, and dance tunes.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>10:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/images7.jpg" alt="DJ Pulse">
+            </div>
+            <h4>Night Rave <span>DJ Pulse</span></h4>
+            <p>Non-stop dance tracks under the stars with light shows and fireworks.</p>
+          </div>
+        </div>
+      </div>
+      <!-- End Day 2 -->
+
+      <!-- Day 3 -->
+      <div role="tabpanel" class="col-lg-9 tab-pane fade" id="day-3">
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>03:00 PM</time></div>
+          <div class="col-md-10">
+            <h4>Gates Open</h4>
+            <p>The final day—let’s go out with a bang!</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>04:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/hiphop.webp" alt="Skyline Harmony">
+            </div>
+            <h4>Chill Pop <span>Skyline Harmony</span></h4>
+            <p>Smooth vocals and dreamy melodies to set the evening tone.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>06:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="aset/bassover.jpg" alt="Roxxie Raze">
+            </div>
+            <h4>Rock Set <span>Roxxie Raze</span></h4>
+            <p>High-voltage rock n’ roll with crowd-surfing energy.</p>
+          </div>
+        </div>
+
+        <div class="row schedule-item">
+          <div class="col-md-2"><time>08:00 PM</time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="img/dance.webp" alt="DJ Neonix">
+            </div>
+            <h4>Finale Set <span>DJ Neonix</span></h4>
+            <p>Massive EDM finale with pyrotechnics, lasers, and surprises.</p>
+          </div>
+        </div>
+      </div>
+      <!-- End Day 3 -->
+
+    </div>
+  </div>
+</section>
+    
 
     <!--========================== Event Venue Section ============================-->
     <jsp:include page="EventVenue.jsp"></jsp:include>  

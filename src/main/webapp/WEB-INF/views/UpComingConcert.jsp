@@ -142,7 +142,7 @@
       background: var(--primary-color);
       color: white;
       border: none;
-      padding: 8px 15px;
+      padding: 3px 7px;
       border-radius: 5px;
       transition: all 0.3s;
       white-space: nowrap;
@@ -210,6 +210,13 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     
+    .no-results {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      display: none;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .table-container {
@@ -266,35 +273,39 @@
         <div class="col-md-3">
           <label for="date-filter" class="form-label">Filter by Date</label>
           <select id="date-filter" class="form-select">
-            <option selected>All Dates</option>
-            <option>This Week</option>
-            <option>Next Week</option>
-            <option>This Month</option>
+            <option value="all">All Dates</option>
+            <option value="all">Today</option>
+            <option value="this-week">This Week</option>
+            <option value="next-week">Next Week</option>
+            <option value="this-month">This Month</option>
           </select>
         </div>
         <div class="col-md-3">
           <label for="genre-filter" class="form-label">Filter by Genre</label>
           <select id="genre-filter" class="form-select">
-            <option selected>All Genres</option>
-            <option>Rock</option>
-            <option>Bollywood</option>
-            <option>EDM</option>
-            <option>Classical</option>
-            <option>Indie</option>
+            <option value="all">All Genres</option>
+            <option value="rock">Rock</option>
+            <option value="bollywood">Bollywood</option>
+            <option value="edm">EDM</option>
+            <option value="classical">Classical</option>
+            <option value="indie">Indie</option>
+            <option value="jazz">Jazz</option>
+            <option value="pop">Pop</option>
+            <option value="country">Country</option>
           </select>
         </div>
         <div class="col-md-3">
           <label for="price-filter" class="form-label">Filter by Price</label>
           <select id="price-filter" class="form-select">
-            <option selected>All Prices</option>
-            <option>Under $30</option>
-            <option>$30 - $50</option>
-            <option>$50 - $100</option>
-            <option>Over $100</option>
+            <option value="all">All Prices</option>
+            <option value="under-30">Under $30</option>
+            <option value="30-50">$30 - $50</option>
+            <option value="50-100">$50 - $100</option>
+            <option value="over-100">Over $100</option>
           </select>
         </div>
         <div class="col-md-3 d-flex align-items-end">
-          <button class="btn btn-primary w-100">Apply Filters</button>
+          <button id="reset-filters" class="btn btn-outline-secondary w-100">Reset Filters</button>
         </div>
       </div>
       
@@ -313,9 +324,9 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="concert-table-body">
             <!-- Concert 1 -->
-            <tr>
+            <tr data-genre="rock" data-date="2023-04-18" data-price="49">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -353,12 +364,12 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 2 -->
-            <tr>
+            <tr data-genre="bollywood" data-date="2023-04-22" data-price="75">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -396,12 +407,12 @@
                 <span class="status-badge status-selling-fast">Selling Fast</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                 <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 3 -->
-            <tr>
+            <tr data-genre="edm" data-date="2023-04-25" data-price="35">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -439,12 +450,12 @@
                 <span class="status-badge status-selling-fast">Selling Fast</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                 <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 4 -->
-            <tr>
+            <tr data-genre="classical" data-date="2023-04-28" data-price="60">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -482,12 +493,12 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                 <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 5 -->
-            <tr>
+            <tr data-genre="indie" data-date="2023-04-30" data-price="45">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -525,12 +536,12 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 6 -->
-            <tr>
+            <tr data-genre="jazz" data-date="2023-05-02" data-price="55">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -568,12 +579,12 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                 <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 7 -->
-            <tr>
+            <tr data-genre="pop" data-date="2023-05-05" data-price="120">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -611,12 +622,12 @@
                 <span class="status-badge status-selling-fast">Selling Fast</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                 <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 8 -->
-            <tr>
+            <tr data-genre="edm" data-date="2023-05-08" data-price="65">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -654,12 +665,12 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+              <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 9 -->
-            <tr>
+            <tr data-genre="rock" data-date="2023-05-12" data-price="70">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -697,12 +708,12 @@
                 <span class="status-badge status-selling-fast">Selling Fast</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
             
             <!-- Concert 10 -->
-            <tr>
+            <tr data-genre="country" data-date="2023-05-15" data-price="40">
               <td data-label="Event">
                 <div class="d-flex align-items-center">
                   <img src="https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
@@ -740,11 +751,16 @@
                 <span class="status-badge status-available">Available</span>
               </td>
               <td data-label="Action">
-                <button class="book-btn">Book Now</button>
+                <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
               </td>
             </tr>
           </tbody>
         </table>
+        <div id="no-results" class="no-results">
+          <i class="fas fa-search fa-3x mb-3"></i>
+          <h4>No concerts match your filters</h4>
+          <p>Try adjusting your search criteria</p>
+        </div>
       </div>
     </div>
   </div>
@@ -755,17 +771,114 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
   
   <script>
-    // Simple filter functionality (would need enhancement for production)
     document.addEventListener('DOMContentLoaded', function() {
-      const bookButtons = document.querySelectorAll('.book-btn');
+      // Get all filter elements
+      const dateFilter = document.getElementById('date-filter');
+      const genreFilter = document.getElementById('genre-filter');
+      const priceFilter = document.getElementById('price-filter');
+      const resetButton = document.getElementById('reset-filters');
+      const concertRows = document.querySelectorAll('#concert-table-body tr');
+      const noResults = document.getElementById('no-results');
       
+      // Add event listeners to filters
+      dateFilter.addEventListener('change', filterConcerts);
+      genreFilter.addEventListener('change', filterConcerts);
+      priceFilter.addEventListener('change', filterConcerts);
+      resetButton.addEventListener('click', resetFilters);
+      
+      // Add event listeners to book buttons
+      const bookButtons = document.querySelectorAll('.book-btn');
       bookButtons.forEach(button => {
         button.addEventListener('click', function() {
           const eventName = this.closest('tr').querySelector('.concert-name').textContent;
-          alert(`Booking initiated for: ${eventName}`);
-          // In a real app, this would redirect to a booking page or open a modal
+/*           alert(`Booking initiated for: ${eventName}`); */
         });
       });
+      
+      // Filter concerts based on selected filters
+      function filterConcerts() {
+        const selectedDate = dateFilter.value;
+        const selectedGenre = genreFilter.value;
+        const selectedPrice = priceFilter.value;
+        
+        let visibleCount = 0;
+        
+        concertRows.forEach(row => {
+          const rowDate = row.getAttribute('data-date');
+          const rowGenre = row.getAttribute('data-genre');
+          const rowPrice = parseFloat(row.getAttribute('data-price'));
+          
+          // Check if row matches all selected filters
+          const dateMatch = selectedDate === 'all' || checkDateMatch(selectedDate, rowDate);
+          const genreMatch = selectedGenre === 'all' || rowGenre === selectedGenre;
+          const priceMatch = selectedPrice === 'all' || checkPriceMatch(selectedPrice, rowPrice);
+          
+          if (dateMatch && genreMatch && priceMatch) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+        
+        // Show no results message if no concerts match filters
+        if (visibleCount === 0) {
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+        }
+      }
+      
+      // Check if row date matches selected date filter
+      function checkDateMatch(selectedDate, rowDate) {
+        const today = new Date();
+        const concertDate = new Date(rowDate);
+        
+        switch(selectedDate) {
+          case 'this-week':
+            const nextWeek = new Date();
+            nextWeek.setDate(today.getDate() + 7);
+            return concertDate >= today && concertDate <= nextWeek;
+          case 'next-week':
+            const nextWeekStart = new Date();
+            nextWeekStart.setDate(today.getDate() + 7);
+            const nextWeekEnd = new Date();
+            nextWeekEnd.setDate(today.getDate() + 14);
+            return concertDate >= nextWeekStart && concertDate <= nextWeekEnd;
+          case 'this-month':
+            const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            return concertDate >= today && concertDate <= endOfMonth;
+          default:
+            return true;
+        }
+      }
+      
+      // Check if row price matches selected price filter
+      function checkPriceMatch(selectedPrice, rowPrice) {
+        switch(selectedPrice) {
+          case 'under-30':
+            return rowPrice < 30;
+          case '30-50':
+            return rowPrice >= 30 && rowPrice <= 50;
+          case '50-100':
+            return rowPrice > 50 && rowPrice <= 100;
+          case 'over-100':
+            return rowPrice > 100;
+          default:
+            return true;
+        }
+      }
+      
+      // Reset all filters
+      function resetFilters() {
+        dateFilter.value = 'all';
+        genreFilter.value = 'all';
+        priceFilter.value = 'all';
+        filterConcerts();
+      }
+      
+      // Initial filter on page load
+      filterConcerts();
     });
   </script>
 </body>

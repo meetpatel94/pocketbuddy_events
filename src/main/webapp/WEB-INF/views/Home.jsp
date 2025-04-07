@@ -309,6 +309,9 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+/* css */
+
+
 
 /*hereeee  */
 #intro {
@@ -359,8 +362,8 @@ h1 {
     <!--========================== F.A.Q Section ============================-->
     <jsp:include page="FAQ.jsp"></jsp:include>
 
-    <!--========================== Subscribe Section ============================-->
-    <jsp:include page="Subscribe.jsp"></jsp:include>
+    <%-- <!--========================== Subscribe Section ============================-->
+    <jsp:include page="Subscribe.jsp"></jsp:include> --%>
     
     <!--========================== BuyTicket Section ============================-->
     <jsp:include page="BuyTicketSection.jsp"></jsp:include>

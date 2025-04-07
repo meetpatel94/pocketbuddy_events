@@ -333,7 +333,7 @@ h1 {
     <jsp:include page="AboutPage.jsp"></jsp:include>
   
     <!--======================== Speakers Section ==========================-->
-    <jsp:include page="Speaker.jsp"></jsp:include>
+    <jsp:include page="ConcertSpeaker.jsp"></jsp:include>
     
    <!--======================== Concert Show Section ==========================-->
     <jsp:include page="ConcertShow.jsp"></jsp:include>

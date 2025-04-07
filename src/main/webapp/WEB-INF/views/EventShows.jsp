@@ -35,177 +35,257 @@
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link rel="stylesheet" href="aset/assets/css/demo.css" />
 <style>
- main{
-    margin-left:20px;
- }
- .user-box .u-text {
-    padding: 0 5px;
+:root {
+  --primary-color: #432E54;
+  --primary-light: #5D3D7A;
+  --secondary-color: #FF6B6B;
+  --text-color: #333333;
+  --light-bg: #F8F9FA;
+  --border-color: #E0E0E0;
+}
+
+main {
+  margin-left: 20px;
+}
+
+.user-box .u-text {
+  padding: 0 5px;
 }
 
 /* Hide the notification popup */
 [data-notify="container"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
-/* Prevent animation */
-.animated, .fadeInDown {
-    animation: none !important;
-}
+/* Events Container */
 .events-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  font-family: 'Public Sans', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
+.section-header {
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.city-selector {
-    margin: 20px 0;
-    text-align: center;
+.section-header h2 {
+  color: var(--primary-color);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.city-selector select {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    background-color: white;
-    cursor: pointer;
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
+.filter-controls select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 200px;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+}
+
+.filter-controls select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(67, 46, 84, 0.2);
+}
+
+/* Events Table */
 .events-table {
-    overflow-x: auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    margin-top: 20px;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  margin-top: 20px;
+  background: white;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th {
-    background-color: #ff4757;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    font-weight: 600;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
 }
 
 td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
-    color: #555;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 tr:hover {
-    background-color: #fff9f9;
+  background-color: rgba(67, 46, 84, 0.03);
+}
+
+/* Action Buttons */
+.action-btns {
+  display: flex;
+  gap: 10px;
 }
 
 .book-btn {
-    padding: 8px 15px;
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
+  padding: 8px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .book-btn:hover {
-    background-color: #ff6b81;
-    transform: translateY(-2px);
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Style for canceled events */
 .canceled {
-    text-decoration: line-through;
-    color: #999 !important;
+  text-decoration: line-through;
+  color: #999 !important;
+  background-color: rgba(255, 0, 0, 0.03);
 }
 
 .canceled-btn {
-    background-color: #666 !important;
+  background-color: #666 !important;
+}
+
+/* No events message */
+.no-events {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+  font-style: italic;
 }
 
 /* Special button for TBA venue */
 td:nth-child(3):contains("to be announced") + td .book-btn {
-    background-color: #666;
+  background-color: #666;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    th, td {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-    
-    .book-btn {
-        padding: 6px 10px;
-        font-size: 13px;
-    }
+  .filter-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+    font-size: 14px;
+  }
+  
+  .book-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
-    table {
-        display: block;
-    }
-    
-    th, td {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    th {
-        display: none;
-    }
-    
-    tr {
-        margin-bottom: 15px;
-        display: block;
-        border: 1px solid #f0f0f0;
-        border-radius: 8px;
-    }
-    
-    td {
-        border-bottom: none;
-        padding: 10px;
-    }
-    
-    td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        display: inline-block;
-        width: 100px;
-        color: #333;
-    }
-    
-    .book-btn {
-        display: block;
-        margin-top: 10px;
-    }
+  table {
+    display: block;
+  }
+  
+  th, td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  th {
+    display: none;
+  }
+  
+  tr {
+    margin-bottom: 15px;
+    display: block;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+  
+  td {
+    border-bottom: none;
+    padding: 10px;
+  }
+  
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    color: var(--primary-color);
+  }
+  
+  .action-btns {
+    justify-content: center;
+    margin-top: 10px;
+  }
 }
 
 /* Initially hide all city tables except the default one */
 .city-events {
-    display: none;
+  display: none;
 }
 
 .city-events.active {
-    display: block;
+  display: block;
+}
+
+/* Event type specific colors */
+.music-event {
+  border-left: 4px solid #6C5CE7;
+}
+
+.concert-event {
+  border-left: 4px solid #00B894;
+}
+
+.dance-event {
+  border-left: 4px solid #FD79A8;
+}
+
+.business-event {
+  border-left: 4px solid #FDCB6E;
+}
+
+/* Others category styling */
+.others-section {
+  margin-top: 40px;
+  border-top: 1px dashed #ccc;
+  padding-top: 20px;
+}
+
+.others-section h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-align: center;
 }
 </style>
 </head>
@@ -223,20 +303,29 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
    <div class="events-container">
    <div class="container wow fadeInUp">
         <div class="section-header">
-          <h2>Upcoming Music Events</h2>
-          <div class="city-selector">
+          <h2>Event Management Dashboard</h2>
+          <div class="filter-controls">
+              <select id="eventTypeDropdown" onchange="filterEvents()">
+                  <option value="all">All Event Types</option>
+                  <option value="music">Music</option>
+                  <option value="concerts">Concerts</option>
+                  <option value="dance">Dance</option>
+                  <option value="business">Business</option>
+              </select>
               <select id="cityDropdown" onchange="changeCity()">
+                  <option value="all">All Cities</option>
                   <option value="ahmedabad">Ahmedabad</option>
                   <option value="mumbai">Mumbai</option>
                   <option value="delhi">Delhi</option>
                   <option value="bangalore">Bangalore</option>
                   <option value="hyderabad">Hyderabad</option>
+                  <option value="others">Other Cities</option>
               </select>
           </div>
         </div>
     
-    <!-- Ahmedabad Events -->
-    <div id="ahmedabad-events" class="city-events active">
+    <!-- All Events (default view) -->
+    <div id="all-events" class="city-events active">
         <div class="events-table">
             <table id="eventsTable">
                 <thead>
@@ -244,203 +333,135 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
                         <th>Date</th>
                         <th>Event</th>
                         <th>Venue</th>
+                        <th>City</th>
+                        <th>Type</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- Ahmedabad Events -->
+                    <tr class="music-event" data-city="ahmedabad">
                         <td>12 Apr 2025</td>
                         <td>Vibes of Virasat with Rishikesh Gadhvi</td>
                         <td>Dinesh Hall, Ahmedabad</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Ahmedabad</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
+                    <tr class="music-event" data-city="ahmedabad">
                         <td>06 Apr 2025</td>
                         <td>Chalo Malaysia HipHop Jam</td>
                         <td>Good Place Cafe, Ahmedabad</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Ahmedabad</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
+                    <tr class="concert-event" data-city="ahmedabad">
                         <td>05 Apr 2025</td>
                         <td>Open Sky Sound Bath Experience</td>
                         <td>Aarambh Cafe, Ahmedabad</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Ahmedabad</td>
+                        <td>Concert</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <!-- 1. Rock Concert -->
-<tr>
-    <td>15 Apr 2025</td>
-    <td>Indian Rock Revolution ft. Parikrama</td>
-    <td>Hard Rock Cafe, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 2. Sufi Night -->
-<tr>
-    <td>18 Apr 2025</td>
-    <td>Sufi Soul with Kailash Kher</td>
-    <td>Rajpath Club, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 3. DJ Night -->
-<tr>
-    <td>20 Apr 2025</td>
-    <td>Sunburn Arena with DJ Nucleya</td>
-    <td>Karnavati Club, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 4. Ghazal Evening -->
-<tr>
-    <td>22 Apr 2025</td>
-    <td>Ghazal Night with Talat Aziz</td>
-    <td>Gulmohar Park, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 5. Indie Music Festival -->
-<tr>
-    <td>25 Apr 2025</td>
-    <td>IndieFest: Emerging Artists Showcase</td>
-    <td>Amdavad ni Gufa, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 6. Bollywood Retro Night -->
-<tr>
-    <td>28 Apr 2025</td>
-    <td>Bollywood Rewind: 90s Hits Night</td>
-    <td>Town Hall, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Mumbai Events -->
-    <div id="mumbai-events" class="city-events">
-        <div class="events-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                        <th>Venue</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                    
+                    <!-- Mumbai Events -->
+                    <tr class="music-event" data-city="mumbai">
                         <td>15 Apr 2025</td>
                         <td>Bollywood Night with Arijit Singh</td>
                         <td>Jio World Garden, Mumbai</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Mumbai</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
+                    <tr class="dance-event" data-city="mumbai">
                         <td>18 Apr 2025</td>
                         <td>Mumbai Electronic Dance Festival</td>
                         <td>Nesco Center, Mumbai</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Mumbai</td>
+                        <td>Dance</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Delhi Events -->
-    <div id="delhi-events" class="city-events">
-        <div class="events-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                        <th>Venue</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                    
+                    <!-- Delhi Events -->
+                    <tr class="concert-event" data-city="delhi">
                         <td>20 Apr 2025</td>
                         <td>Classical Night with Zakir Hussain</td>
                         <td>India Habitat Centre, Delhi</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Delhi</td>
+                        <td>Concert</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
+                    <tr class="business-event" data-city="delhi">
                         <td>22 Apr 2025</td>
-                        <td>Delhi Jazz Festival</td>
-                        <td>Garden of Five Senses, Delhi</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Delhi Tech Summit</td>
+                        <td>Pragati Maidan, Delhi</td>
+                        <td>Delhi</td>
+                        <td>Business</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <!-- 1. Jazz Night -->
-<tr>
-    <td>30 Apr 2025</td>
-    <td>Ahmedabad Jazz Festival ft. Louiz Banks</td>
-    <td>Natrani Theatre, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 2. Folk Fusion Concert -->
-<tr>
-    <td>02 May 2025</td>
-    <td>Gujarati Folk Fusion with Kirtidan Gadhvi</td>
-    <td>Sabarmati Riverfront, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 3. Metal Show -->
-<tr>
-    <td>05 May 2025</td>
-    <td>Extreme Metal Night: Bhayanak Maut</td>
-    <td>Hole in the Wall Cafe, Ahmedabad</td>
-    <td><button class="book-btn" style="background-color:#333" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-
-<!-- 4. Classical Fusion -->
-<tr>
-    <td>08 May 2025</td>
-    <td>Shankar-Ehsaan-Loy Live in Concert</td>
-    <td>GMDC Ground, Ahmedabad</td>
-    <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
-</tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Bangalore Events -->
-    <div id="bangalore-events" class="city-events">
-        <div class="events-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                        <th>Venue</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                    
+                    <!-- Bangalore Events -->
+                    <tr class="dance-event" data-city="bangalore">
                         <td>25 Apr 2025</td>
                         <td>Bangalore EDM Carnival</td>
                         <td>Palace Grounds, Bangalore</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Bangalore</td>
+                        <td>Dance</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
+                    <tr class="business-event" data-city="bangalore">
                         <td>28 Apr 2025</td>
-                        <td>Indie Music Festival</td>
+                        <td>Startup Investor Meet</td>
                         <td>UB City, Bangalore</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                        <td>Bangalore</td>
+                        <td>Business</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    </tr>
+                    
+                    <!-- Hyderabad Events -->
+                    <tr class="concert-event" data-city="hyderabad">
+                        <td>30 Apr 2025</td>
+                        <td>Hyderabad Rock Festival</td>
+                        <td>Hitex Exhibition Center, Hyderabad</td>
+                        <td>Hyderabad</td>
+                        <td>Concert</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    </tr>
+                    <tr class="music-event" data-city="hyderabad">
+                        <td>02 May 2025</td>
+                        <td>Ghazal Night with Pankaj Udhas</td>
+                        <td>Shilpakala Vedika, Hyderabad</td>
+                        <td>Hyderabad</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    </tr>
+                    
+                    <!-- Other Cities Events -->
+                    <tr class="business-event" data-city="chennai">
+                        <td>10 May 2025</td>
+                        <td>Chennai Business Conference</td>
+                        <td>Taj Coromandel, Chennai</td>
+                        <td>Chennai</td>
+                        <td>Business</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    </tr>
+                    <tr class="music-event" data-city="kolkata">
+                        <td>15 May 2025</td>
+                        <td>Kolkata Classical Music Festival</td>
+                        <td>Science City Auditorium, Kolkata</td>
+                        <td>Kolkata</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    
-    <!-- Hyderabad Events -->
-    <div id="hyderabad-events" class="city-events">
+
+    <!-- Others Section -->
+    <div class="others-section" id="others-events" style="display: none;">
+        <h3>Events in Other Cities</h3>
         <div class="events-table">
             <table>
                 <thead>
@@ -448,21 +469,35 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
                         <th>Date</th>
                         <th>Event</th>
                         <th>Venue</th>
+                        <th>City</th>
+                        <th>Type</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>30 Apr 2025</td>
-                        <td>Hyderabad Rock Festival</td>
-                        <td>Hitex Exhibition Center, Hyderabad</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    <tr class="business-event">
+                        <td>10 May 2025</td>
+                        <td>Chennai Business Conference</td>
+                        <td>Taj Coromandel, Chennai</td>
+                        <td>Chennai</td>
+                        <td>Business</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
-                    <tr>
-                        <td>02 May 2025</td>
-                        <td>Ghazal Night with Pankaj Udhas</td>
-                        <td>Shilpakala Vedika, Hyderabad</td>
-                        <td><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    <tr class="music-event">
+                        <td>15 May 2025</td>
+                        <td>Kolkata Classical Music Festival</td>
+                        <td>Science City Auditorium, Kolkata</td>
+                        <td>Kolkata</td>
+                        <td>Music</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
+                    </tr>
+                    <tr class="dance-event">
+                        <td>20 May 2025</td>
+                        <td>Pune Salsa Festival</td>
+                        <td>JW Marriott, Pune</td>
+                        <td>Pune</td>
+                        <td>Dance</td>
+                        <td class="action-btns"><button class="book-btn" onclick="cancelEvent(this)">Cancel</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -481,7 +516,7 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
    document.addEventListener('DOMContentLoaded', function() {
        // Add data labels for mobile view
        if (window.innerWidth <= 480) {
-           const headers = ['Date', 'Event', 'Venue', 'Action'];
+           const headers = ['Date', 'Event', 'Venue', 'City', 'Type', 'Action'];
            const cells = document.querySelectorAll('td');
            
            cells.forEach((cell, index) => {
@@ -489,6 +524,9 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
                cell.setAttribute('data-label', headers[headerIndex]);
            });
        }
+       
+       // Initialize the view
+       filterEvents();
    });
    
    function cancelEvent(button) {
@@ -511,13 +549,74 @@ td:nth-child(3):contains("to be announced") + td .book-btn {
    function changeCity() {
        const selectedCity = document.getElementById('cityDropdown').value;
        
-       // Hide all city event tables
-       document.querySelectorAll('.city-events').forEach(table => {
-           table.classList.remove('active');
+       if (selectedCity === 'others') {
+           document.getElementById('all-events').classList.remove('active');
+           document.getElementById('others-events').style.display = 'block';
+       } else {
+           document.getElementById('others-events').style.display = 'none';
+           document.getElementById('all-events').classList.add('active');
+       }
+       
+       // Apply filters
+       filterEvents();
+   }
+   
+   function filterEvents() {
+       const eventType = document.getElementById('eventTypeDropdown').value;
+       const city = document.getElementById('cityDropdown').value;
+       const tableBody = document.querySelector('#all-events tbody');
+       const othersTableBody = document.querySelector('#others-events tbody');
+       
+       // Filter main table
+       const rows = tableBody.querySelectorAll('tr');
+       let hasVisibleRows = false;
+       
+       rows.forEach(row => {
+           const rowCity = row.getAttribute('data-city');
+           const isEventTypeMatch = eventType === 'all' || row.classList.contains(eventType + '-event');
+           const isCityMatch = city === 'all' || city === 'others' || rowCity === city;
+           
+           if (isEventTypeMatch && isCityMatch) {
+               row.style.display = '';
+               hasVisibleRows = true;
+           } else {
+               row.style.display = 'none';
+           }
        });
        
-       // Show the selected city's events
-       document.getElementById(selectedCity + '-events').classList.add('active');
+       // Filter others table
+       if (city === 'others') {
+           const othersRows = othersTableBody.querySelectorAll('tr');
+           let hasVisibleOthers = false;
+           
+           othersRows.forEach(row => {
+               const isEventTypeMatch = eventType === 'all' || row.classList.contains(eventType + '-event');
+               
+               if (isEventTypeMatch) {
+                   row.style.display = '';
+                   hasVisibleOthers = true;
+               } else {
+                   row.style.display = 'none';
+               }
+           });
+           
+           // Show/hide others section based on matches
+           document.getElementById('others-events').style.display = hasVisibleOthers ? 'block' : 'none';
+       }
+       
+       // Show no events message if no matches
+       const noEventsMsg = document.getElementById('no-events-msg');
+       if (!hasVisibleRows && city !== 'others') {
+           if (!noEventsMsg) {
+               const msg = document.createElement('div');
+               msg.id = 'no-events-msg';
+               msg.className = 'no-events';
+               msg.textContent = 'No events found matching your criteria';
+               document.querySelector('.events-container').appendChild(msg);
+           }
+       } else if (noEventsMsg) {
+           noEventsMsg.remove();
+       }
    }
    </script>
 

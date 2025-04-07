@@ -93,7 +93,7 @@
                         <h3>YOUNG BALLET ROCK</h3>
                         <p class="artist">Special Evening Performance</p>
                         <p class="venue-date">Karnavati Club | 14 APR</p>
- <a href="#buy-tickets"><button class="book-btn">Book Now</button></a>
+                       <a href="#buy-tickets"><button class="book-btn">Book Now</button></a>
                     </div>
                 </div>
             </div>
