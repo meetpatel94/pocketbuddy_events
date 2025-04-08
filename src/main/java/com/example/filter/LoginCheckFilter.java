@@ -23,6 +23,15 @@ public class LoginCheckFilter implements Filter {
 		publicURL.add("/defaultpage");
 		publicURL.add("/musicshow");
 		publicURL.add("/concert");
+		
+		//cities
+		publicURL.add("/ahemdabad");
+		publicURL.add("/vadodara");
+		publicURL.add("/navsari");
+		publicURL.add("/ghandhinagar");
+		publicURL.add("/surat");
+		
+		
 		publicURL.add("/dance");
 		publicURL.add("/comedy");
 		publicURL.add("/login");

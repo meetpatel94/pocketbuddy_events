@@ -1,162 +1,4 @@
-<!--   
-    <section id="buy-tickets" class="section-with-bg wow fadeInUp">
-      <div class="container">
-
-        <div class="section-header">
-          <h2>Booking Seats</h2>
-          <p>Velit consequatur consequatur inventore iste fugit unde omnis eum aut.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card mb-5 mb-lg-0">
-              <div class="card-body">
-                <h5 class="card-title text-muted text-uppercase text-center">Standard Access</h5>
-                <h6 class="card-price text-center">$150</h6>
-                <hr>
-                <ul class="fa-ul">
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
-                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Community Access</li>
-                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
-                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
-                </ul>
-                <hr>
-                <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access">Book Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card mb-5 mb-lg-0">
-              <div class="card-body">
-                <h5 class="card-title text-muted text-uppercase text-center">Pro Access</h5>
-                <h6 class="card-price text-center">$250</h6>
-                <hr>
-                <ul class="fa-ul">
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
-                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
-                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
-                </ul>
-                <hr>
-                <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access">Book Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          Pro Tier
-          <div class="col-lg-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-muted text-uppercase text-center">Premium Access</h5>
-                <h6 class="card-price text-center">$350</h6>
-                <hr>
-                <ul class="fa-ul">
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Workshop Access</li>
-                  <li><span class="fa-li"><i class="fa fa-check"></i></span>After Party</li>
-                </ul>
-                <hr>
-                <div class="text-center">
-                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      Modal Order Form
-      <div id="buy-ticket-modal" class="modal fade">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h4 class="modal-title">Book Your Tickets</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body p-4">
-        <form method="POST" action="buyticket">
-          Personal Information Section
-          <div class="form-section mb-4">
-            <h5 class="section-title mb-3">Personal Information</h5>
-            <div class="form-group">
-              <label for="firstName">Full Name</label>
-              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-          </div>
-          
-          Event Details Section
-          <div class="form-section mb-4">
-            <h5 class="section-title mb-3">Event Details</h5>
-            <div class="form-group">
-              <label for="date">Event Date</label>
-              <input type="date" class="form-control" id="date" name="date" required>
-            </div>
-            <div class="form-group">
-              <label for="event">Event Type</label>
-              <select id="event" name="event" class="form-control" required>
-                <option value="">-- Select Event --</option>
-                <option value="music">Music</option>
-                <option value="dance">Dance</option>
-                <option value="comedy">Comedy</option>
-                <option value="concerts">Concerts</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="seats">Number of Tickets</label>
-              <input type="number" class="form-control" id="seats" name="seats" min="1" max="10" required>
-            </div>
-          </div>
-          
-          Ticket Type Section
-          <div class="form-section mb-4">
-            <h5 class="section-title mb-3">Ticket Options</h5>
-            <div class="form-group">
-              <label for="access">Ticket Type</label>
-              <select id="access" name="access" class="form-control" required>
-                <option value="">-- Select Ticket Type --</option>
-                <option value="standard-access">Standard Access ($50)</option>
-                <option value="pro-access">Pro Access ($75)</option>
-                <option value="premium-access">Premium Access ($100)</option>
-              </select>
-            </div>
-          </div>
-          
-          Submit Button
-          <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
-              <i class="fas fa-ticket-alt mr-2"></i> Confirm Booking
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>/.modal
-
-    </section> -->
-    
-    
-    
-    <!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -340,7 +182,7 @@
               </div>
             </div>
           </div>
-          <!-- Pro Tier -->
+          Pro Tier
           <div class="col-lg-4">
             <div class="card">
               <div class="card-body">
@@ -378,7 +220,7 @@
       
       <div class="modal-body p-4">
         <form method="POST" action="buyticket">
-          <!-- Personal Information Section -->
+          Personal Information Section
           <div class="form-section mb-4">
             <h5 class="section-title mb-3">Personal Information</h5>
             <div class="form-group">
@@ -391,7 +233,7 @@
             </div>
           </div>
           
-          <!-- Event Details Section -->
+          Event Details Section
           <div class="form-section mb-4">
             <h5 class="section-title mb-3">Event Details</h5>
             <div class="form-group">
@@ -414,7 +256,7 @@
             </div>
           </div>
           
-          <!-- Ticket Type Section -->
+          Ticket Type Section
           <div class="form-section mb-4">
             <h5 class="section-title mb-3">Ticket Options</h5>
             <div class="form-group">
@@ -428,7 +270,7 @@
             </div>
           </div>
           
-          <!-- Submit Button -->
+          Submit Button
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
               <i class="fas fa-ticket-alt mr-2"></i> Confirm Booking
@@ -441,4 +283,4 @@
 </div>
 </section>
 </body>
-</html>
+</html> -->

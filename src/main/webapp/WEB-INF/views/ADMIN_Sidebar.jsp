@@ -91,10 +91,17 @@
           <div class="collapse" id="events">
             <ul class="nav nav-collapse">
               <li>
-                <a href="#">
-                  <span class="sub-item">Event Speakers</span>
+                <a href="businessevents">
+                  <span class="sub-item">All Events</span>
                 </a>
               </li>
+              
+              <li>
+                <a href="trendingevent">
+                  <span class="sub-item">Trending Events</span>
+                </a>
+              </li>
+              
               <li>
                 <a href="eventshows">
                   <span class="sub-item">UpComing Events List</span>

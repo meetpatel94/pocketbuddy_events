@@ -1,6 +1,7 @@
 package com.example.controller.admin;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.entity.CreateEventsEntity;
 import com.example.entity.UserEntity;
+import com.example.repository.CreateEventsRepository;
 import com.example.repository.MemberRepository;
 import com.example.repository.UserRepository;
 
@@ -29,6 +32,9 @@ public class AdminController {
 	
 	@Autowired
 	MemberRepository memberRepository;
+	
+	@Autowired
+	CreateEventsRepository repoevent;
 	
     @GetMapping("admindashboard")
 	public  String admindashboard(Model model) {
@@ -135,6 +141,35 @@ public class AdminController {
     @GetMapping("eventshows")
     public String eventshows() {
     	return "EventShows";
-
     }
+    @GetMapping("trendingevent")
+    public String trendingevent() {
+    	return "TrendingEvents";
+    }
+    
+    
+    
+    // create event admin side
+    
+    @GetMapping("createevents")
+    public String createevents() {
+    	return "ADMINcreateEvents";
+    }
+    
+    @PostMapping("savebusinessevent")
+	public String savebusinessevent( CreateEventsEntity eventEntity) {
+		
+		repoevent.save(eventEntity);
+		return "ADMINTrendingEvents";
+    }
+    
+    @GetMapping("businessevents")
+	public String businessevents(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+						
+		return "ADMINTrendingEvents";
+	}
+    
 }

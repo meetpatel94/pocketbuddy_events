@@ -90,8 +90,8 @@
     
     .price-tag {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: -2px;
+      right: -251px;
       background: #f82249;
       color: white;
       padding: 5px 10px;
@@ -152,14 +152,17 @@
     .owl-dots button.owl-dot.active {
       background: #432E54 !important;
     }
+    .book-btn{
+  display:none;
+}
   </style>
 </head>
 <body>
   <div class="events-container">
     <div class="container wow fadeInUp">
       <div class="section-header">
-        <h2>Trending Concert Events in Ahmedabad</h2>
-        <p>Upcoming Live Concerts</p>
+        <h2>Trending Concert Events</h2>
+        <p>Live Concerts</p>
       </div>
       
       <!-- Concert Carousel Section -->

@@ -409,7 +409,7 @@ nav ul li a{
     <jsp:include page="Subscribe.jsp"></jsp:include> --%>
     
     <!--========================== BuyTicket Section ============================-->
-    <section id="buy-tickets" class="section-with-bg wow fadeInUp">
+    <!-- <section id="buy-tickets" class="section-with-bg wow fadeInUp">
       <div class="container">
 
         <div class="section-header">
@@ -460,7 +460,7 @@ nav ul li a{
               </div>
             </div>
           </div>
-          <!-- Pro Tier -->
+          Pro Tier
           <div class="col-lg-4">
             <div class="card">
               <div class="card-body">
@@ -487,7 +487,7 @@ nav ul li a{
 
       </div>
 
-      <!-- Modal Order Form -->
+      Modal Order Form
       <div id="buy-ticket-modal" class="modal fade">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -518,11 +518,11 @@ nav ul li a{
                 </div>
               </form>
             </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+          </div>/.modal-content
+        </div>/.modal-dialog
+      </div>/.modal
 
-    </section>
+    </section> -->
     
     <!--========================== Contact Section ============================-->
     <section id="contact" class="section-bg wow fadeInUp " >

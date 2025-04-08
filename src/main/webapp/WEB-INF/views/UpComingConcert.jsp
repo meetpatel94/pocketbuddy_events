@@ -258,14 +258,17 @@
         border-top: 1px solid #f0f0f0;
       }
     }
+    td[data-label="Action"] {
+  display: none;
+    }
   </style>
 </head>
 <body>
   <div class="events-container">
     <div class="container">
       <div class="section-header">
-        <h2>Trending Concert Events in Ahmedabad</h2>
-        <p>Upcoming Live Concerts - Book Your Tickets Now</p>
+        <h2>Up Coming Concert Events</h2>
+        <p>Upcoming Live Concerts</p>
       </div>
       
       <!-- Filter Controls -->
@@ -321,7 +324,7 @@
               <th>Price</th>
               <th>Rating</th>
               <th>Status</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
             </tr>
           </thead>
           <tbody id="concert-table-body">

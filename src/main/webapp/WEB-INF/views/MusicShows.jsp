@@ -22,7 +22,7 @@
                         <div class="stats">
                             <span class="interested">76 interested</span>
                         </div>
-                         <a href="#buy-tickets"><button class="book-btn">Book Now</button></a>
+                        <a href="#buy-tickets" class="book-btn"><button type="button" style="color:white;" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Book Now</button></a>
                     </div>
                 </div>
                 

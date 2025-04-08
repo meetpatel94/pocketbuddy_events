@@ -224,10 +224,36 @@ public class SessionController {
 		return "ComedyPage";
 	}
 	
+	@GetMapping("ahemdabad")
+	public String ahemdabad() {
+		return "Ahemdabad";
+	}
+	
+	@GetMapping("surat")
+	public String surat() {
+		return "SuratPage";
+	}
+	
+	@GetMapping("gandhinagar")
+	public String gandhinagar() {
+		return "GandhinagarPage";
+	}
+	
+	@GetMapping("navsari")
+	public String navsari() {
+		return "NavsariPage";
+	}
+	
+	@GetMapping("vadodara")
+	public String vadodara() {
+		return "VadodaraPage";
+	}
+	
 	@GetMapping( value = { "/", "defaultpage" } )
 	public String defaultpage() {
 		return "DefaultPage";
 	}
+	
 	
 	
 

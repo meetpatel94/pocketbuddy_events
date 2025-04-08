@@ -310,7 +310,9 @@ h1 {
     }
 }
 /* css */
-
+.action-buttons, button{
+ display:none !important;
+}
 
 
 /*hereeee  */
@@ -342,7 +344,7 @@ h1 {
     <jsp:include page="BusinessSeminar.jsp"></jsp:include>
 
     <!--======================== UpComing Businesss events Section ==========================-->
-    <jsp:include page="UpComing.jsp"></jsp:include>
+    <jsp:include page="UpComingBusiness.jsp"></jsp:include>
 
     <!--======================== Event Schedule Section ==========================-->
     <jsp:include page="EventSchedule.jsp"></jsp:include>
@@ -366,7 +368,7 @@ h1 {
     <jsp:include page="Subscribe.jsp"></jsp:include> --%>
     
     <!--========================== BuyTicket Section ============================-->
-    <jsp:include page="BuyTicketSection.jsp"></jsp:include>
+    <%-- <jsp:include page="BuyTicketSection.jsp"></jsp:include> --%>
     
     <!--========================== Contact Section ============================-->
     <jsp:include page="ContactUs.jsp"></jsp:include>
