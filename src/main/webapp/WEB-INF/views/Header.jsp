@@ -130,6 +130,7 @@
               <li><a class="dropdown-item" href="musicshow">Music</a></li>
               <li><a class="dropdown-item" href="concert">Concerts</a></li>
               <li><a class="dropdown-item" href="dance">Dances</a></li>
+              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
             </ul>
           </li>
           <li><a href="#schedule">Schedule</a></li>

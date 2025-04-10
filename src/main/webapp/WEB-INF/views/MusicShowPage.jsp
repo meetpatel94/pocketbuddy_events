@@ -16,7 +16,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap CSS File -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -365,7 +365,10 @@ h1 {
     <!--======================== Speakers Section ==========================-->
     <jsp:include page="MusicSpeaker.jsp"></jsp:include>
     
-    <!--======================== Music Shows Section ==========================-->
+    <!--======================== Trending Music Shows Section ==========================-->
+    <jsp:include page="MusicTrendingShows.jsp"></jsp:include>
+    
+    <!--========================  Music Shows Section ==========================-->
     <jsp:include page="MusicShows.jsp"></jsp:include>
 
     <!--======================== UpComing Music Shows Section ==========================-->
@@ -592,7 +595,7 @@ h1 {
 
   <!-- JavaScript Libraries -->
   <jsp:include page="JS.jsp"></jsp:include>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
 </body>
 </html>

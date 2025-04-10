@@ -16,9 +16,24 @@ public class CreateEventsEntity {
 	private Integer createeventId;
 	private String eventType;
 	private String title;
+	private String profilePicPath;
 	private String keynote;
 	private String date;
 	private String city;
+	private String stime;
+	private String etime;
+	public String getStime() {
+		return stime;
+	}
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+	public String getEtime() {
+		return etime;
+	}
+	public void setEtime(String etime) {
+		this.etime = etime;
+	}
 	private String description;
 	private String name;
 	private String address;
@@ -76,6 +91,12 @@ public class CreateEventsEntity {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getProfilePicPath() {
+		return profilePicPath;
+	}
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
 	}
 	
 

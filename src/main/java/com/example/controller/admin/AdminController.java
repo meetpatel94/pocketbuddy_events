@@ -2,6 +2,7 @@ package com.example.controller.admin;
 
 import java.io.IOException;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -157,10 +158,27 @@ public class AdminController {
     }
     
     @PostMapping("savebusinessevent")
-	public String savebusinessevent( CreateEventsEntity eventEntity) {
-		
+	public String savebusinessevent( CreateEventsEntity eventEntity, MultipartFile profilePic) {
+    	System.out.println(profilePic.getOriginalFilename());	
+    	if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+           profilePic.getOriginalFilename().endsWith(".png")) {
+    				
+    			} else {
+    				return "ADMINcreateEvents";	
+    			} try  {
+    				
+    			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//    			System.out.println(result);
+//    			System.out.println(result.get("url"));
+    			eventEntity.setProfilePicPath(result.get("url").toString());
+    			
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    	
 		repoevent.save(eventEntity);
-		return "ADMINTrendingEvents";
+		return "redirect:/businessevents";
     }
     
     @GetMapping("businessevents")

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,7 @@
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
+    background-color: #f5f7fa;
   }
 
   #speakersSection {
@@ -68,24 +70,6 @@
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
-  }
-
-  .filter-controls {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .filter-controls select {
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    border: 1px solid #ddd;
-    font-size: 16px;
-    min-width: 200px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
 
   .speaker-grid {
@@ -226,6 +210,7 @@
     font-size: 11px;
     font-weight: bold;
     z-index: 2;
+    text-transform: capitalize;
   }
 
   .no-events {
@@ -236,26 +221,8 @@
     font-style: italic;
   }
 
-  @media (max-width: 768px) {
-    .speaker-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-    
-    .headline-box h2 {
-      font-size: 28px;
-    }
-
-    .filter-controls {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .filter-controls select {
-      width: 100%;
-    }
-  }
   /* Filter Controls Styling */
-.filter-controls {
+  .filter-controls {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -266,9 +233,9 @@
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
+  }
 
-.filter-controls select {
+  .filter-controls select {
     padding: 10px 20px;
     border-radius: 8px;
     border: 1px solid #e0e6ed;
@@ -283,15 +250,15 @@
     background-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-}
+  }
 
-.filter-controls select:focus {
+  .filter-controls select:focus {
     outline: none;
     border-color: #0056b3;
     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
-}
+  }
 
-.filter-controls button {
+  .filter-controls button {
     padding: 10px 20px;
     border-radius: 8px;
     background: #0056b3;
@@ -301,77 +268,36 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+  }
 
-.filter-controls button:hover {
+  .filter-controls button:hover {
     background: #003d7a;
     transform: translateY(-1px);
-}
+  }
 
-/* Image Styling */
-.image-container {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-    border-radius: 8px 8px 0 0;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.card-wrapper:hover .image-container img {
-    transform: scale(1.05);
-}
-
-/* Badge Styling */
-.seminar-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #0056b3;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 2;
-}
-
-.city-tag {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    z-index: 2;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .filter-controls {
-        flex-direction: column;
-        align-items: stretch;
+  @media (max-width: 768px) {
+    .speaker-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
     
+    .headline-box h2 {
+      font-size: 28px;
+    }
+
+    .filter-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
     .filter-controls select,
     .filter-controls button {
-        width: 100%;
+      width: 100%;
     }
     
     .image-container {
-        height: 160px;
+      height: 160px;
     }
-}
+  }
 </style>
 
 <script>
@@ -400,106 +326,36 @@
     </div>
 
     <div class="speaker-grid" id="eventsContainer">
-      <% 
-        String[] names = {"Digital Transformation Summit", "Startup Investors Meet", "AI in Business Conference", 
-                         "Women Entrepreneurship Summit", "Future of E-Commerce", "Leadership Excellence Forum",
-                         "Gujarat Tech Expo", "Surat Business Conclave", "Vadodara Innovation Summit"};
-        String[] descs = {
-          "Keynote by Mukesh Ambani | 18 APR | Mumbai", 
-          "Angel network event | 22 APR | Bangalore",
-          "Industry leaders panel | 25 APR | Delhi",
-          "Empowerment summit | 28 APR | Hyderabad",
-          "Experts discussion | 30 APR | Chennai",
-          "CEO roundtable | 05 MAY | Pune",
-          "Tech showcase | 10 MAY | Ahmedabad",
-          "Business networking | 15 MAY | Surat",
-          "Startup pitch | 20 MAY | Vadodara"
-        };
-        String[] fullDescriptions = {
-          "Explore how digital technologies are reshaping industries with insights from Reliance Industries Chairman Mukesh Ambani and other tech leaders.",
-          "Connect with angel investors and venture capitalists looking to fund the next big startup idea in India's booming tech ecosystem.",
-          "Learn how artificial intelligence is transforming business operations from top AI researchers and industry practitioners.",
-          "Hear inspiring stories from successful women entrepreneurs and learn strategies to overcome challenges in the business world.",
-          "Discover emerging trends in e-commerce and digital retail from leading marketplace founders and retail experts.",
-          "Develop your leadership skills with insights from India's top CEOs and management thought leaders.",
-          "Showcase of Gujarat's tech innovations with participation from top IT companies and startups.",
-          "Annual business conference bringing together Surat's top entrepreneurs and business leaders.",
-          "Innovation summit featuring Vadodara's growing startup ecosystem and research institutions."
-        };
-        String[] imageUrls = {
-          "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        };
-        String[] speakerNames = {
-          "Mukesh Ambani",
-          "Ritesh Agarwal",
-          "Andrew Ng",
-          "Kiran Mazumdar-Shaw",
-          "Kunal Bahl",
-          "Indra Nooyi",
-          "Pankaj Patel",
-          "Devansh Jain",
-          "Rajesh Sharma"
-        };
-        String[] speakerTitles = {
-          "Chairman, Reliance Industries",
-          "Founder, OYO Rooms",
-          "AI Researcher, Stanford",
-          "Chairperson, Biocon",
-          "Co-founder, Snapdeal",
-          "Former CEO, PepsiCo",
-          "CEO, Zydus Cadila",
-          "Director, Surat Diamonds",
-          "Professor, MSU Vadodara"
-        };
-        String[] cities = {
-          "mumbai",
-          "bangalore",
-          "delhi",
-          "hyderabad",
-          "chennai",
-          "pune",
-          "ahmedabad",
-          "surat",
-          "vadodara"
-        };
-        
-        for (int i = 0; i < names.length; i++) {
-      %>
-        <div class="speaker-card wow animate__animated animate__zoomIn" data-wow-delay="<%= (i * 0.1) %>s" data-city="<%= cities[i] %>">
-          <div class="card-wrapper">
-            <div class="image-container">
-              <img src="<%= imageUrls[i] %>" alt="<%= names[i] %>" class="img-fluid">
-              <span class="seminar-badge">FEATURED</span>
-              <span class="city-tag"><%= cities[i] %></span>
-            </div>
-            <div class="info-box">
-              <h3><a href="#"><%= names[i] %></a></h3>
-              
-              <div class="seminar-meta">
-                <i class="fas fa-calendar-alt"></i>
-                <span><%= descs[i] %></span>
+      <c:forEach items="${newevent}" var="n">
+        <c:if test="${n.eventType eq 'business'}">
+          <div class="speaker-card wow animate__animated animate__zoomIn" data-city="${n.city.toLowerCase()}">
+            <div class="card-wrapper">
+              <div class="image-container">
+                <img src="${n.profilePicPath }" alt="Business Seminar" class="img-fluid">
+                <span class="seminar-badge">BUSINESS</span>
+                <span class="city-tag">${n.city}</span>
               </div>
-              
-              <p class="seminar-description"><%= fullDescriptions[i] %></p>
-              
-              <div class="speaker-info">
-                <div>
-                  <div class="speaker-name"><%= speakerNames[i] %></div>
-                  <div class="speaker-title"><%= speakerTitles[i] %></div>
+              <div class="info-box">
+                <h3><a href="#">${n.name}</a></h3>
+                
+                <div class="seminar-meta">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>${n.keynote}</span>
+                </div>
+                
+                <p class="seminar-description">${n.description}</p>
+                
+                <div class="speaker-info">
+                  <div>
+                    <div class="speaker-name">${n.name}</div>
+                    
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <% } %>
+        </c:if>
+      </c:forEach>
     </div>
   </div>
 </section>
@@ -513,44 +369,42 @@ $(document).ready(function() {
   // Initialize WOW.js
   new WOW().init();
 
-  // Filter events by city
+  // Filter events by city (only business events will be visible)
   $('#applyFilter').click(function() {
-    var selectedCity = $('#cityFilter').val();
+    var selectedCity = $('#cityFilter').val().toLowerCase();
     var eventCards = $('.speaker-card');
-    var visibleCards = 0;
-    var maxCardsToShow = 6; // Maximum cards to show
-    var minCardsToShow = 3; // Minimum cards to show
+    var hasVisibleCards = false;
+    
+    // Remove any existing "no events" message
+    $('.no-events').remove();
     
     eventCards.each(function() {
       var cardCity = $(this).data('city');
-      var shouldShow = (selectedCity === 'all') || 
-                       (selectedCity === 'other' && !['surat','ahmedabad','vadodara','navsari'].includes(cardCity)) ||
-                       (cardCity === selectedCity);
+      var shouldShow = false;
       
-      if (shouldShow && visibleCards < maxCardsToShow) {
+      if (selectedCity === 'all') {
+        shouldShow = true;
+      } else if (selectedCity === 'other') {
+        shouldShow = !['surat', 'ahmedabad', 'vadodara', 'navsari'].includes(cardCity);
+      } else {
+        shouldShow = (cardCity === selectedCity);
+      }
+      
+      if (shouldShow) {
         $(this).show();
-        visibleCards++;
+        hasVisibleCards = true;
       } else {
         $(this).hide();
       }
     });
     
-    // Show no events message if needed
-    if (visibleCards === 0) {
-      $('#eventsContainer').append('<div class="no-events">No events found for the selected city</div>');
-    } else {
-      $('.no-events').remove();
-      
-      // Ensure we show at least minCardsToShow if available
-      if (visibleCards < minCardsToShow && visibleCards < eventCards.length) {
-        var additionalToShow = minCardsToShow - visibleCards;
-        eventCards.each(function() {
-          if (additionalToShow > 0 && $(this).is(':hidden')) {
-            $(this).show();
-            additionalToShow--;
-          }
-        });
-      }
+    // Show message if no events found
+    if (!hasVisibleCards) {
+      $('#eventsContainer').append(
+        '<div class="no-events wow animate__animated animate__fadeIn">' +
+        'No business events found for the selected city. Please try another filter.' +
+        '</div>'
+      );
     }
   });
 

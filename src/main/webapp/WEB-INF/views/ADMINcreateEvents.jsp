@@ -1,49 +1,137 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Create Business Event</title>
 <style>
 .container{
   margin-left:20px !important;
 }
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin-top: 20px;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 1rem;
+}
+.form-row .form-field {
+    flex: 1;
+}
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+input[type="file"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74,144,226,0.2);
+}
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 2rem;
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: #4a90e2;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #3a7bc8;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.event-type {
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+}
+.time-fields {
+    display: flex;
+    gap: 20px;
+}
+.time-field {
+    flex: 1;
+}
+.image-preview {
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    display: none;
+}
 </style>
-<link
-      rel="icon"
-      href="img/logo.png"
-      type="image/x-icon"
-    />
+<link rel="icon" href="img/logo.png" type="image/x-icon" />
 
-    <!-- Fonts and icons -->
-    <script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["aset/assets/css/fonts.min.css"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
+<!-- Fonts and icons -->
+<script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: { families: ["Public Sans:300,400,500,600,700"] },
+    custom: {
+      families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+      ],
+      urls: ["aset/assets/css/fonts.min.css"],
+    },
+    active: function () {
+      sessionStorage.fonts = true;
+    },
+  });
+</script>
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
-    <link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+<!-- CSS Files -->
+<link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+<link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
 
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="aset/assets/css/demo.css" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="aset/assets/css/demo.css" />
 <style>
 main{
  margin-left:20px;
@@ -60,7 +148,7 @@ main{
    <jsp:include page="ADMIN_Header.jsp"></jsp:include>
    
    <!-- container  -->
-   	 <div class="container">
+    <div class="container">
      <main id="main" class="main"></main>
         <div class="pagetitle animate__animated animate__fadeIn">
             <h1>Create Business Event</h1>
@@ -72,26 +160,91 @@ main{
             </nav>
         </div><!-- End Page Title -->
 
-    	<section class="section dashboard" style="color:black;">
-			<form action="savebusinessevent" method="post">
-			    Event Type:<select name="eventType" disabled>
-			      <option value="business">Business</option>
-			      <option value="music">Music</option>
-			      <option value="concert">Concert</option>
-			      <option value="dance">Dance</option>
-			    </select> <br> <br>
-				Title: <input type="text" name="title"> &emsp;
-				keynote: <input type="text" name="keynote"> <br><br> 
-			    Date:<input type = "date" name="date" > <br><br>
-	            City : <input type="text" name="city"/> &emsp;
-	            Description: <input type="text" name="description"> <br><br>
-	            Name: <input type="text" name="name"> <br><br>
-	            address: <input type = "text" name ="address"><br><br>
-				<input type="submit" value="Save Event">
-				<a href="businessevents" class="back">Back</a>
-			</form>
-    	</section>
- </div>
+        <section class="section dashboard">
+            <div class="form-container">
+                <form action="savebusinessevent" method="post" enctype="multipart/form-data">
+                    <div class="event-type">
+                        <label>Event Type:</label>
+                        <select name="eventType" >
+                            <option value="business">Business</option>
+                            <option value="music">Music</option>
+                            <option value="concert">Concert</option>
+                            <option value="dance">Dance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Title:</label>
+                            <input type="text" name="title" placeholder="Enter event title" required>
+                        </div>
+                        <div class="form-field">
+                            <label>Keynote:</label>
+                            <input type="text" name="keynote" placeholder="Enter keynote speaker" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Event Image:</label>
+                        <input type="file" name="profilePic" id="imageUpload"  required>
+                        <img id="imagePreview" class="image-preview" src="#" alt="Preview" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Date:</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Event Time:</label>
+                        <div class="time-fields">
+                            <div class="time-field">
+                                <label>Start Time:</label>
+                                <input type="time" name="stime" required>
+                            </div>
+                            <div class="time-field">
+                                <label>End Time:</label>
+                                <input type="time" name="etime" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>City:</label>
+                            <select name="city" required>
+                                <option value="">Select a city</option>
+                                <option value="Gandhinagar">Gandhinagar</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Vadodara">Vadodara</option>
+                                <option value="Navsari">Navsari</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Description:</label>
+                            <input type="text" name="description" placeholder="Enter description" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="name" placeholder="Enter organizer name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address:</label>
+                        <input type="text" name="address" placeholder="Enter address" required>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <input type="submit" value="Save Event" class="btn btn-primary">
+                        <a href="businessevents" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
 </main>
     <!-- main content end  -->
 
@@ -100,5 +253,21 @@ main{
     </div>  
     <!-- JS -->
     <jsp:include page="ADMIN_Js.jsp"></jsp:include>
+    
+    <script>
+    // Image preview functionality
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
 </body>
 </html>

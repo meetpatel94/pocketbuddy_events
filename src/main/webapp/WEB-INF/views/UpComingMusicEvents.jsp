@@ -1,563 +1,890 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Popular Music Shows</title>
-
-<!-- Bootstrap & FontAwesome -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-<!-- Animate.css & WOW.js -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
-<style>
-  :root {
-    --primary-color: #9c27b0;
-    --secondary-color: #ff5722;
-    --dark-color: #222;
-    --light-color: #f8f9fa;
-    --text-color: #333;
-    --text-light: #666;
-    --border-radius: 12px;
-    --box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    --transition: all 0.3s ease-in-out;
-  }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-color);
-  }
-
-  #showsSection {
-    padding: 80px 0;
-    background-color: var(--light-color);
-  }
-
-  .headline-box {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .headline-box h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--dark-color);
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
-  }
-
-  .headline-box h2:after {
-    content: '';
-    position: absolute;
-    width: 60px;
-    height: 3px;
-    background: var(--primary-color);
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .headline-box p {
-    color: var(--text-light);
-    font-size: 16px;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  .filter-controls {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .filter-controls select {
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    border: 1px solid #ddd;
-    font-size: 16px;
-    min-width: 200px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-
-  .show-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    justify-content: center;
-  }
-
-  .show-card {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-wrapper {
-    background: #fff;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-    transition: var(--transition);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-wrapper:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
-
-  .image-container {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-  }
-
-  .card-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-  }
-
-  .card-wrapper:hover img {
-    transform: scale(1.03);
-  }
-
-  .show-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--primary-color);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    z-index: 2;
-  }
-
-  .info-box {
-    padding: 15px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .info-box h3 {
-    margin-bottom: 8px;
-  }
-
-  .info-box h3 a {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-  }
-
-  .info-box h3 a:hover {
-    color: #7b1fa2;
-    text-decoration: underline;
-  }
-
-  .show-meta {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    color: var(--text-light);
-    font-size: 13px;
-  }
-
-  .show-meta i {
-    margin-right: 6px;
-    color: var(--primary-color);
-    font-size: 12px;
-  }
-
-  .show-description {
-    color: var(--text-color);
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .artist-info {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #eee;
-  }
-
-  .artist-name {
-    font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 2px;
-  }
-
-  .artist-genre {
-    font-size: 11px;
-    color: var(--text-light);
-  }
-
-  .city-tag {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    z-index: 2;
-  }
-
-  .no-shows {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 50px;
-    color: var(--text-light);
-    font-style: italic;
-  }
-
-  @media (max-width: 768px) {
-    .show-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Events Table</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #432E54;
+      --secondary-color: #f82249;
     }
     
-    .headline-box h2 {
-      font-size: 28px;
+    body {
+      background-color: #f8f9fa;
     }
-
-    .filter-controls {
-      flex-direction: column;
-      align-items: center;
+    
+    .events-container {
+      padding: 50px 0;
     }
-
-    .filter-controls select {
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .section-header h2 {
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .section-header p {
+      color: var(--secondary-color);
+      font-size: 18px;
+    }
+    
+    .table-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-height: 700px;
+      overflow-y: auto;
+    }
+    
+    .music-table {
       width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
     }
-  }
-  /* Filter Controls Styling */
-.filter-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 30px;
-    background: #f5f7fa;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.filter-controls select {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #e0e6ed;
-    font-size: 14px;
-    min-width: 180px;
-    background-color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-controls select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
-}
-
-.filter-controls button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.filter-controls button:hover {
-    background: #7b1fa2;
-    transform: translateY(-1px);
-}
-
-/* Image Styling */
-.image-container {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-    border-radius: 8px 8px 0 0;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.card-wrapper:hover .image-container img {
-    transform: scale(1.05);
-}
-
-/* Badge Styling */
-.show-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--primary-color);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 2;
-}
-
-.city-tag {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    z-index: 2;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+    
+    .music-table thead th {
+      position: sticky;
+      top: 0;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px;
+      text-align: left;
+      z-index: 10;
+    }
+    
+    .music-table tbody tr {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .music-table tbody tr:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .music-table td {
+      padding: 15px;
+      vertical-align: middle;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .music-table td:first-child {
+      border-left: 1px solid #f0f0f0;
+      border-radius: 8px 0 0 8px;
+    }
+    
+    .music-table td:last-child {
+      border-right: 1px solid #f0f0f0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .event-image {
+      width: 80px;
+      height: 60px;
+      border-radius: 5px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .event-image:hover {
+      transform: scale(1.1);
+    }
+    
+    .event-name {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .event-artist {
+      color: var(--secondary-color);
+      font-size: 14px;
+    }
+    
+    .event-venue {
+      color: #555;
+      font-size: 14px;
+    }
+    
+    .event-date {
+      font-weight: 500;
+    }
+    
+    .event-time {
+      color: #777;
+      font-size: 13px;
+    }
+    
+    .event-price {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    
+    .event-stats {
+      font-size: 13px;
+      color: #777;
+    }
+    
+    .book-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 3px 7px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    
+    .book-btn:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-block;
+    }
+    
+    .status-available {
+      background-color: #e6f7ee;
+      color: #28a745;
+    }
+    
+    .status-selling-fast {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-sold-out {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .rating {
+      color: #FFD700;
+      font-size: 14px;
+    }
+    
+    /* Custom scrollbar */
+    .table-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .table-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 10px;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+    }
+    
+    /* Filter controls */
     .filter-controls {
-        flex-direction: column;
-        align-items: stretch;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     
-    .filter-controls select,
-    .filter-controls button {
-        width: 100%;
+    .no-results {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      display: none;
     }
     
-    .image-container {
-        height: 160px;
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .table-container {
+        padding: 10px;
+      }
+      
+      .music-table thead {
+        display: none;
+      }
+      
+      .music-table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border-radius: 8px;
+      }
+      
+      .music-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .music-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+      
+      .music-table td:first-child,
+      .music-table td:last-child {
+        border-radius: 0;
+      }
+      
+      .music-table td:first-child {
+        border-top: 1px solid #f0f0f0;
+      }
     }
-}
-</style>
-
-<script>
-  new WOW().init();
-</script>
+    td[data-label="Action"] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-
-<section id="showsSection" class="py-5">
-  <div class="container">
-    <div class="headline-box wow animate__animated animate__fadeIn">
-      <h2>🎵 Popular Music Shows</h2>
-      <p>Experience unforgettable live performances from top artists and bands. Find concerts, music festivals, and special events near you.</p>
-    </div>
-
-    <div class="filter-controls">
-      <select id="cityFilter" class="form-control">
-        <option value="all">All Cities</option>
-        <option value="mumbai">Mumbai</option>
-        <option value="delhi">Delhi</option>
-        <option value="bangalore">Bangalore</option>
-        <option value="hyderabad">Hyderabad</option>
-        <option value="other">Other Cities</option>
-      </select>
-      <button id="applyFilter" class="btn btn-primary">Apply Filter</button>
-    </div>
-
-    <div class="show-grid" id="showsContainer">
-      <% 
-        String[] names = {"Bollywood Night Live", "International Pop Festival", "Classical Fusion Concert", 
-                         "EDM Night with Top DJs", "Indie Music Festival", "Jazz & Blues Evening",
-                         "Retro Rewind Concert", "Hip Hop Battle Ground", "Folk Music Celebration"};
-        String[] descs = {
-          "Featuring Arijit Singh | 18 APR | Mumbai", 
-          "Headliner: Justin Bieber | 22 APR | Delhi",
-          "Pt. Ravi Shankar Tribute | 25 APR | Bangalore",
-          "DJ Snake & Marshmello | 28 APR | Goa",
-          "Independent Artists Showcase | 30 APR | Hyderabad",
-          "Jazz Legends Performance | 05 MAY | Kolkata",
-          "90s Hits Night | 10 MAY | Pune",
-          "Rap Battle Finals | 15 MAY | Mumbai",
-          "Traditional Folk Artists | 20 MAY | Jaipur"
-        };
-        String[] fullDescriptions = {
-          "An evening of romantic Bollywood hits performed live by Arijit Singh and other playback singers.",
-          "International pop stars Justin Bieber and Dua Lipa headline this massive music festival.",
-          "A tribute to Pt. Ravi Shankar featuring classical fusion performances by top musicians.",
-          "Electronic dance music extravaganza with world-famous DJs and stunning light shows.",
-          "Showcasing the best independent music talent from across the country.",
-          "An intimate evening of jazz and blues with legendary performers from around the world.",
-          "Relive the golden era of 90s Bollywood music with original singers and bands.",
-          "The national finals of India's biggest hip hop competition featuring top rappers.",
-          "Celebration of India's rich folk music traditions with performances from different states."
-        };
-        String[] imageUrls = {
-          "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        };
-        String[] artistNames = {
-          "Arijit Singh",
-          "Justin Bieber",
-          "Pt. Ravi Shankar Tribute Band",
-          "DJ Snake & Marshmello",
-          "Indie Collective",
-          "Jazz Legends Ensemble",
-          "90s Rewind Band",
-          "Hip Hop All Stars",
-          "Folk Masters"
-        };
-        String[] artistGenres = {
-          "Bollywood Playback",
-          "International Pop",
-          "Classical Fusion",
-          "Electronic Dance Music",
-          "Independent Music",
-          "Jazz & Blues",
-          "Retro Bollywood",
-          "Hip Hop/Rap",
-          "Traditional Folk"
-        };
-        String[] cities = {
-          "mumbai",
-          "delhi",
-          "bangalore",
-          "goa",
-          "hyderabad",
-          "kolkata",
-          "pune",
-          "mumbai",
-          "jaipur"
-        };
-        
-        for (int i = 0; i < names.length; i++) {
-      %>
-        <div class="show-card wow animate__animated animate__zoomIn" data-wow-delay="<%= (i * 0.1) %>s" data-city="<%= cities[i] %>">
-          <div class="card-wrapper">
-            <div class="image-container">
-              <img src="<%= imageUrls[i] %>" alt="<%= names[i] %>" class="img-fluid">
-              <span class="show-badge">LIVE</span>
-              <span class="city-tag"><%= cities[i] %></span>
-            </div>
-            <div class="info-box">
-              <h3><a href="#"><%= names[i] %></a></h3>
-              
-              <div class="show-meta">
-                <i class="fas fa-calendar-alt"></i>
-                <span><%= descs[i] %></span>
-              </div>
-              
-              <p class="show-description"><%= fullDescriptions[i] %></p>
-              
-              <div class="artist-info">
-                <div>
-                  <div class="artist-name"><%= artistNames[i] %></div>
-                  <div class="artist-genre"><%= artistGenres[i] %></div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="events-container">
+    <div class="container">
+      <div class="section-header">
+        <h2>Upcoming Music Events</h2>
+        <p>Discover the best live music experiences</p>
+      </div>
+      
+      <!-- Filter Controls -->
+      <div class="filter-controls row g-3">
+        <div class="col-md-3">
+          <label for="date-filter" class="form-label">Filter by Date</label>
+          <select id="date-filter" class="form-select">
+            <option value="all">All Dates</option>
+            <option value="today">Today</option>
+            <option value="this-week">This Week</option>
+            <option value="next-week">Next Week</option>
+            <option value="this-month">This Month</option>
+          </select>
         </div>
-      <% } %>
+        <div class="col-md-3">
+          <label for="genre-filter" class="form-label">Filter by Genre</label>
+          <select id="genre-filter" class="form-select">
+            <option value="all">All Genres</option>
+            <option value="rock">Rock</option>
+            <option value="pop">Pop</option>
+            <option value="jazz">Jazz</option>
+            <option value="electronic">Electronic</option>
+            <option value="hiphop">Hip Hop</option>
+            <option value="classical">Classical</option>
+            <option value="indie">Indie</option>
+            <option value="rnb">R&B</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="price-filter" class="form-label">Filter by Price</label>
+          <select id="price-filter" class="form-select">
+            <option value="all">All Prices</option>
+            <option value="under-30">Under $30</option>
+            <option value="30-50">$30 - $50</option>
+            <option value="50-100">$50 - $100</option>
+            <option value="over-100">Over $100</option>
+          </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+          <button id="reset-filters" class="btn btn-outline-secondary w-100">Reset Filters</button>
+        </div>
+      </div>
+      
+      <!-- Music Events Table Section -->
+      <div class="table-container">
+        <table class="music-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Artist</th>
+              <th>Venue</th>
+              <th>Date & Time</th>
+              <th>Price</th>
+              <th>Rating</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="music-table-body">
+            <!-- Event 1 -->
+            <tr data-genre="rock" data-date="2023-06-10" data-price="45">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Rock Revolution</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>315 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">The Electric Storm</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Downtown Arena</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">10 JUN 2023</div>
+                <div class="event-time">8:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$45</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1">4.5</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 2 -->
+            <tr data-genre="pop" data-date="2023-06-15" data-price="65">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Pop Sensation Live</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>890 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">Ariana Grande</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">City Stadium</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">15 JUN 2023</div>
+                <div class="event-time">7:30 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$65</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <span class="ms-1">4.0</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-selling-fast">Selling Fast</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 3 -->
+            <tr data-genre="jazz" data-date="2023-06-18" data-price="55">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Jazz Under the Stars</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>210 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">The Cool Cats</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Riverside Park</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">18 JUN 2023</div>
+                <div class="event-time">7:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$55</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1">4.5</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 4 -->
+            <tr data-genre="electronic" data-date="2023-06-22" data-price="75">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Electronic Dreams</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>540 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">DJ Pulse & The Beats</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Warehouse 22</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">22 JUN 2023</div>
+                <div class="event-time">10:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$75</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <span class="ms-1">5.0</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-selling-fast">Selling Fast</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 5 -->
+            <tr data-genre="hiphop" data-date="2023-06-25" data-price="60">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Hip Hop Nation</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>680 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">Kendrick Lamar</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Urban Center</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">25 JUN 2023</div>
+                <div class="event-time">9:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$60</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <span class="ms-1">4.0</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 6 -->
+            <tr data-genre="classical" data-date="2023-06-28" data-price="85">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Symphony Night</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>320 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">City Philharmonic</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Grand Concert Hall</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">28 JUN 2023</div>
+                <div class="event-time">7:30 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$85</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1">4.7</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 7 -->
+            <tr data-genre="indie" data-date="2023-07-02" data-price="40">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Indie Showcase</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>180 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">The Local Collective</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Underground Club</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">02 JUL 2023</div>
+                <div class="event-time">8:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$40</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="far fa-star"></i>
+                  <span class="ms-1">3.8</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 8 -->
+            <tr data-genre="rnb" data-date="2023-07-05" data-price="70">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1619229669316-95c4800c9b0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">R&B Soul Night</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>420 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">The Weeknd</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Moonlight Theater</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">05 JUL 2023</div>
+                <div class="event-time">8:30 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$70</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <span class="ms-1">5.0</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-selling-fast">Selling Fast</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 9 -->
+            <tr data-genre="rock" data-date="2023-07-10" data-price="50">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Classic Rock Revival</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>380 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">The Vintage Rockers</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Retro Arena</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">10 JUL 2023</div>
+                <div class="event-time">7:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$50</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <span class="ms-1">4.2</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-available">Available</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+            
+            <!-- Event 10 -->
+            <tr data-genre="pop" data-date="2023-07-15" data-price="90">
+              <td data-label="Event">
+                <div class="d-flex align-items-center">
+                  <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                       class="event-image me-3">
+                  <div>
+                    <div class="event-name">Pop Extravaganza</div>
+                    <div class="event-stats"><i class="fas fa-user me-1"></i>750 interested</div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Artist">
+                <div class="event-artist">Taylor Swift</div>
+              </td>
+              <td data-label="Venue">
+                <div class="event-venue">Mega Dome</div>
+              </td>
+              <td data-label="Date & Time">
+                <div class="event-date">15 JUL 2023</div>
+                <div class="event-time">8:00 PM</div>
+              </td>
+              <td data-label="Price">
+                <div class="event-price">$90</div>
+              </td>
+              <td data-label="Rating">
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1">4.7</span>
+                </div>
+              </td>
+              <td data-label="Status">
+                <span class="status-badge status-selling-fast">Selling Fast</span>
+              </td>
+              <td data-label="Action">
+                <button class="book-btn">Book Now</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="no-results" class="no-results">
+          <i class="fas fa-search fa-3x mb-3"></i>
+          <h4>No events match your filters</h4>
+          <p>Try adjusting your search criteria</p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-$(document).ready(function() {
-  // Initialize WOW.js
-  new WOW().init();
-
-  // Filter shows by city
-  $('#applyFilter').click(function() {
-    var selectedCity = $('#cityFilter').val();
-    var showCards = $('.show-card');
-    var visibleCards = 0;
-    var maxCardsToShow = 6; // Maximum cards to show
-    var minCardsToShow = 3; // Minimum cards to show
-    
-    showCards.each(function() {
-      var cardCity = $(this).data('city');
-      var shouldShow = (selectedCity === 'all') || 
-                       (selectedCity === 'other' && !['mumbai','delhi','bangalore','hyderabad'].includes(cardCity)) ||
-                       (cardCity === selectedCity);
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Font Awesome JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all filter elements
+      const dateFilter = document.getElementById('date-filter');
+      const genreFilter = document.getElementById('genre-filter');
+      const priceFilter = document.getElementById('price-filter');
+      const resetButton = document.getElementById('reset-filters');
+      const eventRows = document.querySelectorAll('#music-table-body tr');
+      const noResults = document.getElementById('no-results');
       
-      if (shouldShow && visibleCards < maxCardsToShow) {
-        $(this).show();
-        visibleCards++;
-      } else {
-        $(this).hide();
-      }
-    });
-    
-    // Show no shows message if needed
-    if (visibleCards === 0) {
-      $('#showsContainer').append('<div class="no-shows">No shows found for the selected city</div>');
-    } else {
-      $('.no-shows').remove();
+      // Add event listeners to filters
+      dateFilter.addEventListener('change', filterEvents);
+      genreFilter.addEventListener('change', filterEvents);
+      priceFilter.addEventListener('change', filterEvents);
+      resetButton.addEventListener('click', resetFilters);
       
-      // Ensure we show at least minCardsToShow if available
-      if (visibleCards < minCardsToShow && visibleCards < showCards.length) {
-        var additionalToShow = minCardsToShow - visibleCards;
-        showCards.each(function() {
-          if (additionalToShow > 0 && $(this).is(':hidden')) {
-            $(this).show();
-            additionalToShow--;
+      // Add event listeners to book buttons
+      const bookButtons = document.querySelectorAll('.book-btn');
+      bookButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const eventName = this.closest('tr').querySelector('.event-name').textContent;
+          alert(`Booking initiated for: ${eventName}`);
+        });
+      });
+      
+      // Filter events based on selected filters
+      function filterEvents() {
+        const selectedDate = dateFilter.value;
+        const selectedGenre = genreFilter.value;
+        const selectedPrice = priceFilter.value;
+        
+        let visibleCount = 0;
+        
+        eventRows.forEach(row => {
+          const rowDate = row.getAttribute('data-date');
+          const rowGenre = row.getAttribute('data-genre');
+          const rowPrice = parseFloat(row.getAttribute('data-price'));
+          
+          // Check if row matches all selected filters
+          const dateMatch = selectedDate === 'all' || checkDateMatch(selectedDate, rowDate);
+          const genreMatch = selectedGenre === 'all' || rowGenre === selectedGenre;
+          const priceMatch = selectedPrice === 'all' || checkPriceMatch(selectedPrice, rowPrice);
+          
+          if (dateMatch && genreMatch && priceMatch) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
           }
         });
+        
+        // Show no results message if no events match filters
+        if (visibleCount === 0) {
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+        }
       }
-    }
-  });
-
-  // Trigger filter on page load
-  $('#applyFilter').trigger('click');
-});
-</script>
-
+      
+      // Check if row date matches selected date filter
+      function checkDateMatch(selectedDate, rowDate) {
+        const today = new Date();
+        const eventDate = new Date(rowDate);
+        
+        switch(selectedDate) {
+          case 'today':
+            return eventDate.toDateString() === today.toDateString();
+          case 'this-week':
+            const nextWeek = new Date();
+            nextWeek.setDate(today.getDate() + 7);
+            return eventDate >= today && eventDate <= nextWeek;
+          case 'next-week':
+            const nextWeekStart = new Date();
+            nextWeekStart.setDate(today.getDate() + 7);
+            const nextWeekEnd = new Date();
+            nextWeekEnd.setDate(today.getDate() + 14);
+            return eventDate >= nextWeekStart && eventDate <= nextWeekEnd;
+          case 'this-month':
+            const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            return eventDate >= today && eventDate <= endOfMonth;
+          default:
+            return true;
+        }
+      }
+      
+      // Check if row price matches selected price filter
+      function checkPriceMatch(selectedPrice, rowPrice) {
+        switch(selectedPrice) {
+          case 'under-30':
+            return rowPrice < 30;
+          case '30-50':
+            return rowPrice >= 30 && rowPrice <= 50;
+          case '50-100':
+            return rowPrice > 50
+                case 'over-100':
+            return rowPrice > 100;
+          default:
+            return true;
+        }
+      }
+      
+      // Reset all filters to default values
+      function resetFilters() {
+        dateFilter.value = 'all';
+        genreFilter.value = 'all';
+        priceFilter.value = 'all';
+        filterEvents();
+      }
+      
+      // Initialize by filtering events (in case page loads with default filters)
+      filterEvents();
+    });
+  </script>
 </body>
 </html>

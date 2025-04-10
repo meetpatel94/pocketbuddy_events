@@ -107,11 +107,11 @@
                   <span class="sub-item">UpComing Events List</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="listbuyers">
                   <span class="sub-item">Event Participant Users</span>
                 </a>
-              </li>
+              </li> -->
                 
             </ul>
           </div>

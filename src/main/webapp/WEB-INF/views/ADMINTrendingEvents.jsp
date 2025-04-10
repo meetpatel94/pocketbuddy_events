@@ -388,7 +388,7 @@ main {
     <div class="events-grid" id="eventsGrid">
         <c:forEach items="${newevent}" var="n">
             <div class="event-card ${n.eventType}-card" data-city="${n.city}" data-type="${n.eventType.toLowerCase()}">
-                <div class="event-card-header" style="background-image: url('https://source.unsplash.com/random/600x400/?concert')">
+                <div class="event-card-header" style="background-image: url('${n.profilePicPath }')">
                     <span class="event-card-type">${n.eventType}</span>
                     <span class="event-card-city">${n.city}</span>
                     <span class="event-card-date">${n.date}</span>

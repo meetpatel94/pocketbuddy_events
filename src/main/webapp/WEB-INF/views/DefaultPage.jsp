@@ -352,7 +352,7 @@ nav ul li a{
               <li><a class="dropdown-item" href="musicshow">Music</a></li>
               <li><a class="dropdown-item" href="concert">Concerts</a></li>
               <li><a class="dropdown-item" href="dance">Dances</a></li>
-             <!--  <li><a class="dropdown-item" href="comedy">Comedy</a></li> -->
+              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
             </ul>
           </li>
           <li><a href="#schedule">Schedule</a></li>
@@ -385,7 +385,7 @@ nav ul li a{
     <jsp:include page="BusinessSeminar.jsp"></jsp:include>
     
     <!--======================== UpComing Businesss events Section ==========================-->
-    <jsp:include page="UpComing.jsp"></jsp:include>
+   <%--  <jsp:include page="UpComing.jsp"></jsp:include> --%>
     
     <!--======================== Event Schedule Section ==========================-->
     <jsp:include page="EventSchedule.jsp"></jsp:include>

@@ -326,13 +326,13 @@
     </div>
 
     <div class="speaker-grid" id="eventsContainer">
-      <c:forEach items="${newevent }" var="n">
-        <c:if test="${n.eventType eq 'dance'}">
+      <c:forEach items="${newevent}" var="n">
+        <c:if test="${n.eventType eq 'concerts'}">
           <div class="speaker-card wow animate__animated animate__zoomIn" data-city="${n.city.toLowerCase()}">
             <div class="card-wrapper">
               <div class="image-container">
                 <img src="${n.profilePicPath }" alt="Business Seminar" class="img-fluid">
-                <span class="seminar-badge">Dance</span>
+                <span class="seminar-badge">Concert</span>
                 <span class="city-tag">${n.city}</span>
               </div>
               <div class="info-box">

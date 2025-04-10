@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import java.io.IOException;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.Services.MailService;
+import com.example.entity.CreateEventsEntity;
 import com.example.entity.UserEntity;
+import com.example.repository.CreateEventsRepository;
 import com.example.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +39,9 @@ public class SessionController {
 	
 	@Autowired
 	Cloudinary cloudinary; 
+	
+	@Autowired
+	CreateEventsRepository repoevent;
 
 	@GetMapping( "login" )
 	public String login(String email, String password) {
@@ -200,57 +207,57 @@ public class SessionController {
 	
 	
 	@GetMapping("home")
-	public String home() {
+	public String home(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "Home";
 	}
 	
 	@GetMapping("musicshow")
-	public String musicshow() {
+	public String musicshow(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "MusicShowPage";
 	}
 	
 	@GetMapping("concert")
-	public String concert() {
+	public String concert(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "ConcertPage";
 	}
 	
 	@GetMapping("dance")
-	public String dance() {
+	public String dance(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "DancePage";
 	}
 	
 	@GetMapping("comedy")
-	public String comedy() {
+	public String comedy(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "ComedyPage";
 	}
 	
-	@GetMapping("ahemdabad")
-	public String ahemdabad() {
-		return "Ahemdabad";
-	}
-	
-	@GetMapping("surat")
-	public String surat() {
-		return "SuratPage";
-	}
-	
-	@GetMapping("gandhinagar")
-	public String gandhinagar() {
-		return "GandhinagarPage";
-	}
-	
-	@GetMapping("navsari")
-	public String navsari() {
-		return "NavsariPage";
-	}
-	
-	@GetMapping("vadodara")
-	public String vadodara() {
-		return "VadodaraPage";
-	}
 	
 	@GetMapping( value = { "/", "defaultpage" } )
-	public String defaultpage() {
+	public String defaultpage(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		return "DefaultPage";
 	}
 	
