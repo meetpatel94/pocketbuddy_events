@@ -326,7 +326,15 @@ h1 {
     <jsp:include page="RatingPopupPage.jsp"></jsp:include>
     
     <!--========================== Intro Section ============================-->
-    <jsp:include page="Intro.jsp"></jsp:include>
+    <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <h1 class="mb-4 pb-0"><span>Comedy night</span> packed with laughs, madness, and mayhem</h1>
+      <p class="mb-4 pb-0">15-21 Feb, At Good Place: Ahmedabad</p>
+      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+        data-autoplay="true"></a>
+      <a href="#about" class="about-btn scrollto" style="text-decoration:none">About The Event</a>
+    </div>
+  </section>
 
 <main id="main">
   
@@ -334,13 +342,13 @@ h1 {
     <jsp:include page="AboutPage.jsp"></jsp:include>
   
     <!--======================== Speakers Section ==========================-->
-    <jsp:include page="ConcertSpeaker.jsp"></jsp:include>
+    <jsp:include page="Comedians.jsp"></jsp:include>
     
-   <!--======================== Concert Show Section ==========================-->
-    <jsp:include page="ConcertShow.jsp"></jsp:include>
+   <!--======================== Comedy Trending Show Section ==========================-->
+    <jsp:include page="ComedyTrending.jsp"></jsp:include>
 
    <!--======================== Concerts Section ==========================-->
-    <jsp:include page="ConcertEvents.jsp"></jsp:include>
+    <jsp:include page="ComedyEvents.jsp"></jsp:include>
 
    <!--======================== Up Coming Concerts List Section ==========================-->
     <jsp:include page="UpComingConcert.jsp"></jsp:include>

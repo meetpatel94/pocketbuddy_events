@@ -1,4 +1,151 @@
-<div class="main-panel">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Create Business Event</title>
+<style>
+.container{
+  margin-left:20px !important;
+}
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin-top: 20px;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 1rem;
+}
+.form-row .form-field {
+    flex: 1;
+}
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+input[type="file"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74,144,226,0.2);
+}
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 2rem;
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: #4a90e2;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #3a7bc8;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.event-type {
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+}
+.time-fields {
+    display: flex;
+    gap: 20px;
+}
+.time-field {
+    flex: 1;
+}
+.image-preview {
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    display: none;
+}
+</style>
+<link rel="icon" href="img/logo.png" type="image/x-icon" />
+
+<!-- Fonts and icons -->
+<script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: { families: ["Public Sans:300,400,500,600,700"] },
+    custom: {
+      families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+      ],
+      urls: ["aset/assets/css/fonts.min.css"],
+    },
+    active: function () {
+      sessionStorage.fonts = true;
+    },
+  });
+</script>
+
+<!-- CSS Files -->
+<link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+<link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="aset/assets/css/demo.css" />
+<style>
+main{
+ margin-left:20px;
+}
+</style>
+</head>
+<body>
+   
+   <!-- sidebar -->
+   <div class="wrapper">
+   <jsp:include page="ADMIN_Sidebar.jsp"></jsp:include>
+   
+   <!-- header -->
+   <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
             <!-- Logo Header -->
@@ -330,14 +477,14 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="${user.profilePicPath }"
+                        src="aset/img.jpg"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">${user.firstName }&nbsp;${user.lastName}</span>
+                      <span class="fw-bold">MEET&nbsp;PATEL</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn" >
@@ -346,14 +493,14 @@
                         <div class="user-box" >
                           <div class="avatar-lg">
                             <img
-                              src="${user.profilePicPath }"
+                              src="aset/img.jpg"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
                           </div>
                           <div class="u-text">
-                            <h4>${user.firstName }&nbsp;${user.lastName}</h4>
-                            <p class="text-muted">${user.email }</p>
+                            <h4>Meet&nbsp;Patel</h4>
+                            <p class="text-muted">meetpatel96645@gmail.com</p>
                             <a
                               href="#"
                               class="btn btn-xs btn-secondary btn-sm"
@@ -381,3 +528,177 @@
           <!-- End Navbar -->
         </div>
 
+   
+   
+   <!-- container  -->
+    <div class="container">
+     <main id="main" class="main"></main>
+        <div class="pagetitle animate__animated animate__fadeIn">
+            <h1>Edit ${user.eventType } Event</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="admindashboard">Home</a></li>    
+                    <li class="breadcrumb-item active"><a href="businessevents">All Event</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Edit Event</a></li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section dashboard">
+            <div class="form-container">
+                <form action="updateevent" method="post" enctype="multipart/form-data">
+                    <div class="event-type">
+                        <label>Event Type:</label>
+                        <select name="eventType" value="${user.eventType }" >
+                            <option value="business">Business</option>
+                            <option value="music">Music</option>
+                            <option value="concert">Concert</option>
+                            <option value="dance">Dance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Title:</label>
+                            <input type="text" name="title" placeholder="Enter event title" value=${user.title }>
+                        </div>
+                        <div class="form-field">
+                            <label>Keynote:</label>
+                            <input type="text" name="keynote" placeholder="Enter keynote speaker" value=${user.keynote } >
+                        </div>
+                    </div>
+                    
+                <div class="form-group">
+                <label>Photo:</label>
+                
+                <!-- File upload input -->
+                  <input type="file" name="profilePic" id="imageUploadInput" 
+                   accept="image/*" onchange="showImagePreview(this)">
+                   
+                <!-- Current image display (if exists) -->
+                   <c:if test="${not empty user.profilePicPath}">
+                        <img src="${user.profilePicPath}" id="currentImage" 
+                         style="max-width: 300px; max-height: 200px; border-radius: 5px; display: block; margin-bottom: 10px;">
+                   </c:if>
+    
+                <!-- Preview container for new upload -->
+                   <div id="imagePreview" style="margin-top: 10px;"></div>
+                </div>
+
+                    <div class="form-group">
+                        <label>Date:</label>
+                        <input type="date" name="date" value=${user.date }  >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Event Time:</label>
+                        <div class="time-fields">
+                            <div class="time-field">
+                                <label>Start Time:</label>
+                                <input type="time" name="stime" value=${user.stime } >
+                            </div>
+                            <div class="time-field">
+                                <label>End Time:</label>
+                                <input type="time" name="etime" value=${user.etime }>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>City:</label>
+                            <select name="city" >
+                                <option value="${user.city}">${user.city}</option>
+                                <option value="Gandhinagar">Gandhinagar</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Vadodara">Vadodara</option>
+                                <option value="Navsari">Navsari</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Description:</label>
+                            <input type="text" name="description" placeholder="Enter description" value=${user.description } >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="name" placeholder="Enter organizer name" value=${user.name }  >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address:</label>
+                        <input type="text" name="address" placeholder="Enter address" value=${user.address }>
+                    </div>
+                    
+                    
+                        <input type="hidden" name="createeventId" placeholder="Enter address" value=${user.createeventId } >
+                    
+                    
+                    <div class="btn-group">
+                        <input type="submit" value="Save Event" class="btn btn-primary">
+                        <a href="businessevents" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+    <!-- main content end  -->
+
+    <!-- footer -->
+    <jsp:include page="ADMIN_Footer.jsp"></jsp:include>
+    </div>  
+    <!-- JS -->
+    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
+<script>
+function showImagePreview(input) {
+    const previewDiv = document.getElementById('imagePreview');
+    const currentImage = document.getElementById('currentImage');
+    
+    // Hide the old image if exists
+    if (currentImage) {
+        currentImage.style.display = 'none';
+    }
+    
+    // Clear any previous preview
+    previewDiv.innerHTML = '';
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            // Create and display the new preview image
+            const newPreview = document.createElement('img');
+            newPreview.src = e.target.result;
+            newPreview.alt = "New Photo Preview";
+            newPreview.style.maxWidth = '300px';
+            newPreview.style.maxHeight = '200px';
+            newPreview.style.borderRadius = '5px';
+            
+            previewDiv.appendChild(newPreview);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
+<script>
+function updateImagePreview() {
+    const imageUrl = document.getElementById('imageUrlInput').value;
+    const previewDiv = document.getElementById('imagePreview');
+    
+    if (imageUrl) {
+        previewDiv.innerHTML = `<img src="${imageUrl}" alt="Event Photo Preview" 
+                               style="max-width: 300px; max-height: 200px; border-radius: 5px;">`;
+    } else {
+        previewDiv.innerHTML = '';
+    }
+}
+</script>
+  
+  
+</body>
+</html>

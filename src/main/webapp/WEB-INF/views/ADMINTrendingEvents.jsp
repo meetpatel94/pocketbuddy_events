@@ -256,7 +256,24 @@ main {
   background-color: #e0e0e0;
 }
 
-.btn-remove {
+.btn-undo {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  display: none;
+}
+
+.btn-undo:hover {
+  background-color: #218838;
+}
+
+.btn-delete {
   padding: 8px 15px;
   background-color: #dc3545;
   color: white;
@@ -266,10 +283,26 @@ main {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
+  display: none;
 }
 
-.btn-remove:hover {
+.btn-delete:hover {
   background-color: #bb2d3b;
+}
+
+.event-card.cancelled {
+  opacity: 0.6;
+  box-shadow: none;
+  border: 1px solid #dc3545;
+}
+
+.event-card.cancelled .btn-cancel {
+  display: none;
+}
+
+.event-card.cancelled .btn-undo,
+.event-card.cancelled .btn-delete {
+  display: inline-block;
 }
 
 /* Event type colors */
@@ -338,12 +371,46 @@ main {
   .modal-body .col-md-5 {
     margin-bottom: 20px;
   }
+  
+  .event-card-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .event-card-footer button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
   .event-card-header {
     height: 140px;
   }
+}
+.btn-edit {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #0069d9;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-edit i {
+    font-size: 14px;
 }
 </style>
 
@@ -400,8 +467,13 @@ main {
                     </div>
                 </div>
                 <div class="event-card-footer">
-                    <button class="btn-details">View Details</button>
-                    <button class="btn-cancel" onclick="cancelEvent(this)">Cancel</button>
+                 <a href="editevent?createeventId=${n.createeventId}" class="btn-edit">
+        <i class="bi bi-pencil-square"></i> Edit
+    </a>
+                    <!-- <button class="btn-details">View Details</button> -->
+                    <button class="btn-cancel" onclick="cancelEvent(this)">Cancel Event</button>
+                    <button class="btn-undo" onclick="undoCancel(this)">Undo</button>
+                    <a href="deleteevent?createeventId=${n.createeventId}" class="btn-delete">🗑️ Delete</a>
                 </div>
             </div>
         </c:forEach>
@@ -418,11 +490,13 @@ main {
     <!-- JS -->
    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
    <script>
+   let edit =  document.querySelector('.btn-edit');
    document.addEventListener('DOMContentLoaded', function() {
        filterEvents();
        document.querySelectorAll('.btn-details').forEach(btn => {
            btn.addEventListener('click', function() {
                const card = this.closest('.event-card');
+               
                showEventDetails(card);
            });
        });
@@ -430,19 +504,14 @@ main {
 
    function cancelEvent(button) {
        const card = button.closest('.event-card');
-       if (button.textContent === 'Cancel') {
-           button.textContent = 'Undo';
-           button.classList.remove('btn-cancel');
-           button.classList.add('btn-details');
-           card.style.opacity = '0.6';
-           card.style.boxShadow = 'none';
-       } else {
-           button.textContent = 'Cancel';
-           button.classList.remove('btn-details');
-           button.classList.add('btn-cancel');
-           card.style.opacity = '1';
-           card.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-       }
+       edit.style.display = "none";
+       card.classList.add('cancelled');
+   }
+
+   function undoCancel(button) {
+       const card = button.closest('.event-card');
+       edit.style.display = "block";
+       card.classList.remove('cancelled');
    }
 
    function filterEvents() {

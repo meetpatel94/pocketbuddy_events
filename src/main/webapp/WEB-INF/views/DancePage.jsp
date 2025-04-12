@@ -325,7 +325,15 @@ h1 {
     <jsp:include page="RatingPopupPage.jsp"></jsp:include>
     
     <!--========================== Intro Section ============================-->
-    <jsp:include page="Intro.jsp"></jsp:include>
+    <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <h1 class="mb-4 pb-0">Let the beats move your <br> <span>feet </span> passion, power, precision</h1>
+      <p class="mb-4 pb-0">15-21 Feb, At Good Place: Ahmedabad</p>
+      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+        data-autoplay="true"></a>
+      <a href="#about" class="about-btn scrollto" style="text-decoration:none">About The Event</a>
+    </div>
+  </section>
 
 <main id="main">
   

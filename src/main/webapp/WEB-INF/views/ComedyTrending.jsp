@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Show Events</title>
+  <title>Comedy Show Events</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Owl Carousel CSS -->
@@ -12,7 +12,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Music Show Carousel Styles */
+    /* Comedy Show Carousel Styles */
     .events-container {
       padding: 50px 0;
       background-color: #f8f9fa;
@@ -34,11 +34,11 @@
       font-size: 18px;
     }
     
-    .music-carousel {
+    .comedy-carousel {
       margin: 30px 0;
     }
     
-    .music-card {
+    .comedy-card {
       background: white;
       border-radius: 10px;
       overflow: hidden;
@@ -47,34 +47,34 @@
       transition: transform 0.3s ease;
     }
     
-    .music-card:hover {
+    .comedy-card:hover {
       transform: translateY(-10px);
     }
     
-    .music-image {
+    .comedy-image {
       height: 200px;
       background-size: cover;
       background-position: center;
       position: relative;
     }
     
-    .music-info {
+    .comedy-info {
       padding: 15px;
     }
     
-    .music-info h3 {
+    .comedy-info h3 {
       font-size: 18px;
       margin-bottom: 5px;
       color: #432E54;
     }
     
-    .music-info .artist {
+    .comedy-info .comedian {
       color: #f82249;
       font-weight: 500;
       margin-bottom: 5px;
     }
     
-    .music-info .venue-date {
+    .comedy-info .venue-date {
       color: #555;
       font-size: 14px;
       margin-bottom: 10px;
@@ -85,7 +85,7 @@
       justify-content: space-between;
       font-size: 13px;
       color: #777;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     
     .price-tag {
@@ -99,20 +99,28 @@
       font-weight: bold;
     }
     
-    .book-btn {
+    /* Delete Button Styles */
+    .btn-delete {
       display: block;
       text-align: center;
-      background: #432E54;
+      background: #dc3545;
       color: white;
       padding: 8px 0;
       border-radius: 5px;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      border: none;
+      width: 100%;
+      cursor: pointer;
     }
     
-    .book-btn:hover {
-      background: #f82249;
+    .btn-delete:hover {
+      background: #c82333;
       color: white;
+    }
+    
+    .btn-delete i {
+      margin-right: 5px;
     }
     
     /* Owl Carousel Navigation */
@@ -153,7 +161,7 @@
       background: #432E54 !important;
     }
     
-    .genre-badge {
+    .type-badge {
       position: absolute;
       top: 15px;
       left: 15px;
@@ -170,99 +178,99 @@
   <div class="events-container">
     <div class="container wow fadeInUp">
       <div class="section-header">
-        <h2>Trending Music Shows</h2>
-        <p>Live Music Performances</p>
+        <h2>Trending Comedy Shows</h2>
+        <p>Laugh Out Loud Performances</p>
       </div>
       
-      <!-- Music Show Carousel Section -->
-      <div class="music-carousel owl-carousel owl-theme">
-        <!-- Music Show 1 -->
-        <div class="music-card">
-          <div class="music-image" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
-            <span class="genre-badge">Rock</span>
-            <span class="price-tag">$80.0</span>
+      <!-- Comedy Show Carousel Section -->
+      <div class="comedy-carousel owl-carousel owl-theme">
+        <!-- Comedy Show 1 -->
+        <div class="comedy-card">
+          <div class="comedy-image" style="background-image: url('https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+            <span class="type-badge">Stand-up</span>
+            <span class="price-tag">$45.0</span>
           </div>
-          <div class="music-info">
-            <h3>Rock Revolution Live</h3>
-            <p class="artist">The Electric Strings</p>
-            <p class="venue-date">Narendra Modi Stadium | 15 JUN</p>
+          <div class="comedy-info">
+            <h3>Comedy Night Extravaganza</h3>
+            <p class="comedian">Zakir Khan</p>
+            <p class="venue-date">Sabarmati Riverfront | 12 JUN</p>
             <div class="stats">
-              <span class="interested"><i class="fas fa-user"></i> 450 interested</span>
-              <span class="sold">65% sold</span>
+              <span class="interested"><i class="fas fa-user"></i> 680 interested</span>
+              <span class="sold">75% sold</span>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Comedy Show 2 -->
+        <div class="comedy-card">
+          <div class="comedy-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87');">
+            <span class="type-badge">Stand-up</span>
+            <span class="price-tag">$35.0</span>
+          </div>
+          <div class="comedy-info">
+            <h3>Improv Comedy Jam</h3>
+            <p class="comedian">The Improv Collective</p>
+            <p class="venue-date">GMDC Ground | 16 JUN</p>
+            <div class="stats">
+              <span class="interested"><i class="fas fa-user"></i> 420 interested</span>
+              <span class="sold">60% sold</span>
             </div>
            
           </div>
         </div>
         
-        <!-- Music Show 2 -->
-        <div class="music-card">
-          <div class="music-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
-            <span class="genre-badge">Pop</span>
-            <span class="price-tag">$15.20</span>
+        <!-- Comedy Show 3 -->
+        <div class="comedy-card">
+          <div class="comedy-image" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30');">
+            <span class="type-badge">Stand-up</span>
+            <span class="price-tag">$55.0</span>
           </div>
-          <div class="music-info">
-            <h3>Pop Sensation Night</h3>
-            <p class="artist">Global Pop Stars</p>
-            <p class="venue-date">GMDC Ground | 18 JUN</p>
+          <div class="comedy-info">
+            <h3>Laugh Factory Live</h3>
+            <p class="comedian">Vir Das & Friends</p>
+            <p class="venue-date">Narendra Modi Stadium | 20 JUN</p>
             <div class="stats">
-              <span class="interested"><i class="fas fa-user"></i> 780 interested</span>
-              <span class="sold">85% sold</span>
-            </div>
-            
-          </div>
-        </div>
-        
-        <!-- Music Show 3 -->
-        <div class="music-card">
-          <div class="music-image" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
-            <span class="genre-badge">EDM</span>
-            <span class="price-tag">$15.00</span>
-          </div>
-          <div class="music-info">
-            <h3>Electronic Dance Festival</h3>
-            <p class="artist">DJ Supernova</p>
-            <p class="venue-date">Ahmedabad Riverfront | 22 JUN</p>
-            <div class="stats">
-              <span class="interested"><i class="fas fa-user"></i> 920 interested</span>
+              <span class="interested"><i class="fas fa-user"></i> 950 interested</span>
               <span class="sold">90% sold</span>
             </div>
-            
+           
           </div>
         </div>
         
-        <!-- Music Show 4 -->
-        <div class="music-card">
-          <div class="music-image" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
-            <span class="genre-badge">Jazz</span>
-            <span class="price-tag">$62.0</span>
+        <!-- Comedy Show 4 -->
+        <div class="comedy-card">
+          <div class="comedy-image" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819');">
+            <span class="type-badge">Roast</span>
+            <span class="price-tag">$65.0</span>
           </div>
-          <div class="music-info">
-            <h3>Smooth Jazz Evening</h3>
-            <p class="artist">The Jazz Collective</p>
-            <p class="venue-date">Sardar Patel Hall | 25 JUN</p>
+          <div class="comedy-info">
+            <h3>Celebrity Roast Night</h3>
+            <p class="comedian">Kunal Kamra & Team</p>
+            <p class="venue-date">Club O7 | 24 JUN</p>
             <div class="stats">
-              <span class="interested"><i class="fas fa-user"></i> 210 interested</span>
-              <span class="sold">40% sold</span>
+              <span class="interested"><i class="fas fa-user"></i> 520 interested</span>
+              <span class="sold">70% sold</span>
             </div>
-            
+           
           </div>
         </div>
         
-        <!-- Music Show 5 -->
-        <div class="music-card">
-          <div class="music-image" style="background-image: url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
-            <span class="genre-badge">Indie</span>
-            <span class="price-tag">$50</span>
+        <!-- Comedy Show 5 -->
+        <div class="comedy-card">
+          <div class="comedy-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+            <span class="type-badge">Stand-up</span>
+            <span class="price-tag">$40.0</span>
           </div>
-          <div class="music-info">
-            <h3>Indie Music Showcase</h3>
-            <p class="artist">Emerging Artists</p>
-            <p class="venue-date">Club O7 | 28 JUN</p>
+          <div class="comedy-info">
+            <h3>Weekend Comedy Special</h3>
+            <p class="comedian">Biswa Kalyan Rath</p>
+            <p class="venue-date">Sardar Patel Hall | 28 JUN</p>
             <div class="stats">
-              <span class="interested"><i class="fas fa-user"></i> 180 interested</span>
-              <span class="sold">30% sold</span>
+              <span class="interested"><i class="fas fa-user"></i> 380 interested</span>
+              <span class="sold">55% sold</span>
             </div>
-            
+           
           </div>
         </div>
       </div>
@@ -278,7 +286,7 @@
   <!-- Initialize Owl Carousel -->
   <script>
     $(document).ready(function(){
-      $(".music-carousel").owlCarousel({
+      $(".comedy-carousel").owlCarousel({
         loop: true,
         margin: 20,
         nav: true,

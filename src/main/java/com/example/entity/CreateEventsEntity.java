@@ -22,6 +22,10 @@ public class CreateEventsEntity {
 	private String city;
 	private String stime;
 	private String etime;
+	private String description;
+	private String name;
+	private String address;
+	
 	public String getStime() {
 		return stime;
 	}
@@ -34,10 +38,6 @@ public class CreateEventsEntity {
 	public void setEtime(String etime) {
 		this.etime = etime;
 	}
-	private String description;
-	private String name;
-	private String address;
-	
 	public Integer getCreateeventId() {
 		return createeventId;
 	}

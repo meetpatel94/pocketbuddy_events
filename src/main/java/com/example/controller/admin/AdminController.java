@@ -190,4 +190,67 @@ public class AdminController {
 		return "ADMINTrendingEvents";
 	}
     
+    @GetMapping("deleteevent")
+	public String deleteevent(Integer createeventId) {
+		repoevent.deleteById(createeventId);
+		return "redirect:/businessevents";
+	}
+    
+    @GetMapping("editevent")
+   	public String editevent(Integer createeventId,Model model) {
+   		
+   		Optional<CreateEventsEntity> op = repoevent.findById(createeventId);
+   		if(op.isEmpty()) {
+   			return "redirect:/businessevents";
+   			
+   		}else {
+   			model.addAttribute("user", op.get());
+   			return "EditEventPage";
+   		}	
+   	}
+    
+    
+    @PostMapping("updateevent")
+   	public String updateevent(CreateEventsEntity entity, MultipartFile profilePic) {
+
+   		Optional<CreateEventsEntity> op = repoevent.findById(entity.getCreateeventId());
+   		
+   		if(op.isPresent()) {
+   			
+   			CreateEventsEntity dbuser = op.get();
+   			dbuser.setEventType(entity.getEventType());
+   			dbuser.setTitle(entity.getTitle());
+   			dbuser.setKeynote(entity.getKeynote());
+   			dbuser.setDate(entity.getDate());
+   			dbuser.setCity(entity.getCity());
+   			dbuser.setStime(entity.getStime());
+   			dbuser.setEtime(entity.getEtime());
+   			dbuser.setDescription(entity.getDescription());
+   			dbuser.setName(entity.getName());
+   			dbuser.setAddress(entity.getAddress());
+   			dbuser.setProfilePicPath(entity.getProfilePicPath());
+   			
+   			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+   			   profilePic.getOriginalFilename().endsWith(".png")) {
+   				
+   			} else {
+   				return "Signup";
+   				
+   			} try {
+   				
+   			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//   			
+   			
+   			entity.setProfilePicPath(result.get("url").toString());
+   			
+   			} catch (IOException e) {
+   				// TODO Auto-generated catch block
+   				e.printStackTrace();
+   			}
+   			
+   			repoevent.save(entity);
+   		}	
+   		return "redirect:/businessevents";
+   	}
+    
 }

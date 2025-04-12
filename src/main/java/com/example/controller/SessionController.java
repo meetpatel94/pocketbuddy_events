@@ -205,6 +205,18 @@ public class SessionController {
 		return "Login";
 	}
 	
+
+
+//	-----------------> User Side Home Page
+	
+	@GetMapping( value = { "/", "defaultpage" } )
+	public String defaultpage(Model model) {
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
+		return "DefaultPage";
+	}
 	
 	@GetMapping("home")
 	public String home(Model model) {
@@ -251,17 +263,24 @@ public class SessionController {
 		return "ComedyPage";
 	}
 	
-	
-	@GetMapping( value = { "/", "defaultpage" } )
-	public String defaultpage(Model model) {
-		
-		List<CreateEventsEntity> event = repoevent.findAll();
-		model.addAttribute("newevent", event);
-		
-		return "DefaultPage";
+	@PostMapping("updatepass")
+	public String updatePass(UserEntity entity, String password, Model model) {
+	    Optional<UserEntity> op = repositoryUser.findById(entity.getUserId());
+
+	    if (op.isPresent()) {
+	        UserEntity dbuser = op.get();
+
+	        String encPwd = encoder.encode(password);
+	        dbuser.setPassword(encPwd); // Set the encoded password
+
+	        repositoryUser.save(dbuser); // Save the updated dbuser
+	        return "Home"; // or redirect to login if password changed
+	    }
+
+	    model.addAttribute("error", "User not found.");
+	    return "error-page"; // show appropriate error page
 	}
-	
-	
+
 	
 
 }
