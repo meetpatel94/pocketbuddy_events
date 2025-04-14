@@ -189,10 +189,10 @@ main{
     	</div><!-- End Page Title -->
 
     	<section class="section dashboard">
-			<form action="savemember" method="post">
+			<form action="savemember" method="post" enctype="multipart/form-data">
 				Member Name: <input type="text" name="memberName"> <br><br> 
 				Age : <input type="text" name="age"/><br><br> 
-	            ProfilePhoto : <input type="file" name="profilePhoto"/><br><br>
+	            ProfilePhoto : <input type="file" name="profilePic2"/><br><br>
 	          
 				<input type="submit" value="Save Member">
 			</form>

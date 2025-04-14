@@ -107,7 +107,8 @@ public class AdminController {
 			dbuser.setProfilePicPath(entity.getProfilePicPath());
 			
 			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-			   profilePic.getOriginalFilename().endsWith(".png")) {
+			   profilePic.getOriginalFilename().endsWith(".png") ||
+			   profilePic.getOriginalFilename().endsWith(".webp")) {
 				
 			} else {
 				return "Signup";
@@ -231,10 +232,11 @@ public class AdminController {
    			dbuser.setProfilePicPath(entity.getProfilePicPath());
    			
    			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-   			   profilePic.getOriginalFilename().endsWith(".png")) {
+   			   profilePic.getOriginalFilename().endsWith(".png") ||
+   			   profilePic.getOriginalFilename().endsWith(".webp")) {
    				
    			} else {
-   				return "Signup";
+   				return "redirect:/businessevents";
    				
    			} try {
    				

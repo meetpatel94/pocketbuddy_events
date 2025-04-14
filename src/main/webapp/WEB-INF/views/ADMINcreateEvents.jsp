@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Create Business Event</title>
+<title>Create Event</title>
 <style>
 .container{
   margin-left:20px !important;
@@ -136,6 +136,16 @@ input[type="file"]:focus {
 main{
  margin-left:20px;
 }
+.btn-primary{
+ background-color:green !important;
+ border-radius: 10px 10px 10px 10px !important;
+}
+.btn-primary:hover{
+ background-color:#4ab74a !important;
+}
+.btn-secondary {
+ border-radius: 10px 10px 10px 10px !important;
+}
 </style>
 </head>
 <body>
@@ -151,11 +161,12 @@ main{
     <div class="container">
      <main id="main" class="main"></main>
         <div class="pagetitle animate__animated animate__fadeIn">
-            <h1>Create Business Event</h1>
+            <h1>Create Event</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
-                    <li class="breadcrumb-item active">Add Event</li>
+                    <li class="breadcrumb-item"><a href="businessevents">All Events</a></li>
+                    <li class="breadcrumb-item active">Create Event</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -170,6 +181,7 @@ main{
                             <option value="music">Music</option>
                             <option value="concert">Concert</option>
                             <option value="dance">Dance</option>
+                            <option value="comedy">Comedy</option>
                         </select>
                     </div>
                     

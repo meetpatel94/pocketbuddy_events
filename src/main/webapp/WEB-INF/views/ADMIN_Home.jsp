@@ -7,7 +7,7 @@
                 <h3 class="fw-bold mb-3">Dashboard</h3>
         
               </div>
-              <div class="ms-md-auto py-2 py-md-0">
+              <div class="ms-md-auto py-2 py-md-0 non">
                 <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
                 <a href="#" class="btn btn-primary btn-round">Add Customer</a>
               </div>
@@ -103,7 +103,7 @@
                   <div class="card-header">
                     <div class="card-head-row">
                       <div class="card-title">User Statistics</div>
-                      <div class="card-tools">
+                      <div class="card-tools" style="display:none;">
                         <a
                           href="#"
                           class="btn btn-label-success btn-round btn-sm me-2"
@@ -184,7 +184,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="display:none;">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">
@@ -313,8 +313,8 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-4">
+            <div class="row" >
+              <div class="col-md-4" style="width:100%; !important">
                 <div class="card card-round">
                   <div class="card-body">
                     <div class="card-head-row card-tools-still-right">
@@ -460,7 +460,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8" style="display:none;">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">

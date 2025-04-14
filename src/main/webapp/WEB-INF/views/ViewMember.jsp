@@ -127,13 +127,7 @@
             width: 390px;
             text-align: center;
         }
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #007bff;
-        }
+        
         .info {
             margin-top: 10px;
             text-align: left;

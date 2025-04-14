@@ -8,11 +8,15 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-
+/* Enable smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
 body {
   background: #fff;
   color: #2f3138;
   font-family: "Open Sans", sans-serif;
+  overflow-x:hidden; 
 }
 
 a {

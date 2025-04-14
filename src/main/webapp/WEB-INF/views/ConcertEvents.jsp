@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Business Seminar</title>
+<title>Concert Shows</title>
 
 <!-- Bootstrap & FontAwesome -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -309,8 +309,8 @@
 <section id="speakersSection" class="py-5">
   <div class="container">
     <div class="headline-box wow animate__animated animate__fadeIn">
-      <h2>Business Seminars</h2>
-      <p>Connect with industry leaders and expert speakers at our premier business events. Gain insights, network with professionals, and take your business to the next level.</p>
+      <h2>Concerts Shows</h2>
+      <p>Experience the thrill of live entertainment at our exclusive concerts and shows. Connect with top artists, immerse yourself in unforgettable performances, and create memories that last a lifetime. Whether you're a music lover or a fan of live acts, this is your chance to enjoy world-class entertainment and vibrant atmospheres like never before.</p>
     </div>
 
     <div class="filter-controls">

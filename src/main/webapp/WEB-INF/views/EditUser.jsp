@@ -191,7 +191,7 @@ main{
     	<main id="main" class="main">
        <div class="nen">
     	<div class="pagetitle">
-      		<h1>New Role</h1>
+      		<h1>Edit User</h1>
       		<nav>
         		<ol class="breadcrumb">
           			<li class="breadcrumb-item"><a href="admindashboard">Home</a></li>

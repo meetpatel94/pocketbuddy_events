@@ -235,13 +235,7 @@
             width: 390px;
             text-align: center;
         }
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #007bff;
-        }
+        
         .info {
             margin-top: 10px;
             text-align: left;
@@ -300,7 +294,7 @@ main{
    <jsp:include page="ADMIN_Sidebar.jsp"></jsp:include>
    
    <!-- header -->
-   <jsp:include page="ADMIN_Header.jsp"></jsp:include>
+    <jsp:include page="ADMIN_Header.jsp"></jsp:include>
    
    <!-- container  -->
    	 <div class="container">
@@ -366,7 +360,7 @@ main{
 		</section>
 
 	</main><!-- End #main -->
-    
+  </div>  
     <!-- main content end  -->
 
     <!-- footer -->

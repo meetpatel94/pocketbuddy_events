@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.io.IOException;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,7 +60,8 @@ public class SessionController {
 		// cloudinary - photo upload
 		//System.out.println(profilePic.getOriginalFilename());	
 		if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-		   profilePic.getOriginalFilename().endsWith(".png")) {
+		   profilePic.getOriginalFilename().endsWith(".png") ||
+		   profilePic.getOriginalFilename().endsWith(".webp")) {
 			
 		} else {
 			return "Signup";	

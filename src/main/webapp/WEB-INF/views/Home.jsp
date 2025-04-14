@@ -37,6 +37,23 @@
     License: https://bootstrapmade.com/license/
   ======================================================= -->
    <style>
+/* For the entire document */
+::-webkit-scrollbar {
+  width: 12px;               /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;       /* color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #432E54;          /* color of the scrollbar */
+  border-radius: 6px;        /* rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f82249;          /* color on hover */
+}
   button {
     background-color: #007bff;
     color: white;

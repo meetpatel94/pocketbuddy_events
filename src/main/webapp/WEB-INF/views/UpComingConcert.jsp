@@ -261,6 +261,9 @@
     td[data-label="Action"] {
   display: none;
     }
+  #reset-filters{
+     margin-top: 29px !important;
+  }
   </style>
 </head>
 <body>
@@ -273,16 +276,7 @@
       
       <!-- Filter Controls -->
       <div class="filter-controls row g-3">
-        <div class="col-md-3">
-          <label for="date-filter" class="form-label">Filter by Date</label>
-          <select id="date-filter" class="form-select">
-            <option value="all">All Dates</option>
-            <option value="all">Today</option>
-            <option value="this-week">This Week</option>
-            <option value="next-week">Next Week</option>
-            <option value="this-month">This Month</option>
-          </select>
-        </div>
+        
         <div class="col-md-3">
           <label for="genre-filter" class="form-label">Filter by Genre</label>
           <select id="genre-filter" class="form-select">

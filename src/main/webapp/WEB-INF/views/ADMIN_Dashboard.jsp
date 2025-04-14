@@ -40,6 +40,24 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="aset/assets/css/demo.css" />
     <style>
+    
+/* For the entire document */
+::-webkit-scrollbar {
+  width: 12px;               /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;       /* color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #432E54;          /* color of the scrollbar */
+  border-radius: 6px;        /* rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f82249;          /* color on hover */
+}
      main{
         margin-left:20px;
      }
@@ -59,7 +77,9 @@
 .animated, .fadeInDown {
     animation: none !important;
 }
-
+.non{
+  display:none;
+}
     </style>
 </head>
 <body>

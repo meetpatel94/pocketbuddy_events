@@ -324,7 +324,7 @@
         
         <form action="saveuser" class="login-form" method="post" enctype="multipart/form-data">
             <div class="input-box">
-                <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " >
+                <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " required >
                 <label for="firstName" class="label">First Name</label>
                 <i class='bx bx-user icon'></i>
             </div>

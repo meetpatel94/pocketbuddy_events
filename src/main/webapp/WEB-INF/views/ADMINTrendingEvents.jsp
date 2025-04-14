@@ -412,19 +412,151 @@ main {
 .btn-edit i {
     font-size: 14px;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 75vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  padding: 20px;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0 10px;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-image-container {
+  margin-bottom: 20px;
+}
+
+.modal-image-container img {
+  width: 50%;
+  max-height: 207px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.event-details p {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.event-details i {
+  margin-right: 10px;
+  color: var(--primary-color);
+  width: 20px;
+  text-align: center;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+  }
+  
+  .modal-body {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+  }
+  
+  .modal-footer button {
+    width: 100%;
+  }
+}
+.modal-content {
+    margin-top: 99px !important;
+    margin-left: 222px !important;
+    margine-bottom: 10px;
+}
+
 </style>
 
 </head>
 <body>
    
-   <!-- sidebar -->
+   <!-- Previous HTML content remains the same until the events grid -->
+     <!-- sidebar -->
    <div class="wrapper">
    <jsp:include page="ADMIN_Sidebar.jsp"></jsp:include>
    
    <!-- header -->
    <jsp:include page="ADMIN_Header.jsp"></jsp:include>
    
-   <!-- container  -->
+    <!-- container  -->
    <div class="container">
    <div class="events-container">
    <div class="container wow fadeInUp">
@@ -437,6 +569,7 @@ main {
                   <option value="concerts">Concerts</option>
                   <option value="dance">Dance</option>
                   <option value="business">Business</option>
+                  <option value="comedy">Comedy</option>
               </select>
               <select id="cityDropdown" onchange="filterEvents()">
                   <option value="all">All Cities</option>
@@ -450,12 +583,12 @@ main {
               <a href="createevents"><button class="crt-btn">Create+</button></a>
           </div>
         </div>
-    
+        
     <!-- Events Cards Grid -->
     <div class="events-grid" id="eventsGrid">
         <c:forEach items="${newevent}" var="n">
             <div class="event-card ${n.eventType}-card" data-city="${n.city}" data-type="${n.eventType.toLowerCase()}">
-                <div class="event-card-header" style="background-image: url('${n.profilePicPath }')">
+                <div class="event-card-header" style="background-image: url('${n.profilePicPath}')">
                     <span class="event-card-type">${n.eventType}</span>
                     <span class="event-card-city">${n.city}</span>
                     <span class="event-card-date">${n.date}</span>
@@ -467,10 +600,20 @@ main {
                     </div>
                 </div>
                 <div class="event-card-footer">
-                 <a href="editevent?createeventId=${n.createeventId}" class="btn-edit">
-        <i class="bi bi-pencil-square"></i> Edit
-    </a>
-                    <!-- <button class="btn-details">View Details</button> -->
+                    <a href="editevent?createeventId=${n.createeventId }" class="btn-edit">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <button class="btn-details" 
+                            onclick="showEventDetails({
+                                title: '${n.title}',
+                                date: '${n.date}',
+                                venue: '${n.address}',
+                                city: '${n.city}',
+                                type: '${n.eventType}',
+                                image: '${n.profilePicPath}'
+                            })">
+                        View Details
+                    </button>
                     <button class="btn-cancel" onclick="cancelEvent(this)">Cancel Event</button>
                     <button class="btn-undo" onclick="undoCancel(this)">Undo</button>
                     <a href="deleteevent?createeventId=${n.createeventId}" class="btn-delete">🗑️ Delete</a>
@@ -479,6 +622,34 @@ main {
         </c:forEach>
     </div>
 </div>
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Event Details</h3>
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-image-container">
+        <img id="modalImage" src="" alt="Event Image" class="img-fluid">
+      </div>
+      <div class="event-details">
+        <p><i class="bi bi-calendar-event"></i> <strong>Date:&nbsp; </strong> <span id="modalDate"></span></p>
+        <p><i class="bi bi-geo-alt"></i> <strong>Venue: </strong> <span id="modalVenue"></span></p>
+        <p><i class="bi bi-building"></i> <strong>City: </strong> <span id="modalCity"></span></p>
+        <p><i class="bi bi-tag"></i> <strong>Type: </strong> <span id="modalType"></span></p>
+        <p><i class="bi bi-people"></i> <strong>Attendees: </strong> <span id="modalAttendees"></span></p>
+        <p><i class="bi bi-cash"></i> <strong>Price: </strong> <span id="modalPrice"></span></p>
+        <p><i class="bi bi-person"></i> <strong>Organizer: </strong> <span id="modalOrganizer"></span></p>
+        <p><i class="bi bi-telephone"></i> <strong>Contact: </strong> <span id="modalContact"></span></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
 </div>
 
     <!-- footer -->
@@ -490,28 +661,91 @@ main {
     <!-- JS -->
    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
    <script>
-   let edit =  document.querySelector('.btn-edit');
+   let edit = document.querySelector('.btn-edit');
    document.addEventListener('DOMContentLoaded', function() {
        filterEvents();
-       document.querySelectorAll('.btn-details').forEach(btn => {
-           btn.addEventListener('click', function() {
-               const card = this.closest('.event-card');
-               
-               showEventDetails(card);
-           });
+       
+       // Close modal when clicking outside content
+       document.getElementById('eventModal').addEventListener('click', function(e) {
+           if (e.target === this) {
+               closeModal();
+           }
+       });
+       
+       // Close modal with Escape key
+       document.addEventListener('keydown', function(e) {
+           if (e.key === 'Escape') {
+               closeModal();
+           }
        });
    });
 
+   function showEventDetails(eventData) {
+       // Generate random details for demo purposes
+       const attendees = Math.floor(Math.random() * 500) + 50;
+       const price = "₹" + (Math.floor(Math.random() * 20) + 5) + "00";
+       const contact = "+91 " + Math.floor(1000000000 + Math.random() * 9000000000);
+       
+       let organizer = "";
+       let description = "";
+       
+       switch(eventData.type.toLowerCase()) {
+           case 'music':
+               organizer = "Gujarat Music Society";
+               description = "Experience an enchanting evening of classical and contemporary music performances.";
+               break;
+           case 'concerts':
+               organizer = "Live Nation India";
+               description = "A high-energy concert featuring popular bands and solo artists.";
+               break;
+           case 'dance':
+               organizer = "Nritya Shakti Foundation";
+               description = "A spectacular showcase of dance forms from traditional to contemporary.";
+               break;
+           case 'business':
+               organizer = "Gujarat Chamber of Commerce";
+               description = "A premier networking and knowledge-sharing event for business professionals.";
+               break;
+           default:
+               organizer = "Local Event Organizers";
+               description = "An exciting event featuring various activities and performances.";
+       }
+
+       // Set modal content
+       document.getElementById('modalTitle').textContent = eventData.title;
+       document.getElementById('modalImage').src = eventData.image;
+       document.getElementById('modalDate').textContent = eventData.date;
+       document.getElementById('modalVenue').textContent = eventData.venue.replace('<i class="bi bi-geo-alt"></i> ', '');
+       document.getElementById('modalCity').textContent = eventData.city.charAt(0).toUpperCase() + eventData.city.slice(1);
+       document.getElementById('modalType').textContent = eventData.type.charAt(0).toUpperCase() + eventData.type.slice(1);
+       document.getElementById('modalAttendees').textContent = attendees;
+       document.getElementById('modalPrice').textContent = price;
+       document.getElementById('modalOrganizer').textContent = organizer;
+       document.getElementById('modalContact').textContent = contact;
+       
+       // Show modal with animation
+       document.getElementById('eventModal').classList.add('active');
+       document.body.style.overflow = 'hidden';
+   }
+
+   function closeModal() {
+       document.getElementById('eventModal').classList.remove('active');
+       document.body.style.overflow = 'auto';
+       
+   }
+   
+   
+    
    function cancelEvent(button) {
        const card = button.closest('.event-card');
-       edit.style.display = "none";
        card.classList.add('cancelled');
+      
    }
 
    function undoCancel(button) {
        const card = button.closest('.event-card');
-       edit.style.display = "block";
        card.classList.remove('cancelled');
+       
    }
 
    function filterEvents() {
@@ -548,103 +782,6 @@ main {
            }
        } else if (noEventsMsg) {
            noEventsMsg.remove();
-       }
-   }
-
-   function showEventDetails(card) {
-       const title = card.querySelector('.event-card-title').textContent;
-       const date = card.querySelector('.event-card-date').textContent;
-       const venue = card.querySelector('.event-card-venue').textContent;
-       const city = card.getAttribute('data-city');
-       const type = card.getAttribute('data-type');
-       const image = card.querySelector('.event-card-header').style.backgroundImage.replace('url("','').replace('")','');
-
-       let description = "";
-       let organizer = "";
-       let attendees = Math.floor(Math.random() * 500) + 50;
-       let price = "";
-       let contact = "+91 " + Math.floor(1000000000 + Math.random() * 9000000000);
-
-       switch(type) {
-           case 'music':
-               description = "Experience an enchanting evening of classical and contemporary music performances.";
-               organizer = "Gujarat Music Society";
-               price = "₹" + (Math.floor(Math.random() * 15) + 5) + "00";
-               break;
-           case 'concerts':
-               description = "A high-energy concert featuring popular bands and solo artists.";
-               organizer = "Live Nation India";
-               price = "₹" + (Math.floor(Math.random() * 20) + 10) + "00";
-               break;
-           case 'dance':
-               description = "A spectacular showcase of dance forms from traditional to contemporary.";
-               organizer = "Nritya Shakti Foundation";
-               price = "₹" + (Math.floor(Math.random() * 10) + 3) + "00";
-               break;
-           case 'business':
-               description = "A premier networking and knowledge-sharing event for business professionals.";
-               organizer = "Gujarat Chamber of Commerce";
-               price = "₹" + (Math.floor(Math.random() * 30) + 15) + "00";
-               break;
-           default:
-               description = "An exciting event featuring various activities and performances.";
-               organizer = "Local Event Organizers";
-               price = "₹" + (Math.floor(Math.random() * 10) + 5) + "00";
-       }
-
-       const modalHTML = `
-       <div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-hidden="true">
-           <div class="modal-dialog modal-dialog-centered modal-lg">
-               <div class="modal-content">
-                   <div class="modal-header" style="background: var(--primary-color); color: white;">
-                       <h5 class="modal-title">Event Details</h5>
-                       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                   </div>
-                   <div class="modal-body">
-                       <div class="row">
-                           <div class="col-md-5">
-                               <img src="${image}" class="img-fluid rounded mb-3" alt="Event Image">
-                               <div class="d-flex justify-content-between mt-2">
-                                   <span><i class="bi bi-people"></i> ${attendees} Attendees</span>
-                                   <span><i class="bi bi-cash"></i> ${price}</span>
-                               </div>
-                           </div>
-                           <div class="col-md-7">
-                               <h3>${title}</h3>
-                               <p class="text-muted">${description}</p>
-                               <hr>
-                               <div class="event-details">
-                                   <p><i class="bi bi-calendar-event"></i> <strong>Date:</strong> ${date}</p>
-                                   <p><i class="bi bi-geo-alt"></i> <strong>Venue:</strong> ${venue.replace('<i class="bi bi-geo-alt"></i> ', '')}</p>
-                                   <p><i class="bi bi-building"></i> <strong>City:</strong> ${city.charAt(0).toUpperCase() + city.slice(1)}</p>
-                                   <p><i class="bi bi-tag"></i> <strong>Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</p>
-                                   <p><i class="bi bi-person"></i> <strong>Organizer:</strong> ${organizer}</p>
-                                   <p><i class="bi bi-telephone"></i> <strong>Contact:</strong> ${contact}</p>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                       <button type="button" class="btn btn-primary">Edit Event</button>
-                       <button type="button" class="btn btn-danger btn-remove" onclick="removeEvent('${title}')">Remove Event</button>
-                   </div>
-               </div>
-           </div>
-       </div>`;
-       
-       document.body.insertAdjacentHTML('beforeend', modalHTML);
-       const modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
-       modal.show();
-       document.getElementById('eventDetailsModal').addEventListener('hidden.bs.modal', function() {
-           this.remove();
-       });
-   }
-
-   function removeEvent(eventTitle) {
-       if (confirm(`Are you sure you want to remove "${eventTitle}"? This action cannot be undone.`)) {
-           alert(`"${eventTitle}" has been removed successfully.`);
-           bootstrap.Modal.getInstance(document.getElementById('eventDetailsModal')).hide();
        }
    }
    </script>

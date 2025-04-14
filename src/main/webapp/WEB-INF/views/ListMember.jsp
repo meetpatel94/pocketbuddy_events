@@ -551,11 +551,11 @@
                                                                 <img src="${m.profilePhoto}" class="profile-photo" alt="Profile Photo">
                                                             </c:if>
                                                             <c:if test="${empty m.profilePhoto}">
-                                                                No photo
+                                                               <img src="aset/img.jpg" class="profile-photo" alt="Profile Photo">
                                                             </c:if>
                                                         </td>
                                                         <td class="action-buttons">
-                                                            <a href="#" class="edit-btn" title="Edit">
+                                                            <a href="editmember?memberId=${m.memberId}" class="edit-btn" title="Edit">
                                                                 <i class="fas fa-edit" style="color:green;"></i>
                                                             </a>
                                                             <a href="viewmember?memberId=${m.memberId}" class="view-btn" title="View">

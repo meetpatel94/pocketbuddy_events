@@ -136,6 +136,16 @@ input[type="file"]:focus {
 main{
  margin-left:20px;
 }
+.btn-primary{
+ background-color:green !important;
+ border-radius: 10px 10px 10px 10px !important;
+}
+.btn-primary:hover{
+ background-color:#4ab74a !important;
+}
+.btn-secondary {
+ border-radius: 10px 10px 10px 10px !important;
+}
 </style>
 </head>
 <body>
@@ -549,11 +559,13 @@ main{
                 <form action="updateevent" method="post" enctype="multipart/form-data">
                     <div class="event-type">
                         <label>Event Type:</label>
-                        <select name="eventType" value="${user.eventType }" >
+                        <select name="eventType">
+                            <option value="${user.eventType }">Select Event Type</option>
                             <option value="business">Business</option>
                             <option value="music">Music</option>
                             <option value="concert">Concert</option>
                             <option value="dance">Dance</option>
+                            <option value="comdey">comedy</option>
                         </select>
                     </div>
                     
