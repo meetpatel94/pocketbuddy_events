@@ -156,7 +156,9 @@ main{
    
    <!-- header -->
    <jsp:include page="ADMIN_Header.jsp"></jsp:include>
-   
+
+
+
    <!-- container  -->
     <div class="container">
      <main id="main" class="main"></main>
@@ -223,15 +225,27 @@ main{
                     
                     <div class="form-row">
                         <div class="form-field">
-                            <label>City:</label>
-                            <select name="city" required>
-                                <option value="">Select a city</option>
-                                <option value="Gandhinagar">Gandhinagar</option>
-                                <option value="Ahmedabad">Ahmedabad</option>
-                                <option value="Surat">Surat</option>
-                                <option value="Vadodara">Vadodara</option>
-                                <option value="Navsari">Navsari</option>
-                            </select>
+                         <label>State:</label>
+                             State Name:<select name="stateId">
+                               <option>Select State</option> 
+       
+                           <c:forEach items="${allstate }" var="s">
+                               <option value="${s.staId }">${s.staName }</option>
+                           </c:forEach> 
+                           </select>                       
+                        </div>
+                        </div>
+                        
+                         <div class="form-row">
+                        <div class="form-field">
+                           <label>City:</label>
+                             City Name:<select name="stateId">
+                               <option>Select City</option> 
+       
+                           <c:forEach items="${allcity }" var="s">
+                               <option value="${s.cityId }">${s.cityName }</option>
+                           </c:forEach> 
+                           </select>
                         </div>
                         <div class="form-field">
                             <label>Description:</label>

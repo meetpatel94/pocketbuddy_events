@@ -328,7 +328,7 @@ h1 {
     }
 }
 /* css */
-.action-buttons, button{
+.action-buttons{
  display:none !important;
 }
 /*hereeee  */

@@ -235,24 +235,25 @@
    <div class="container">
      <main id="main" class="main">
         <div class="pagetitle animate__animated animate__fadeIn">
-            <h1>Add & List States</h1>
+            <h1>Add & List Cities</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="admindashboard">Home</a></li>
                     <li class="breadcrumb-item"><a href="businessevents">All Events</a></li>
-                    <li class="breadcrumb-item active">Add states</li>
+                    <li class="breadcrumb-item active">View Cities</li>
                 </ol>
             </nav>
         </div>
         <!-- End Page Title -->
-        <section class="section dashboard" style="color:black;">
-			<form action="savesta" method="post">
-             State Name: <input type="text" name="staName" required>
+     <section class="section dashboard" style="color:black;">
+			<form action="savcity" method="post">
+             City Name: <input type="text" name="cityName" required>
         <input type="submit" value="Add State" >
   </form>
   <br>
   <br>
-  </section>
+  </section>    
+		
 
         <section class="section dashboard">
             <div class="row" style="min-height: 500px;">
@@ -270,17 +271,17 @@
                                             <thead>
                                                 <tr>
                                                   <!--   <th>State Id</th> -->
-                                                    <th>State Name</th>
+                                                    <th>City Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${allsta }" var="u">
+                                                <c:forEach items="${allcity }" var="u">
                                                     <tr class="animate__animated animate__fadeIn">
 <%--                                                          <td>${u.staId}</td> --%>
-                                                        <td>${u.staName}</td>
+                                                        <td>${u.cityName}</td>
                                                         <td class="action-buttons">
-                                                            <a href="deletesta?staId=${u.staId }" class="delete-btn" style="color:red" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                            <a href="deletecity?cityId=${u.cityId }" class="delete-btn" style="color:red" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
                                                         </td>

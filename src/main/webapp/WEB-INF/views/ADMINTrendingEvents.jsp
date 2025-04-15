@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -173,6 +172,16 @@ main {
 .event-card-city {
   position: absolute;
   bottom: 15px;
+  left: 15px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.event-card-state {
+  position: absolute;
+  bottom: 40px;
   left: 15px;
   color: white;
   font-weight: 600;
@@ -543,6 +552,65 @@ main {
     margine-bottom: 10px;
 }
 
+/* State Modal Styles */
+.state-modal-content {
+  max-width: 500px;
+  width: 90%;
+}
+
+.state-form-group {
+  margin-bottom: 20px;
+}
+
+.state-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.state-form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.state-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.state-submit-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.state-submit-btn:hover {
+  background-color: var(--primary-light);
+}
+
+.state-cancel-btn {
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.state-cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
 </style>
 
 </head>
@@ -571,25 +639,35 @@ main {
                   <option value="business">Business</option>
                   <option value="comedy">Comedy</option>
               </select>
-              <select id="cityDropdown" onchange="filterEvents()">
-                  <option value="all">All Cities</option>
-                  <option value="ahmedabad">Ahmedabad</option>
-                  <option value="surat">Surat</option>
-                  <option value="gandhinagar">Gandhinagar</option>
-                  <option value="vadodara">Vadodara</option>
-                  <option value="navsari">Navsari</option>
-                  <option value="others">Other Cities</option>
-              </select>
-              <a href="createevents"><button class="crt-btn">Create+</button></a>
+                      
+              <select name="stateId" id="stateFilter" onchange="filterEvents()">
+                  <option value="all">All States</option>        
+                <c:forEach items="${allstate}" var="s">
+                   <option value="${s.staId}">${s.staName}</option>
+                </c:forEach> 
+             </select>  
+                  
+             <select name="cityId" id="cityFilter" onchange="filterEvents()">
+                  <option value="all">All Cities</option>        
+                <c:forEach items="${allcity}" var="c">
+                  <option value="${c.cityId}">${c.cityName}</option>             
+                </c:forEach> 
+             </select>                       
+             
+              <button class="crt-btn" onclick="showStateModal()">Create+</button>
           </div>
         </div>
         
     <!-- Events Cards Grid -->
     <div class="events-grid" id="eventsGrid">
         <c:forEach items="${newevent}" var="n">
-            <div class="event-card ${n.eventType}-card" data-city="${n.city}" data-type="${n.eventType.toLowerCase()}">
+            <div class="event-card ${n.eventType}-card" 
+                 data-type="${n.eventType.toLowerCase()}"
+                 data-state="${n.state}"
+                 data-city="${n.city}">
                 <div class="event-card-header" style="background-image: url('${n.profilePicPath}')">
                     <span class="event-card-type">${n.eventType}</span>
+                    <span class="event-card-state">${n.state}</span>
                     <span class="event-card-city">${n.city}</span>
                     <span class="event-card-date">${n.date}</span>
                 </div>
@@ -600,7 +678,7 @@ main {
                     </div>
                 </div>
                 <div class="event-card-footer">
-                    <a href="editevent?createeventId=${n.createeventId }" class="btn-edit">
+                    <a href="editevent?createeventId=${n.createeventId}" class="btn-edit">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
                     <button class="btn-details" 
@@ -609,6 +687,7 @@ main {
                                 date: '${n.date}',
                                 venue: '${n.address}',
                                 city: '${n.city}',
+                                state: '${n.state}',
                                 type: '${n.eventType}',
                                 image: '${n.profilePicPath}'
                             })">
@@ -652,6 +731,41 @@ main {
   </div>
 </div>
 
+<!-- State Selection Modal -->
+<div class="modal-overlay" id="stateModal">
+  <div class="modal-content state-modal-content">
+    <div class="modal-header">
+      <h3>Add Your State & City</h3>
+      <button class="close-btn" onclick="closeStateModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="stateForm" action="savecity" method="post">
+      
+      <div class="state-form-group">
+          <label for="stateSelect">Select State</label>
+         <select name="stateId" id="stateSelect" class="form-control">
+                  <option value="">Select State</option>        
+                <c:forEach items="${allstate}" var="s">
+                   <option value="${s.staId}">${s.staName}</option>
+                </c:forEach> 
+             </select>
+        </div>
+        
+         <div class="state-form-group">
+          <label for="citySelect">Enter City Name:</label>
+          <input type="text" name="cityName" id="citySelect" class="form-control">&nbsp;&nbsp;
+          <span><a href="viewcities" class="state-submit-btn" style="background-color:blue; color:white;">View Cities</a></span>
+        </div>
+        <div class="state-modal-footer">
+          <button type="button" class="state-cancel-btn" onclick="closeStateModal()">Cancel</button>
+          <button type="submit" class="state-submit-btn">Continue</button>
+          <a href="newsta" class="state-submit-btn" style="background-color:red; color:white;">Manage State</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
     <!-- footer -->
    <jsp:include page="ADMIN_Footer.jsp"></jsp:include>
    </div>
@@ -661,7 +775,6 @@ main {
     <!-- JS -->
    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
    <script>
-   let edit = document.querySelector('.btn-edit');
    document.addEventListener('DOMContentLoaded', function() {
        filterEvents();
        
@@ -672,13 +785,65 @@ main {
            }
        });
        
+       document.getElementById('stateModal').addEventListener('click', function(e) {
+           if (e.target === this) {
+               closeStateModal();
+           }
+       });
+       
        // Close modal with Escape key
        document.addEventListener('keydown', function(e) {
            if (e.key === 'Escape') {
                closeModal();
+               closeStateModal();
            }
        });
    });
+
+   function filterEvents() {
+       const eventType = document.getElementById('eventTypeDropdown').value;
+       const stateId = document.getElementById('stateFilter').value;
+       const cityId = document.getElementById('cityFilter').value;
+       
+       const cards = document.querySelectorAll('.event-card');
+       let hasVisibleCards = false;
+
+       cards.forEach(card => {
+           const cardType = card.getAttribute('data-type');
+           const cardState = card.getAttribute('data-state');
+           const cardCity = card.getAttribute('data-city');
+           
+           // Get the actual state and city names for comparison
+           const stateSelect = document.getElementById('stateFilter');
+           const citySelect = document.getElementById('cityFilter');
+           const selectedState = stateId === 'all' ? 'all' : stateSelect.options[stateSelect.selectedIndex].text;
+           const selectedCity = cityId === 'all' ? 'all' : citySelect.options[citySelect.selectedIndex].text;
+
+           const isEventTypeMatch = eventType === 'all' || eventType === cardType;
+           const isStateMatch = stateId === 'all' || selectedState === cardState;
+           const isCityMatch = cityId === 'all' || selectedCity === cardCity;
+
+           if (isEventTypeMatch && isStateMatch && isCityMatch) {
+               card.style.display = 'block';
+               hasVisibleCards = true;
+           } else {
+               card.style.display = 'none';
+           }
+       });
+
+       const noEventsMsg = document.getElementById('no-events-msg');
+       if (!hasVisibleCards) {
+           if (!noEventsMsg) {
+               const msg = document.createElement('div');
+               msg.id = 'no-events-msg';
+               msg.className = 'no-events';
+               msg.textContent = 'No events found matching your criteria';
+               document.getElementById('eventsGrid').appendChild(msg);
+           }
+       } else if (noEventsMsg) {
+           noEventsMsg.remove();
+       }
+   }
 
    function showEventDetails(eventData) {
        // Generate random details for demo purposes
@@ -716,7 +881,7 @@ main {
        document.getElementById('modalImage').src = eventData.image;
        document.getElementById('modalDate').textContent = eventData.date;
        document.getElementById('modalVenue').textContent = eventData.venue.replace('<i class="bi bi-geo-alt"></i> ', '');
-       document.getElementById('modalCity').textContent = eventData.city.charAt(0).toUpperCase() + eventData.city.slice(1);
+       document.getElementById('modalCity').textContent = eventData.city;
        document.getElementById('modalType').textContent = eventData.type.charAt(0).toUpperCase() + eventData.type.slice(1);
        document.getElementById('modalAttendees').textContent = attendees;
        document.getElementById('modalPrice').textContent = price;
@@ -731,58 +896,26 @@ main {
    function closeModal() {
        document.getElementById('eventModal').classList.remove('active');
        document.body.style.overflow = 'auto';
-       
    }
    
+   function showStateModal() {
+       document.getElementById('stateModal').classList.add('active');
+       document.body.style.overflow = 'hidden';
+   }
    
+   function closeStateModal() {
+       document.getElementById('stateModal').classList.remove('active');
+       document.body.style.overflow = 'auto';
+   }
     
    function cancelEvent(button) {
        const card = button.closest('.event-card');
        card.classList.add('cancelled');
-      
    }
 
    function undoCancel(button) {
        const card = button.closest('.event-card');
        card.classList.remove('cancelled');
-       
-   }
-
-   function filterEvents() {
-       const eventType = document.getElementById('eventTypeDropdown').value;
-       const city = document.getElementById('cityDropdown').value;
-       const cards = document.querySelectorAll('.event-card');
-       let hasVisibleCards = false;
-
-       cards.forEach(card => {
-           const cardCity = card.getAttribute('data-city').toLowerCase();
-           const cardType = card.getAttribute('data-type').toLowerCase();
-
-           const isEventTypeMatch = eventType === 'all' || eventType === cardType;
-           const isCityMatch = city === 'all' || 
-                               (city === 'others' && !['ahmedabad','surat','gandhinagar','vadodara','navsari'].includes(cardCity)) || 
-                               city === cardCity;
-
-           if (isEventTypeMatch && isCityMatch) {
-               card.style.display = 'block';
-               hasVisibleCards = true;
-           } else {
-               card.style.display = 'none';
-           }
-       });
-
-       const noEventsMsg = document.getElementById('no-events-msg');
-       if (!hasVisibleCards) {
-           if (!noEventsMsg) {
-               const msg = document.createElement('div');
-               msg.id = 'no-events-msg';
-               msg.className = 'no-events';
-               msg.textContent = 'No events found matching your criteria';
-               document.getElementById('eventsGrid').appendChild(msg);
-           }
-       } else if (noEventsMsg) {
-           noEventsMsg.remove();
-       }
    }
    </script>
 

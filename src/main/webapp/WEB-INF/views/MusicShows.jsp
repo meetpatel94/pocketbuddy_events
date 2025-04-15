@@ -275,6 +275,95 @@
     transform: translateY(-1px);
   }
 
+  /* View Details Button */
+  .view-details-btn {
+    margin-top: auto;
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+    align-self: flex-start;
+  }
+
+  .view-details-btn:hover {
+    background-color: #7b1fa2;
+    transform: translateY(-2px);
+  }
+
+  /* Modal Styling */
+  .event-modal .modal-content {
+    border-radius: var(--border-radius);
+    border: none;
+  }
+
+  .event-modal .modal-header {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+  }
+
+  .event-modal .modal-title {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .event-modal .modal-body {
+    padding: 20px;
+  }
+
+  .event-modal .event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .event-modal .event-details {
+    margin-bottom: 15px;
+  }
+
+  .event-modal .event-details h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+  }
+
+  .event-modal .event-details p {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 5px;
+  }
+
+  .event-modal .event-details i {
+    color: var(--primary-color);
+    margin-right: 8px;
+    width: 18px;
+    text-align: center;
+  }
+
+  .event-modal .event-description {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+
+  .event-modal .event-description h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+  }
+
+  .event-modal .event-description p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-color);
+  }
+
   @media (max-width: 768px) {
     .events-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -351,6 +440,15 @@
                     <%-- <div class="artist-genre">${n.genre}</div> --%>
                   </div>
                 </div>
+                
+                <button class="view-details-btn" data-toggle="modal" data-target="#eventModal" 
+                  data-name="${n.name}"
+                  data-image="${n.profilePicPath}"
+                  data-city="${n.city}"
+                  data-date="${n.keynote}"
+                  data-description="${n.description}">
+                  View Details
+                </button>
               </div>
             </div>
           </div>
@@ -359,6 +457,38 @@
     </div>
   </div>
 </section>
+
+<!-- Event Details Modal -->
+<div class="modal fade event-modal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventModalLabel" style="color:white;">Event Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" class="event-image" id="modalEventImage" alt="Event Image">
+        
+        <div class="event-details">
+          <h5 id="modalEventName"></h5>
+          
+          <p><i class="fas fa-map-marker-alt"></i> <span id="modalEventCity"></span></p>
+          <p><i class="fas fa-calendar-alt"></i> <span id="modalEventDate"></span></p>
+        </div>
+        
+        <div class="event-description">
+          <h5>Event Description</h5>
+          <p id="modalEventDescription"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -410,6 +540,24 @@ $(document).ready(function() {
 
   // Trigger filter on page load
   $('#applyFilter').trigger('click');
+  
+  // Event details modal handler
+  $('#eventModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var name = button.data('name');
+    var image = button.data('image');
+    var city = button.data('city');
+    var date = button.data('date');
+    var description = button.data('description');
+    
+    var modal = $(this);
+    modal.find('.modal-title').text(name);
+    modal.find('#modalEventName').text(name);
+    modal.find('#modalEventImage').attr('src', image);
+    modal.find('#modalEventCity').text(city);
+    modal.find('#modalEventDate').text(date);
+    modal.find('#modalEventDescription').text(description);
+  });
 });
 </script>
 

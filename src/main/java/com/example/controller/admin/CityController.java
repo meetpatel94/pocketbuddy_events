@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.entity.CityEntity;
+import com.example.entity.StaEntity;
 import com.example.entity.StateEntity;
+import com.example.repository.CityRepository;
+import com.example.repository.StaRepository;
 import com.example.repository.StateRepository;
 
 
@@ -17,16 +22,66 @@ public class CityController {
 	 * @Autowired CityRepository repoCity;
 	 */
 	@Autowired
-	StateRepository repostate;
+	StaRepository reposta;
+	
+	@Autowired
+	CityRepository repocity;
+	
 	
 	@GetMapping("newcity")
 	public String newcity(Model model) {
 		
-		List<StateEntity> allstate = repostate.findAll();
+		List<StaEntity> allstate = reposta.findAll();
 		model.addAttribute("allstate", allstate);
 		return "NewCity";
 	}
 	
+	@PostMapping("savecity")
+	public String savecity(CityEntity city, Model model) 
+	{
+		/* System.out.println(state.getStateName()); */
+		repocity.save(city);
+		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity); 
+		
+		return "ADMINcreateEvents";  
+	}
+	
+	@PostMapping("savcity")
+	public String savcity(CityEntity city, Model model) 
+	{
+		/* System.out.println(state.getStateName()); */
+		repocity.save(city);
+		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity); 
+		
+		return "redirect:/viewcities";  
+	}
+	
+	
+	
+	
+	@GetMapping("viewcities")
+	public String viewcities(Model model) {
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		return "viewcities";
+	}
+	
+	@GetMapping("deletecity")
+	public String deletecity(Integer cityId) {
+		repocity.deleteById(cityId);
+		return "redirect:/viewcities";
+	}
 }
 
 

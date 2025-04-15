@@ -343,6 +343,9 @@
     form{
     padding: 17px 0px 17px 0px !important;
     }
+    .att:hover{
+    background-color: #6c1cad3b;
+    }
   </style>
 </head>
 
@@ -390,10 +393,10 @@
               <i class="fas fa-chevron-down dropdown-arrow"></i>
             </div>
             <div class="profile-menu">
-              <a href="profile"><i class="fas fa-user"></i> My Profile</a>
+              <!-- <a href="profile"><i class="fas fa-user"></i> My Profile</a>
               <a href="#" onclick="openUpdateProfileModal()"><i class="fas fa-cog"></i> Update Profile</a>
-              <a href="#" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change Password</a>
-              <a href="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              <a href="#" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change Password</a> -->
+              <a href="logout" class="att"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
           </li>
         </ul>

@@ -19,6 +19,7 @@ public class CreateEventsEntity {
 	private String profilePicPath;
 	private String keynote;
 	private String date;
+	private String state;
 	private String city;
 	private String stime;
 	private String etime;
@@ -97,6 +98,12 @@ public class CreateEventsEntity {
 	}
 	public void setProfilePicPath(String profilePicPath) {
 		this.profilePicPath = profilePicPath;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 

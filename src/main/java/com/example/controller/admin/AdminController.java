@@ -3,6 +3,7 @@ package com.example.controller.admin;
 import java.io.IOException;
 
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,10 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
+import com.example.entity.StaEntity;
+import com.example.entity.StateEntity;
 import com.example.entity.UserEntity;
+import com.example.repository.CityRepository;
 import com.example.repository.CreateEventsRepository;
 import com.example.repository.MemberRepository;
+import com.example.repository.StaRepository;
+import com.example.repository.StateRepository;
 import com.example.repository.UserRepository;
 
 @Controller
@@ -28,6 +35,12 @@ public class AdminController {
 	@Autowired
 	Cloudinary cloudinary;
 
+	@Autowired
+	StaRepository repostate;
+	
+	@Autowired
+	CityRepository repocity;
+	
 	@Autowired
 	UserRepository repoUser;
 	
@@ -154,7 +167,11 @@ public class AdminController {
     // create event admin side
     
     @GetMapping("createevents")
-    public String createevents() {
+    public String createevents(Model model) {
+    	
+    	List<StaEntity> allstate = repostate.findAll();
+		model.addAttribute("allstate", allstate);
+    	
     	return "ADMINcreateEvents";
     }
     
@@ -187,6 +204,12 @@ public class AdminController {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
+		
+		List<StaEntity> allstate = repostate.findAll();
+		model.addAttribute("allstate", allstate);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
 						
 		return "ADMINTrendingEvents";
 	}
@@ -224,6 +247,7 @@ public class AdminController {
    			dbuser.setKeynote(entity.getKeynote());
    			dbuser.setDate(entity.getDate());
    			dbuser.setCity(entity.getCity());
+   			dbuser.setState(entity.getState());
    			dbuser.setStime(entity.getStime());
    			dbuser.setEtime(entity.getEtime());
    			dbuser.setDescription(entity.getDescription());

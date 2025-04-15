@@ -358,6 +358,12 @@
                 <label for="password" class="label">Password</label>
                 <i class='bx bx-lock-alt icon'></i>
             </div>
+            
+            <div class="input-box">
+                <input type="password" class="input-field" id="confitmpassword" name="confirmpassword" placeholder=" " >
+                <label for="confirmpassword" class="label">Confirm Password</label>
+                <i class='bx bx-lock-alt icon'></i>
+            </div>
 
             <div class="input-box">
                 <input type="date" class="input-field" id="bornYear" name="bornYear" placeholder=" " >

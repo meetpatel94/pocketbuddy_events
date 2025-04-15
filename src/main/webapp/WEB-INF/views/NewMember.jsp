@@ -200,6 +200,7 @@ main{
  </div>
 
   	</main>
+  	</div>
     <!-- main content end  -->
 
     <!-- footer -->

@@ -328,6 +328,8 @@ nav ul li a{
 #intro {
  background: url(../img/intro-bg.jpg) top center;
 }
+
+
 </style>
 </head>
 <body>
@@ -359,8 +361,8 @@ nav ul li a{
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#" onclick="openPopup()">Rate Us</a></li>
-          <li class="buy-tickets"><a href="logout" class="logout" style="background-color:#432E54">LogIn</a></li>
-          <li class="buy-tickets"><img src="img/user-img.png" alt="" 
+          <li class="buy-tickets"><a href="logout" class="logout" >LogIn</a></li>
+          <li class="buy-tickets att"><img src="img/user-img.png" alt="" 
            style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>
         </ul>
       </nav><!-- #nav-menu-container -->
