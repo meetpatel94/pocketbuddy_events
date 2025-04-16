@@ -616,23 +616,31 @@ main{
                         </div>
                     </div>
                     
-                    <div class="form-row">
+                     <div class="form-row">
                         <div class="form-field">
-                            <label>City:</label>
-                            <select name="city" >
-                                <option value="${user.city}">${user.city}</option>
-                                <option value="Gandhinagar">Gandhinagar</option>
-                                <option value="Ahmedabad">Ahmedabad</option>
-                                <option value="Surat">Surat</option>
-                                <option value="Vadodara">Vadodara</option>
-                                <option value="Navsari">Navsari</option>
-                            </select>
+                         <label>State:</label>
+                             State Name:<select name="state">
+                               <option>Select State</option> 
+       
+                           <c:forEach items="${allstate }" var="s">
+                               <option value="${s.staName }">${s.staName }</option>
+                           </c:forEach> 
+                           </select>                       
                         </div>
+                        </div>
+                        
+                         <div class="form-row">
                         <div class="form-field">
-                            <label>Description:</label>
-                            <input type="text" name="description" placeholder="Enter description" value=${user.description } >
+                           <label>City:</label>
+                             City Name:<select name="city">
+                               <option>Select City</option> 
+       
+                           <c:forEach items="${allcity }" var="s">
+                               <option value="${s.cityName }">${s.cityName }</option>
+                           </c:forEach> 
+                           </select>
                         </div>
-                    </div>
+                        </div>
                     
                     <div class="form-group">
                         <label>Name:</label>

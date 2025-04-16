@@ -194,19 +194,19 @@ main{
                         </div>
                         <div class="form-field">
                             <label>Keynote:</label>
-                            <input type="text" name="keynote" placeholder="Enter keynote speaker" required>
+                            <input type="text" name="keynote" placeholder="Enter keynote speaker" >
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Event Image:</label>
-                        <input type="file" name="profilePic" id="imageUpload"  required>
+                        <input type="file" name="profilePic" id="imageUpload"  >
                         <img id="imagePreview" class="image-preview" src="#" alt="Preview" />
                     </div>
                     
                     <div class="form-group">
                         <label>Date:</label>
-                        <input type="date" name="date" required>
+                        <input type="date" name="date" >
                     </div>
                     
                     <div class="form-group">
@@ -214,11 +214,11 @@ main{
                         <div class="time-fields">
                             <div class="time-field">
                                 <label>Start Time:</label>
-                                <input type="time" name="stime" required>
+                                <input type="time" name="stime" >
                             </div>
                             <div class="time-field">
                                 <label>End Time:</label>
-                                <input type="time" name="etime" required>
+                                <input type="time" name="etime" >
                             </div>
                         </div>
                     </div>
@@ -226,11 +226,11 @@ main{
                     <div class="form-row">
                         <div class="form-field">
                          <label>State:</label>
-                             State Name:<select name="stateId">
+                             State Name:<select name="state">
                                <option>Select State</option> 
        
                            <c:forEach items="${allstate }" var="s">
-                               <option value="${s.staId }">${s.staName }</option>
+                               <option value="${s.staName }">${s.staName }</option>
                            </c:forEach> 
                            </select>                       
                         </div>
@@ -239,28 +239,28 @@ main{
                          <div class="form-row">
                         <div class="form-field">
                            <label>City:</label>
-                             City Name:<select name="stateId">
+                             City Name:<select name="city">
                                <option>Select City</option> 
        
                            <c:forEach items="${allcity }" var="s">
-                               <option value="${s.cityId }">${s.cityName }</option>
+                               <option value="${s.cityName }">${s.cityName }</option>
                            </c:forEach> 
                            </select>
                         </div>
                         <div class="form-field">
                             <label>Description:</label>
-                            <input type="text" name="description" placeholder="Enter description" required>
+                            <input type="text" name="description" placeholder="Enter description" >
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Name:</label>
-                        <input type="text" name="name" placeholder="Enter organizer name" required>
+                        <input type="text" name="name" placeholder="Enter organizer name" >
                     </div>
                     
                     <div class="form-group">
                         <label>Address:</label>
-                        <input type="text" name="address" placeholder="Enter address" required>
+                        <input type="text" name="address" placeholder="Enter address" >
                     </div>
                     
                     <div class="btn-group">

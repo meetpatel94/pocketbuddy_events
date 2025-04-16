@@ -211,7 +211,7 @@ main{
         </div><!-- End Page Title -->
 
     	<section class="section dashboard" style="color:black;">
-			<form action="saveuser" method="post">
+			<form action="adminsaveuser" method="post" enctype="multipart/form-data">
 				First Name: <input type="text" name="firstName"> &emsp;
 				Last Name: <input type="text" name="lastName"> <br><br> 
 			    Gender:<select name="gender"  required>

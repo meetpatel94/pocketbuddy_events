@@ -394,8 +394,9 @@
             </div>
             <div class="profile-menu">
               <!-- <a href="profile"><i class="fas fa-user"></i> My Profile</a>
-              <a href="#" onclick="openUpdateProfileModal()"><i class="fas fa-cog"></i> Update Profile</a>
+             
               <a href="#" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change Password</a> -->
+               <a href="#" onclick="openUpdateProfileModal()"><i class="fas fa-cog"></i> Update Profile</a>
               <a href="logout" class="att"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
           </li>
@@ -413,7 +414,7 @@
         <span class="close-btn" onclick="closeModal('updateProfileModal')">&times;</span>
       </div>
       <div class="modal-body">
-        <form id="updateProfileForm">
+        <form id="updateProfileForm" action="update" method="post">
           <div class="profile-pic-container">
             <img id="profilePicPreview" src="${user.profilePicPath}" class="profile-pic-preview" alt="Profile Picture">
             <div class="profile-pic-upload">

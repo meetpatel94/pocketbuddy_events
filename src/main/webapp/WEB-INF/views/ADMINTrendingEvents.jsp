@@ -640,17 +640,17 @@ main {
                   <option value="comedy">Comedy</option>
               </select>
                       
-              <select name="stateId" id="stateFilter" onchange="filterEvents()">
+              <select name="staName" id="stateFilter" onchange="filterEvents()">
                   <option value="all">All States</option>        
                 <c:forEach items="${allstate}" var="s">
-                   <option value="${s.staId}">${s.staName}</option>
+                   <option value="${s.staName}">${s.staName}</option>
                 </c:forEach> 
              </select>  
                   
-             <select name="cityId" id="cityFilter" onchange="filterEvents()">
+             <select name="cityName" id="cityFilter" onchange="filterEvents()">
                   <option value="all">All Cities</option>        
                 <c:forEach items="${allcity}" var="c">
-                  <option value="${c.cityId}">${c.cityName}</option>             
+                  <option value="${c.cityName}">${c.cityName}</option>             
                 </c:forEach> 
              </select>                       
              

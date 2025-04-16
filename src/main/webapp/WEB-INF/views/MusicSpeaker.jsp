@@ -4,183 +4,238 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Music Stars Lineup</title>
+<title>Music Festival Performers</title>
 
-<!-- Font Awesome 6 (Only This One Needed) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Bootstrap -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Animate.css & WOW.js -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-  #lineupSection {
-    padding: 60px 0;
-    background-color: #f2f4f8;
+  #performers {
+    padding: 80px 0;
+    background-color: #f8f9fa;
   }
-
-  .headline-box {
+  
+  .section-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
   }
-
-  .headline-box h2 {
-    font-size: 34px;
-    font-weight: bold;
-    color: #222;
+  
+  .section-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
   }
-
-  .headline-box p {
-    color: #666;
-    font-size: 15px;
+  .social a i{
+    background-color: black;
   }
-
-  .performer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
+  .section-header p {
+    color: #7f8c8d;
+    font-size: 18px;
   }
-
+  
   .performer-card {
-    flex: 1 1 300px;
-    max-width: 300px;
-    display: flex;
-  }
-
-  .card-wrapper {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     overflow: hidden;
-    transition: 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
   }
-
-  .card-wrapper:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  
+  .performer-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
   }
-
-  .card-wrapper img {
+  
+  .performer-card img {
     width: 100%;
-    height: 210px;
+    height: 300px;
     object-fit: cover;
+    transition: all 0.3s ease;
   }
-
-  .info-box {
-    padding: 18px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  
+  .performer-card:hover img {
+    opacity: 0.9;
+  }
+  
+  .details {
+    padding: 20px;
     text-align: center;
   }
-
-  .info-box h3 a {
-    font-size: 19px;
+  
+  .details h3 {
+    font-size: 22px;
     font-weight: 600;
-    color: #0056d2;
+    margin-bottom: 5px;
+  }
+  
+  .details h3 a {
+    color: #2c3e50;
     text-decoration: none;
+    transition: all 0.3s ease;
   }
-
-  .info-box h3 a:hover {
-    color: #0040a8;
+  
+  .details h3 a:hover {
+    color: #3498db;
   }
-
-  .info-box p {
-    color: #555;
-    font-size: 14px;
-    margin-top: 8px;
-    margin-bottom: 18px;
+  
+  .details p {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-bottom: 15px;
   }
-
-  .media-links {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
+  
+  .social {
+    margin-top: 15px;
   }
-
-  .media-links a {
+  
+  .social a {
     display: inline-flex;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #e2e6ea;
-    color: #333;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
+    width: 36px;
+    height: 36px;
+    background: #f1f1f1;
+    color: #2c3e50;
+    border-radius: 50%;
+    margin: 24px 5px;
+    transition: all 0.3s ease;
   }
-
-  .media-links a:hover {
-    background: #0056d2;
+  
+  .social a:hover {
+    background: #3498db;
     color: #fff;
     transform: scale(1.1);
   }
-
-  @media (max-width: 768px) {
-    .performer-card {
-      max-width: 100%;
-    }
+  
+  /* Fallback for images */
+  .performer-card img {
+    background: #eee;
+    object-fit: contain;
   }
 </style>
-
-<script>
-  new WOW().init();
-</script>
 </head>
 <body>
 
-<section id="lineupSection" class="py-5">
+<section id="performers" class="wow fadeInUp">
   <div class="container">
-    <div class="headline-box">
-      <h2 class="animate__animated animate__fadeInDown">🎤 Music Event Singers</h2>
-      <p class="animate__animated animate__fadeInUp">An unforgettable lineup of talent and energy</p>
+    <div class="section-header">
+      <h2>🎤 Music Festival Stars</h2>
+      <p>Experience the electrifying performances of our stellar lineup</p>
     </div>
 
-    <div class="performer-grid">
-      <% 
-        String[] names = {"Ariana Melody", "Leo Harmon", "Chloe Rivera", "Zane Walker", "Nia Brooks", "Ethan Blaze"};
-        String[] descs = {
-          "Pop sensation with global hits", "Soulful voice with powerful performances",
-          "Queen of jazz and blues", "Rockstar with electrifying energy",
-          "R&B artist with a magical touch", "Hip-hop artist with a global fanbase"
-        };
-        for (int i = 0; i < names.length; i++) {
-      %>
-        <div class="performer-card d-flex align-items-stretch wow animate__animated animate__zoomIn" data-wow-delay="<%= (i * 0.2) %>s">
-          <div class="card-wrapper">
-            <img src="singers/s<%= i + 1 %>.jpg" alt="Performer <%= i + 1 %>" class="img-fluid">
-            <div class="info-box">
-              <div>
-                <h3><a href="singer-details.html"><%= names[i] %></a></h3>
-                <p><%= descs[i] %></p>
-              </div>
-              <div class="media-links">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-              </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTeRGJKU0ku4AP8adAml-GzMaZ4gFLw6vwgA&s" alt="Ariana Grande" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/women/44.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">Ariana Grande</a></h3>
+            <p>Pop sensation with record-breaking hits</p>
+            <div class="social">
+              <a href="https://twitter.com/ArianaGrande" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/arianagrande" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/arianagrande" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
-      <% } %>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWifGjxr8a5KjTMxhTiTcd4pn24PSGjktWpA&s" alt="The Weeknd" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/men/32.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">The Weeknd</a></h3>
+            <p>R&B superstar with soulful vocals</p>
+            <div class="social">
+              <a href="https://twitter.com/theweeknd" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/theweeknd" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/theweeknd" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwChYnmdRYW1jdTSTxMRnpt4uwl3NXFQwPqg&s" alt="Billie Eilish" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/women/33.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">Billie Eilish</a></h3>
+            <p>Genre-defying artist with haunting melodies</p>
+            <div class="social">
+              <a href="https://twitter.com/billieeilish" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/billieeilish" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/billieeilish" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnDskRhmfuuPEZSCNFiXU-TjhxqOsfmm2m6g&s" alt="BTS" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/men/22.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">BTS</a></h3>
+            <p>Global K-pop phenomenon</p>
+            <div class="social">
+              <a href="https://twitter.com/BTS_twt" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/bangtan.official" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/bts.bighitofficial" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSf6mbsNTIr5nLOH49_T8GLdYIqnbKFx42XQ&s" alt="Dua Lipa" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/women/55.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">Dua Lipa</a></h3>
+            <p>Dance-pop queen with infectious beats</p>
+            <div class="social">
+              <a href="https://twitter.com/DUALIPA" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/dualipaofficial" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/dualipa" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="performer-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj5jOh-gNtf38UQKk5A2QYMaXuZUD1AlSXcw&s" alt="Ed Sheeran" class="img-fluid" onerror="this.src='https://randomuser.me/api/portraits/men/11.jpg'">
+          <div class="details">
+            <h3><a href="performer-details.html">Ed Sheeran</a></h3>
+            <p>Singer-songwriter with heartfelt lyrics</p>
+            <div class="social">
+              <a href="https://twitter.com/edsheeran" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://facebook.com/EdSheeranMusic" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/teddysphotos" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- WOW.js for animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script>
+  new WOW().init();
+</script>
 
 </body>
 </html>

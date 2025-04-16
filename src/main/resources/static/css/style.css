@@ -530,7 +530,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 20px;
 }
 
-#intro .play-btn {
+/* #intro .play-btn {
+  display:none;
   width: 94px;
   height: 94px;
   background: radial-gradient(#f82249 50%, rgba(101, 111, 150, 0.15) 52%);
@@ -540,7 +541,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
-#intro .play-btn::after {
+ #intro .play-btn::after {
+ 
   content: '';
   position: absolute;
   left: 50%;
@@ -554,9 +556,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-left: 15px solid #fff;
   z-index: 100;
   transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
-}
+  
+} 
 
-#intro .play-btn:before {
+ #intro .play-btn:before {
+ display:none;
   content: '';
   position: absolute;
   width: 120px;
@@ -577,7 +581,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   top: -15%;
   left: -15%;
   background: rgba(198, 16, 0, 0);
-}
+} */
 
 #intro .play-btn:hover::after {
   border-left: 15px solid #f82249;

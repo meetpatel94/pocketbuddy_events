@@ -2,6 +2,7 @@ package com.example.controller.admin;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.entity.CityEntity;
 import com.example.entity.StaEntity;
-import com.example.entity.StateEntity;
+
 import com.example.repository.CityRepository;
 import com.example.repository.StaRepository;
-import com.example.repository.StateRepository;
+
 
 
 @Controller

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Concert Shows</title>
+<title>Business Seminars</title>
 
 <!-- Bootstrap & FontAwesome -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -18,20 +18,23 @@
 <style>
   :root {
     --primary-color: #0056b3;
+    --primary-light: #e6f0ff;
     --secondary-color: #d2005e;
+    --accent-color: #00b894;
     --dark-color: #222;
     --light-color: #f8f9fa;
     --text-color: #333;
     --text-light: #666;
     --border-radius: 12px;
     --box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    --transition: all 0.3s ease-in-out;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     background-color: #f5f7fa;
+    line-height: 1.6;
   }
 
   #speakersSection {
@@ -82,6 +85,14 @@
   .speaker-card {
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .speaker-card.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .card-wrapper {
@@ -93,17 +104,19 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    will-change: transform;
   }
 
   .card-wrapper:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
   }
 
   .image-container {
     position: relative;
-    height: 180px;
+    height: 200px;
     overflow: hidden;
+    background-color: #f5f7fa;
   }
 
   .card-wrapper img {
@@ -111,10 +124,12 @@
     height: 100%;
     object-fit: cover;
     transition: var(--transition);
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
 
-  .card-wrapper:hover img {
-    transform: scale(1.03);
+  .card-wrapper img.loaded {
+    opacity: 1;
   }
 
   .seminar-badge {
@@ -123,27 +138,30 @@
     right: 10px;
     background: var(--primary-color);
     color: white;
-    padding: 4px 10px;
+    padding: 5px 14px;
     border-radius: 20px;
     font-size: 11px;
     font-weight: bold;
     z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
   .info-box {
-    padding: 15px;
+    padding: 20px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
   }
 
   .info-box h3 {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .info-box h3 a {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
     transition: var(--transition);
@@ -151,28 +169,28 @@
 
   .info-box h3 a:hover {
     color: #003d7a;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   .seminar-meta {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     color: var(--text-light);
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .seminar-meta i {
-    margin-right: 6px;
+    margin-right: 8px;
     color: var(--primary-color);
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .seminar-description {
     color: var(--text-color);
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -183,19 +201,19 @@
   .speaker-info {
     display: flex;
     align-items: center;
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px solid #eee;
   }
 
   .speaker-name {
     font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 2px;
+    font-size: 14px;
+    margin-bottom: 4px;
   }
 
   .speaker-title {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-light);
   }
 
@@ -205,12 +223,13 @@
     left: 10px;
     background: rgba(0,0,0,0.7);
     color: white;
-    padding: 3px 8px;
+    padding: 5px 12px;
     border-radius: 20px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     z-index: 2;
     text-transform: capitalize;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
   .no-events {
@@ -219,174 +238,346 @@
     padding: 50px;
     color: var(--text-light);
     font-style: italic;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
   }
 
-  /* Filter Controls Styling */
+  /* Enhanced Filter Controls */
+  .filter-container {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+  }
+
   .filter-controls {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 30px;
-    background: #f5f7fa;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    gap: 15px;
+  }
+
+  .filter-group {
+    position: relative;
+    min-width: 200px;
+  }
+
+  .filter-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .filter-controls select {
-    padding: 10px 20px;
+    padding: 12px 20px;
+    padding-right: 40px;
     border-radius: 8px;
     border: 1px solid #e0e6ed;
     font-size: 14px;
-    min-width: 180px;
+    width: 100%;
     background-color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 15px center;
     background-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
   }
 
   .filter-controls select:focus {
     outline: none;
-    border-color: #0056b3;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
   }
 
-  .filter-controls button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: #0056b3;
-    color: white;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  .filter-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
   }
 
-  .filter-controls button:hover {
+  .filter-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter-btn:hover {
     background: #003d7a;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 86, 179, 0.3);
+  }
+
+  .filter-btn i {
+    font-size: 14px;
+  }
+
+  .reset-btn {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: white;
+    color: var(--text-light);
+    border: 1px solid #e0e6ed;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .reset-btn:hover {
+    background: #f8f9fa;
+    border-color: #d0d7de;
+    color: var(--text-color);
   }
 
   /* View Details Button */
   .view-details-btn {
     margin-top: auto;
-    padding: 8px 15px;
+    padding: 10px 20px;
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 13px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
     align-self: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 86, 179, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .view-details-btn:hover {
     background-color: #003d7a;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+  }
+
+  .view-details-btn i {
+    font-size: 12px;
   }
 
   /* Modal Styling */
   .event-modal .modal-content {
     border-radius: var(--border-radius);
     border: none;
+    overflow: hidden;
   }
 
   .event-modal .modal-header {
     border-bottom: 1px solid #eee;
-    padding: 20px;
+    padding: 20px 25px;
+    background-color: var(--primary-color);
   }
 
   .event-modal .modal-title {
-    font-weight: 600;
-    color: var(--primary-color);
+    font-weight: 700;
+    color: white;
+    font-size: 22px;
+  }
+
+  .event-modal .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none;
+    transition: var(--transition);
+  }
+
+  .event-modal .close:hover {
+    opacity: 1;
+    color: white;
+    transform: rotate(90deg);
   }
 
   .event-modal .modal-body {
-    padding: 20px;
+    padding: 25px;
   }
 
   .event-modal .event-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .event-modal .event-details {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .event-modal .event-details h5 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
     color: var(--dark-color);
+    font-weight: 700;
   }
 
   .event-modal .event-details p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-color);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
   }
 
   .event-modal .event-details i {
     color: var(--primary-color);
-    margin-right: 8px;
-    width: 18px;
+    margin-right: 10px;
+    width: 20px;
     text-align: center;
+    font-size: 16px;
   }
 
   .event-modal .event-description {
-    background: #f8f9fa;
-    padding: 15px;
+    background: var(--primary-light);
+    padding: 20px;
     border-radius: 8px;
-    margin-top: 15px;
+    margin-top: 20px;
   }
 
   .event-modal .event-description h5 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
     color: var(--dark-color);
+    font-weight: 700;
   }
 
   .event-modal .event-description p {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
     color: var(--text-color);
   }
 
-  @media (max-width: 768px) {
+  .event-modal .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 15px 25px;
+  }
+
+  /* Loading Animation */
+  .skeleton-loading {
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  .skeleton-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      rgba(255,255,255,0) 0%, 
+      rgba(255,255,255,0.8) 50%, 
+      rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
     .speaker-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .headline-box h2 {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .filter-container {
+      padding: 15px;
+    }
+    
+    .filter-controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 15px;
+    }
+    
+    .filter-group {
+      width: 100%;
+    }
+    
+    .filter-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .filter-btn, .reset-btn {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .image-container {
+      height: 180px;
+    }
+    
+    .info-box {
+      padding: 15px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    #speakersSection {
+      padding: 60px 0;
     }
     
     .headline-box h2 {
       font-size: 28px;
     }
-
-    .filter-controls {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .filter-controls select,
-    .filter-controls button {
-      width: 100%;
+    
+    .headline-box p {
+      font-size: 15px;
+      padding: 0 15px;
     }
     
     .image-container {
       height: 160px;
     }
+    
+    .event-modal .modal-body {
+      padding: 20px;
+    }
+    
+    .event-modal .event-image {
+      height: 180px;
+    }
   }
+  /*  */
+  select.form-control:not([size]):not([multiple]) {
+    height: calc(2.25rem + 10px);
+  }
+.filter-btn {
+    margin-top: 24px;
+    }
 </style>
 
 <script>
@@ -398,30 +589,51 @@
 <section id="speakersSection" class="py-5">
   <div class="container">
     <div class="headline-box wow animate__animated animate__fadeIn">
-      <h2>Concerts Shows</h2>
+       <h2>Concerts Shows</h2>
       <p>Experience the thrill of live entertainment at our exclusive concerts and shows. Connect with top artists, immerse yourself in unforgettable performances, and create memories that last a lifetime. Whether you're a music lover or a fan of live acts, this is your chance to enjoy world-class entertainment and vibrant atmospheres like never before.</p>
     </div>
 
-    <div class="filter-controls">
-      <select id="cityFilter" class="form-control">
-        <option value="all">All Cities</option>
-        <option value="surat">Surat</option>
-        <option value="ahmedabad">Ahmedabad</option>
-        <option value="vadodara">Vadodara</option>
-        <option value="navsari">Navsari</option>
-        <option value="other">Other Cities</option>
-      </select>
-      <button id="applyFilter" class="btn btn-primary">Apply Filter</button>
+    <div class="filter-container wow animate__animated animate__fadeIn">
+      <div class="filter-controls">
+        <div class="filter-group">
+          <label for="cityFilter">City</label>
+          <select name="cityName" id="cityFilter" class="form-control">
+            <option value="all">All Cities</option>        
+            <c:forEach items="${allcity}" var="c">
+              <option value="${c.cityName}">${c.cityName}</option>             
+            </c:forEach> 
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="stateFilter">State</label>
+          <select name="staName" id="stateFilter" class="form-control">
+            <option value="all">All States</option>        
+            <c:forEach items="${allstate}" var="s">
+              <option value="${s.staName}">${s.staName}</option>
+            </c:forEach> 
+          </select>
+        </div>
+        
+        <div class="filter-actions">
+          <button id="applyFilter" class="filter-btn">
+            <i class="fas fa-filter"></i> Apply Filters
+          </button>
+          <button id="resetFilter" class="reset-btn">
+            Reset
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="speaker-grid" id="eventsContainer">
       <c:forEach items="${newevent}" var="n">
         <c:if test="${n.eventType eq 'concerts'}">
-          <div class="speaker-card wow animate__animated animate__zoomIn" data-city="${n.city.toLowerCase()}">
+          <div class="speaker-card" data-city="${n.city.toLowerCase()}" data-state="${n.state.toLowerCase()}">
             <div class="card-wrapper">
               <div class="image-container">
-                <img src="${n.profilePicPath }" alt="Concert Show" class="img-fluid">
-                <span class="seminar-badge">Concert</span>
+                <img data-src="${n.profilePicPath}" alt="Business Seminar" class="img-fluid lazy">
+                <span class="seminar-badge">BUSINESS</span>
                 <span class="city-tag">${n.city}</span>
               </div>
               <div class="info-box">
@@ -429,7 +641,7 @@
                 
                 <div class="seminar-meta">
                   <i class="fas fa-calendar-alt"></i>
-                  <span>${n.keynote}</span>
+                  <span>${n.keynote}</span> 
                 </div>
                 
                 <p class="seminar-description">${n.description}</p>
@@ -437,6 +649,7 @@
                 <div class="speaker-info">
                   <div>
                     <div class="speaker-name">${n.name}</div>
+                    <div class="speaker-title">${n.state}</div>
                   </div>
                 </div>
                 
@@ -444,9 +657,10 @@
                   data-name="${n.name}"
                   data-image="${n.profilePicPath}"
                   data-city="${n.city}"
+                  data-state="${n.state}"
                   data-date="${n.keynote}"
                   data-description="${n.description}">
-                  View Details
+                  <i class="fas fa-eye"></i> View Details
                 </button>
               </div>
             </div>
@@ -462,7 +676,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="eventModalLabel" style="color:white;">Event Details</h5>
+        <h5 class="modal-title" id="eventModalLabel">Event Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -498,32 +712,71 @@ $(document).ready(function() {
   // Initialize WOW.js
   new WOW().init();
 
-  // Filter events by city (only concert events will be visible)
-  $('#applyFilter').click(function() {
-    var selectedCity = $('#cityFilter').val().toLowerCase();
-    var eventCards = $('.speaker-card');
-    var hasVisibleCards = false;
+  // Lazy load images with Intersection Observer
+  const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.add('loaded');
+        observer.unobserve(img);
+      }
+    });
+  }, {
+    rootMargin: '100px 0px',
+    threshold: 0.01
+  });
+
+  document.querySelectorAll('.lazy').forEach(img => {
+    lazyLoadObserver.observe(img);
+  });
+
+  // Fade in cards when they come into view
+  const cardObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  document.querySelectorAll('.speaker-card').forEach(card => {
+    cardObserver.observe(card);
+  });
+
+  // Filter events by city and state
+  function applyFilters() {
+    const selectedCity = $('#cityFilter').val().toLowerCase();
+    const selectedState = $('#stateFilter').val().toLowerCase();
+    const eventCards = $('.speaker-card');
+    let hasVisibleCards = false;
     
     // Remove any existing "no events" message
     $('.no-events').remove();
     
     eventCards.each(function() {
-      var cardCity = $(this).data('city');
-      var shouldShow = false;
+      const cardCity = $(this).data('city');
+      const cardState = $(this).data('state');
+      let shouldShow = true;
       
-      if (selectedCity === 'all') {
-        shouldShow = true;
-      } else if (selectedCity === 'other') {
-        shouldShow = !['surat', 'ahmedabad', 'vadodara', 'navsari'].includes(cardCity);
-      } else {
-        shouldShow = (cardCity === selectedCity);
+      // Apply city filter
+      if (selectedCity !== 'all') {
+        shouldShow = shouldShow && (cardCity === selectedCity);
+      }
+      
+      // Apply state filter
+      if (selectedState !== 'all') {
+        shouldShow = shouldShow && (cardState === selectedState);
       }
       
       if (shouldShow) {
-        $(this).show();
+        $(this).show().addClass('visible');
         hasVisibleCards = true;
       } else {
-        $(this).hide();
+        $(this).hide().removeClass('visible');
       }
     });
     
@@ -531,31 +784,49 @@ $(document).ready(function() {
     if (!hasVisibleCards) {
       $('#eventsContainer').append(
         '<div class="no-events wow animate__animated animate__fadeIn">' +
-        'No concert shows found for the selected city. Please try another filter.' +
+        'No business events found for the selected filters. Please try different filters.' +
         '</div>'
       );
     }
-  });
+  }
 
-  // Trigger filter on page load
-  $('#applyFilter').trigger('click');
+  // Apply filters when button is clicked
+  $('#applyFilter').click(applyFilters);
+  
+  // Reset filters
+  $('#resetFilter').click(function() {
+    $('#cityFilter').val('all');
+    $('#stateFilter').val('all');
+    applyFilters();
+  });
+  
+  // Apply filters immediately on page load
+  applyFilters();
   
   // Event details modal handler
-  $('#eventModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var name = button.data('name');
-    var image = button.data('image');
-    var city = button.data('city');
-    var date = button.data('date');
-    var description = button.data('description');
+  $('#eventModal').on('show.bs.modal', function(event) {
+    const button = $(event.relatedTarget);
+    const name = button.data('name');
+    const image = button.data('image');
+    const city = button.data('city');
+    const date = button.data('date');
+    const description = button.data('description');
     
-    var modal = $(this);
+    const modal = $(this);
     modal.find('.modal-title').text(name);
     modal.find('#modalEventName').text(name);
     modal.find('#modalEventImage').attr('src', image);
     modal.find('#modalEventCity').text(city);
     modal.find('#modalEventDate').text(date);
     modal.find('#modalEventDescription').text(description);
+  });
+
+  // Handle image loading errors
+  document.querySelectorAll('.lazy').forEach(img => {
+    img.onerror = function() {
+      this.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"%3E%3Crect width="300" height="200" fill="%23f0f0f0"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="16" text-anchor="middle" fill="%23aaa"%3EImage not available%3C/text%3E%3C/svg%3E';
+      this.classList.add('loaded');
+    };
   });
 });
 </script>

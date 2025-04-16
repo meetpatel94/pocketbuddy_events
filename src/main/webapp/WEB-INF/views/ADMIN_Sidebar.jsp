@@ -96,11 +96,11 @@
                 </a>
               </li>
               
-              <li>
+              <!-- <li>
                 <a href="trendingevent">
                   <span class="sub-item">Trending Events</span>
                 </a>
-              </li>
+              </li> -->
               
               <li>
                 <a href="eventshows">

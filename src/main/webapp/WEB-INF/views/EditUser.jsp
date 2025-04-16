@@ -214,9 +214,15 @@ main{
 	            Email : <input type="email" name="email" value="${user.email }"/><br><br>
 	            D.O.B. : <input type="date" name="bornYear" value="${user.bornYear }"/><br><br>
 	            ContactNo : <input type="text" name="contactNum" value="${user.contactNum }"/><br><br>
-	            Upload Photo: <input type = "file" name ="profilePic"><br><br>
+	            Upload Photo: <input type = "file" name ="profilePic" ><br><br>
+	            <%-- <input type="hidden" name="role" value="${user.role }" /> --%>
+	            Role:<select name="role" >
+	               <option value="${user.role }">${user.role }</option>
+	               <option value="USER">User</option>
+	               <option value="ADMIN">Admin</option>
+	            </select><br><br>
 	            <input type="hidden" name="userId" value="${user.userId }" />
-	            <input type="hidden" name="role" value="${user.role }" />
+	         
 				<input type="submit" value="Save User"> <br><br>
 				<a href="listuser">Back</a>
 			</form>

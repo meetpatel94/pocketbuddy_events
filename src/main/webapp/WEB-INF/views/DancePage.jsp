@@ -339,7 +339,12 @@ h1 {
   
     <!--========================== About Section ============================-->
     <jsp:include page="AboutPage.jsp"></jsp:include>
-  
+ 
+ 
+     <!--======================== Speakers Section ==========================-->
+     <jsp:include page="dancers.jsp"></jsp:include>
+     
+     
    <!--======================== Speakers Section ==========================-->
      <jsp:include page="DanceCards.jsp"></jsp:include>
      

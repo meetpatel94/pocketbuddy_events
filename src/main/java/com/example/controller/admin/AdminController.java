@@ -1,14 +1,12 @@
 package com.example.controller.admin;
 
 import java.io.IOException;
-
-
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +18,18 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
 import com.example.entity.StaEntity;
-import com.example.entity.StateEntity;
 import com.example.entity.UserEntity;
 import com.example.repository.CityRepository;
 import com.example.repository.CreateEventsRepository;
 import com.example.repository.MemberRepository;
 import com.example.repository.StaRepository;
-import com.example.repository.StateRepository;
 import com.example.repository.UserRepository;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@Autowired
 	Cloudinary cloudinary;
@@ -72,6 +71,40 @@ public class AdminController {
     	
 		//return "AdminDashboard";
     	return "ADMIN_Dashboard";
+	}
+    
+    @PostMapping("adminsaveuser")
+	public String adminsaveuser(UserEntity userEntity, MultipartFile profilePic) {
+			
+		if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+		   profilePic.getOriginalFilename().endsWith(".png") ||
+		   profilePic.getOriginalFilename().endsWith(".webp")) {
+			
+		} else {
+			return "redirect:/adduser";	
+		} try  {
+			
+		Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+
+		userEntity.setProfilePicPath(result.get("url").toString());
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String encPassword = encoder.encode(userEntity.getPassword());
+		userEntity.setPassword(encPassword);
+		
+		//set role user
+		userEntity.setRole("USER"); 
+		
+		//save data in table
+		repoUser.save(userEntity);
+		
+		//send welcome main after user signup
+//		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
+		return "ADMIN_Dashboard";
 	}
     
     
@@ -118,13 +151,14 @@ public class AdminController {
 			dbuser.setBornYear(entity.getBornYear());
 			dbuser.setContactNum(entity.getContactNum());
 			dbuser.setProfilePicPath(entity.getProfilePicPath());
+			dbuser.setRole(entity.getRole());
 			
 			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
 			   profilePic.getOriginalFilename().endsWith(".png") ||
 			   profilePic.getOriginalFilename().endsWith(".webp")) {
 				
 			} else {
-				return "Signup";
+				return "ADMIN_Dashboard";
 				
 			} try {
 				
@@ -223,6 +257,12 @@ public class AdminController {
     @GetMapping("editevent")
    	public String editevent(Integer createeventId,Model model) {
    		
+    	List<StaEntity> allsta = repostate.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+    	
    		Optional<CreateEventsEntity> op = repoevent.findById(createeventId);
    		if(op.isEmpty()) {
    			return "redirect:/businessevents";
@@ -230,7 +270,8 @@ public class AdminController {
    		}else {
    			model.addAttribute("user", op.get());
    			return "EditEventPage";
-   		}	
+   		}
+   		
    	}
     
     
@@ -278,5 +319,54 @@ public class AdminController {
    		}	
    		return "redirect:/businessevents";
    	}
+    
+    
+    
+    
+    
+    
+    @PostMapping("update")
+	public String update(UserEntity entity, MultipartFile profilePic) {
+//		System.out.println(entity.getUserId());
+		
+		
+		Optional<UserEntity> op = repoUser.findById(entity.getUserId());
+		
+		if(op.isPresent()) {
+			
+			UserEntity dbuser = op.get();
+			dbuser.setFirstName(entity.getFirstName());
+			dbuser.setLastName(entity.getLastName());
+			dbuser.setGender(entity.getGender());
+			dbuser.setEmail(entity.getEmail());
+			dbuser.setBornYear(entity.getBornYear());
+			dbuser.setContactNum(entity.getContactNum());
+			dbuser.setProfilePicPath(entity.getProfilePicPath());
+			dbuser.setRole(entity.getRole());
+			
+			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+			   profilePic.getOriginalFilename().endsWith(".png") ||
+			   profilePic.getOriginalFilename().endsWith(".webp")) {
+				
+			} else {
+				return "Home";
+				
+			} try {
+				
+			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+//			System.out.println(result);
+//			System.out.println(result.get("url"));
+			
+			entity.setProfilePicPath(result.get("url").toString());
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			repoUser.save(entity);
+		}	
+		return "redirect:/home";
+	}
     
 }

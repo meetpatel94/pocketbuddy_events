@@ -18,9 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.Services.MailService;
+import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
+import com.example.entity.StaEntity;
 import com.example.entity.UserEntity;
+import com.example.repository.CityRepository;
 import com.example.repository.CreateEventsRepository;
+import com.example.repository.StaRepository;
 import com.example.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,6 +41,12 @@ public class SessionController {
 	
 	@Autowired
 	PasswordEncoder encoder; 
+	
+	@Autowired
+	StaRepository reposta;
+	
+	@Autowired
+	CityRepository repocity;
 	
 	@Autowired
 	Cloudinary cloudinary; 
@@ -226,6 +236,12 @@ public class SessionController {
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
 		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		
 		return "Home";
 	}
 	
@@ -234,6 +250,12 @@ public class SessionController {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
+		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
 		
 		return "MusicShowPage";
 	}
@@ -244,6 +266,12 @@ public class SessionController {
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
 		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		
 		return "ConcertPage";
 	}
 	
@@ -253,6 +281,12 @@ public class SessionController {
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
 		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		
 		return "DancePage";
 	}
 	
@@ -261,6 +295,12 @@ public class SessionController {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
+		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
 		
 		return "ComedyPage";
 	}

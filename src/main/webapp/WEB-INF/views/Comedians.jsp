@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -162,7 +162,7 @@
           "Satirical genius with political edge"
         };
         String[] imageUrls = {
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqZcll3Cg0fU3XFaieQ9fPOordn45dZrkfOQ&s",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdcLYo0u0nLjZ6zqlhUaGxPqtHA9sjNVncpg&s",
           "https://i.ytimg.com/vi/AbASkLpKZSw/hq720.jpg?sqp=-oaymwEnCK4FEIIDSFryq4qpAxkIARUAAAAAGAElAADIQj0AgKJDuAK33r8Y&rs=AOn4CLBPoiJrJLxp6Ai36OjU89mucqVAIQ",
           "https://i.ytimg.com/vi/Du0teoQGUD4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBjZ6gcWrFpjW2bVFOAOMVXp5j4bA",
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo5umQTEqs6i9nQxfxqCumnjCxTZAJSh_tor4myLHAxQXW2pNyQNPGbY-SM1OXi3gf1mg&usqp=CAU",
@@ -199,4 +199,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
-</html>
+</html> --%>
