@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link href="img/logo.png" rel="icon">
@@ -176,6 +178,10 @@ body{
     transform: translateY(-50%);
     font-size: 20px;
     color: var(--secondary-color);
+    cursor: pointer;
+}
+.password-toggle {
+    right: 50px !important;
 }
 /* FORGOT PASSWORD & TERMS AND CONDITIONS */
 .form-cols{
@@ -208,6 +214,11 @@ body{
 .btn-submit:hover{
     gap: 15px;
 }
+.btn-submit:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
 .btn-submit i{
     font-size: 20px;
 }
@@ -222,6 +233,12 @@ body{
     color: red;
     text-align: center;
 }  
+.password-mismatch {
+    border-color: red !important;
+}
+.password-match {
+    border-color: green !important;
+}
 footer{
     position: fixed;
     bottom: 0;
@@ -242,6 +259,38 @@ footer{
         margin: 20px;
     }
 }
+/* Toast Notification Styles */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4BB543;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 99999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.toast-message {
+    font-size: 16px;
+    font-weight: 500;
+}
     </style>
 </head>
 <body>
@@ -253,7 +302,7 @@ footer{
         </div>
         <p style="text-align: center;">Enter Your OTP To Change Password</p>
         <!-- LOGIN FORM -->
-<form action="updatepassword" method="post">
+<form action="updatepassword" method="post" onsubmit="return validatePasswords()">
     <div class="input-box">
         <input type="text" class="input-field" id="otp" name="otp" required>
         <label for="otp" class="label">OTP</label>
@@ -265,13 +314,14 @@ footer{
         <i class='bx bx-envelope icon'></i>
     </div>
     <div class="input-box">
-        <input type="text" class="input-field" id="password" name="password" required>
+        <input type="password" class="input-field" id="password" name="password" required>
         <label for="password" class="label">New Password</label>
-        <i class='bx bxs-lock icon'></i>
+        <i class='bx bx-hide icon' id="togglePassword"></i>
     </div>
     <div class="input-box">
-        <input type="text" class="input-field" id="confirmPassword" name="confirmPassword" required>
+        <input type="password" class="input-field" id="confirmPassword" name="confirmPassword" required>
         <label for="confirmPassword" class="label">Confirm Password</label>
+        <i class='bx bx-hide icon' id="toggleConfirmPassword"></i>
     </div>
     <div class="form-cols">
         <div class="col-1"></div>
@@ -279,21 +329,100 @@ footer{
         </div>
     </div>
      <span class="error-msg">${error }</span>
+     <span id="passwordError" class="error-msg" style="display:none;">Passwords do not match!</span>
     <div class="input-box">
-        <button class="btn-submit" id="SignInBtn">Update Password <i class='bx bxs-lock'></i></button>
+        <button type="submit" class="btn-submit" id="submitBtn" disabled>Update Password <i class='bx bxs-lock'></i></button>
     </div>
     <div class="switch-form">
         <span>Don't have an account? <a href="signup" onclick="registerFunction()">SignUp Here</a></span>
     </div>
 </form>
-            <!-- Login form inputs -->
-        <!-- REGISTER FORM -->
     </div>
     <footer id="footer" class="footer">
-        
-            © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights
-            Reserved
-        
+        © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights Reserved
     </footer>
+    <div id="loginToast" class="toast-notification">
+        <div class="toast-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="toast-message">Sent OTP Successfully!</div>
+    </div>
+    <script>
+        // Password validation function
+        function validatePasswords() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMsg = document.getElementById('passwordError');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (password !== confirmPassword) {
+                errorMsg.style.display = 'block';
+                document.getElementById('confirmPassword').classList.add('password-mismatch');
+                document.getElementById('confirmPassword').classList.remove('password-match');
+                submitBtn.disabled = true;
+                return false;
+            } else {
+                errorMsg.style.display = 'none';
+                document.getElementById('confirmPassword').classList.remove('password-mismatch');
+                document.getElementById('confirmPassword').classList.add('password-match');
+                submitBtn.disabled = false;
+                return true;
+            }
+        }
+
+        // Real-time password validation
+        document.getElementById('password').addEventListener('input', validatePasswords);
+        document.getElementById('confirmPassword').addEventListener('input', validatePasswords);
+
+        // Toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('bx-show');
+            this.classList.toggle('bx-hide');
+        });
+
+        // Toggle confirm password visibility
+        const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+        const confirmPassword = document.querySelector('#confirmPassword');
+        
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            this.classList.toggle('bx-show');
+            this.classList.toggle('bx-hide');
+        });
+
+        // Function to show toast notification
+        function showLoginToast() {
+            const toast = document.getElementById('loginToast');
+            toast.classList.add('show');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Check for login success parameter in URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const loginSuccess = urlParams.get('login');
+            
+            if (loginSuccess === 'success') {
+                showLoginToast();
+                
+                // Clean the URL (remove the parameter)
+                const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+            }
+            
+            // Initial password validation
+            validatePasswords();
+        });
+    </script>
 </body>
 </html>

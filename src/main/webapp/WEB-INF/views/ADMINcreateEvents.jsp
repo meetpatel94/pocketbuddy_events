@@ -178,13 +178,12 @@ main{
                 <form action="savebusinessevent" method="post" enctype="multipart/form-data">
                     <div class="event-type">
                         <label>Event Type:</label>
-                        <select name="eventType" >
-                            <option value="business">Business</option>
-                            <option value="music">Music</option>
-                            <option value="concert">Concert</option>
-                            <option value="dance">Dance</option>
-                            <option value="comedy">Comedy</option>
-                        </select>
+                          <select name="eventType" id="eventTypeDropdown" onchange="filterEvents()">
+                  <option value="all">All Event Types</option>        
+                <c:forEach items="${allevent}" var="s">
+                   <option value="${s.eventType}">${s.eventType}</option>     
+                </c:forEach> 
+             </select> 
                     </div>
                     
                     <div class="form-row">

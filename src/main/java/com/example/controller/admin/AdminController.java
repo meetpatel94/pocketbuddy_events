@@ -17,10 +17,12 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
+import com.example.entity.EventTypeEntity;
 import com.example.entity.StaEntity;
 import com.example.entity.UserEntity;
 import com.example.repository.CityRepository;
 import com.example.repository.CreateEventsRepository;
+import com.example.repository.EventRepository;
 import com.example.repository.MemberRepository;
 import com.example.repository.StaRepository;
 import com.example.repository.UserRepository;
@@ -48,6 +50,9 @@ public class AdminController {
 	
 	@Autowired
 	CreateEventsRepository repoevent;
+	
+	@Autowired
+	EventRepository repoevents;
 	
     @GetMapping("admindashboard")
 	public  String admindashboard(Model model) {
@@ -205,6 +210,9 @@ public class AdminController {
     	
     	List<StaEntity> allstate = repostate.findAll();
 		model.addAttribute("allstate", allstate);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
     	
     	return "ADMINcreateEvents";
     }
@@ -244,6 +252,9 @@ public class AdminController {
 		
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
 						
 		return "ADMINTrendingEvents";
 	}
@@ -262,6 +273,9 @@ public class AdminController {
 		
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
     	
    		Optional<CreateEventsEntity> op = repoevent.findById(createeventId);
    		if(op.isEmpty()) {
@@ -320,53 +334,91 @@ public class AdminController {
    		return "redirect:/businessevents";
    	}
     
-    
-    
-    
-    
+//    @PostMapping("update")
+//   	public String update(UserEntity entity, MultipartFile profilePic) {  		
+//   		
+//   		Optional<UserEntity> op = repoUser.findById(entity.getUserId());
+//   		
+//   		if(op.isPresent()) {
+//   			
+//   			UserEntity dbuser = op.get();
+//   			dbuser.setFirstName(entity.getFirstName());
+//   			dbuser.setLastName(entity.getLastName());
+//   			dbuser.setGender(entity.getGender());
+//   			dbuser.setEmail(entity.getEmail());
+//   			dbuser.setBornYear(entity.getBornYear());
+//   			dbuser.setContactNum(entity.getContactNum());
+//   			dbuser.setProfilePicPath(entity.getProfilePicPath());
+//   			dbuser.setRole(entity.getRole());
+//   			
+//   			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+//   			   profilePic.getOriginalFilename().endsWith(".png") ||
+//   			   profilePic.getOriginalFilename().endsWith(".webp")) {
+//   				
+//   			} else {
+//   				return "Home";
+//   				
+//   			} try {
+//   				
+//   			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+////   			System.out.println(result);
+////   			System.out.println(result.get("url"));
+//   			
+//   			entity.setProfilePicPath(result.get("url").toString());
+//   			
+//   			} catch (IOException e) {
+//   				// TODO Auto-generated catch block
+//   				e.printStackTrace();
+//   			}
+//   			
+//   		}	
+//   		repoUser.save(entity);
+//   		return "redirect:/home?profileUpdated=true";
+//   	}
     
     @PostMapping("update")
-	public String update(UserEntity entity, MultipartFile profilePic) {
-//		System.out.println(entity.getUserId());
-		
-		
-		Optional<UserEntity> op = repoUser.findById(entity.getUserId());
-		
-		if(op.isPresent()) {
-			
-			UserEntity dbuser = op.get();
-			dbuser.setFirstName(entity.getFirstName());
-			dbuser.setLastName(entity.getLastName());
-			dbuser.setGender(entity.getGender());
-			dbuser.setEmail(entity.getEmail());
-			dbuser.setBornYear(entity.getBornYear());
-			dbuser.setContactNum(entity.getContactNum());
-			dbuser.setProfilePicPath(entity.getProfilePicPath());
-			dbuser.setRole(entity.getRole());
-			
-			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-			   profilePic.getOriginalFilename().endsWith(".png") ||
-			   profilePic.getOriginalFilename().endsWith(".webp")) {
-				
-			} else {
-				return "Home";
-				
-			} try {
-				
-			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
-//			System.out.println(result);
-//			System.out.println(result.get("url"));
-			
-			entity.setProfilePicPath(result.get("url").toString());
-			
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			repoUser.save(entity);
-		}	
-		return "redirect:/home";
-	}
+    public String update(UserEntity entity, MultipartFile profilePic) {
+
+        Optional<UserEntity> op = repoUser.findById(entity.getUserId());
+
+        if(op.isPresent()) {
+
+            UserEntity dbuser = op.get();
+            dbuser.setFirstName(entity.getFirstName());
+            dbuser.setLastName(entity.getLastName());
+            dbuser.setGender(entity.getGender());
+            dbuser.setEmail(entity.getEmail());
+            dbuser.setBornYear(entity.getBornYear());
+            dbuser.setContactNum(entity.getContactNum());
+            dbuser.setRole(entity.getRole());
+
+            if(profilePic.getOriginalFilename().endsWith(".jpg") ||
+               profilePic.getOriginalFilename().endsWith(".png") ||
+               profilePic.getOriginalFilename().endsWith(".webp")) {
+
+                try {
+                    Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+                    dbuser.setProfilePicPath(result.get("url").toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                return "Home";
+            }
+
+            repoUser.save(dbuser);
+
+            // Redirect based on role
+            if (dbuser.getRole().equals("USER")) {
+                return "redirect:/home?profileUpdated=true";
+            } else if (dbuser.getRole().equals("ADMIN")) {
+                return "redirect:/admindashboard";
+            }
+        }
+
+        return "redirect:/error"; // fallback in case user not found
+    }    
     
+ 
 }

@@ -20,10 +20,12 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.Services.MailService;
 import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
+import com.example.entity.EventTypeEntity;
 import com.example.entity.StaEntity;
 import com.example.entity.UserEntity;
 import com.example.repository.CityRepository;
 import com.example.repository.CreateEventsRepository;
+import com.example.repository.EventRepository;
 import com.example.repository.StaRepository;
 import com.example.repository.UserRepository;
 
@@ -53,6 +55,9 @@ public class SessionController {
 	
 	@Autowired
 	CreateEventsRepository repoevent;
+	
+	@Autowired
+	EventRepository repoevents;
 
 	@GetMapping( "login" )
 	public String login(String email, String password) {
@@ -111,6 +116,18 @@ public class SessionController {
 		System.out.println("Email: "+ email);
 		System.out.println("Password: "+password);
 		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
+		List<CreateEventsEntity> event = repoevent.findAll();
+		model.addAttribute("newevent", event);
+		
 		Optional<UserEntity> op = repositoryUser.findByEmail(email);
 		//check data coming or not
 		if(op.isPresent()) {
@@ -123,10 +140,10 @@ public class SessionController {
 				session.setAttribute("user", dbUsers);   // use session when login
 				
 				if(dbUsers.getRole().equals("ADMIN")) {
-					return "redirect:/admindashboard";
+					return "redirect:/admindashboard?login=success";
 					
 				}else if(dbUsers.getRole().equals("USER")) {
-					return "Home";
+					return "redirect:/home?login=success";
 					
 				}else {
 					model.addAttribute("error", "Please contact Admin with error code #98433");
@@ -134,7 +151,7 @@ public class SessionController {
 				}	
 			}	
 		}
-		
+
 		model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Invalid Email Or Password");
 		return "Login";	
 	}
@@ -157,6 +174,16 @@ public class SessionController {
 		}
 		return "ViewPage";
 	}
+	
+	@GetMapping("header")
+	public String header(Model model) {
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
+		return "Header";
+	}
+	
 
 	@GetMapping("deleteuser")
 	public String deleteuser(Integer userId) {
@@ -167,6 +194,11 @@ public class SessionController {
 	@GetMapping("forgetpassword")
 	public String forgetPassword() {
 		return "ForgetPassword";
+	}
+	
+	@GetMapping("changepassword")
+	public String changePassword() {
+		return "ChangePassword";
 	}
 
 	//===> SEND OTP
@@ -187,7 +219,7 @@ public class SessionController {
 			user.setOtp(otp);
 			repositoryUser.save(user);
 			serviceMail.sendOtpForForgetPassword(email, user.getFirstName(), otp);
-			return "ChangePassword";
+			return "redirect:/changepassword?login=success";
 		} 		 
 	}
 
@@ -214,7 +246,7 @@ public class SessionController {
 			}
 		}
 		model.addAttribute("msg", "Password Succesfully Updated");
-		return "Login";
+		return "redirect:/login?login=success";
 	}
 	
 
@@ -226,6 +258,15 @@ public class SessionController {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
 		model.addAttribute("newevent", event);
+		
+		List<StaEntity> allsta = reposta.findAll();
+		model.addAttribute("allstate", allsta);
+		
+		List<CityEntity> allcity = repocity.findAll();
+		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
 		
 		return "DefaultPage";
 	}
@@ -242,10 +283,13 @@ public class SessionController {
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
 		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
 		return "Home";
 	}
 	
-	@GetMapping("musicshow")
+	@GetMapping("music")
 	public String musicshow(Model model) {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
@@ -257,10 +301,13 @@ public class SessionController {
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
 		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
 		return "MusicShowPage";
 	}
 	
-	@GetMapping("concert")
+	@GetMapping("concerts")
 	public String concert(Model model) {
 		
 		List<CreateEventsEntity> event = repoevent.findAll();
@@ -271,6 +318,9 @@ public class SessionController {
 		
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
 		
 		return "ConcertPage";
 	}
@@ -287,6 +337,9 @@ public class SessionController {
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
 		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
 		return "DancePage";
 	}
 	
@@ -302,28 +355,30 @@ public class SessionController {
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity);
 		
+		List<EventTypeEntity> events = repoevents.findAll();
+		model.addAttribute("allevent", events);
+		
 		return "ComedyPage";
 	}
 	
 	@PostMapping("updatepass")
-	public String updatePass(UserEntity entity, String password, Model model) {
-	    Optional<UserEntity> op = repositoryUser.findById(entity.getUserId());
-
-	    if (op.isPresent()) {
-	        UserEntity dbuser = op.get();
-
+	public String updatePass(String email,String password, Model model) {
+	    Optional<UserEntity> op = repositoryUser.findByEmail(email);
+	    
+	    if(op.isEmpty()) {
+	        model.addAttribute("error", "Invalid Email");
+	        return "ChangePassword";
+	    } else {
+	        UserEntity user = op.get();
 	        String encPwd = encoder.encode(password);
-	        dbuser.setPassword(encPwd); // Set the encoded password
-
-	        repositoryUser.save(dbuser); // Save the updated dbuser
-	        return "Home"; // or redirect to login if password changed
+	        user.setPassword(encPwd);
+	        repositoryUser.save(user);
+	        
 	    }
-
-	    model.addAttribute("error", "User not found.");
-	    return "error-page"; // show appropriate error page
+	    
+	    model.addAttribute("msg", "Password Successfully Updated");
+	    return "redirect:/home?passwordChanged=true";
 	}
-
 	
-
 }
 

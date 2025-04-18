@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <!DOCTYPE html>
 <html>
 <head>
@@ -349,18 +350,16 @@ nav ul li a{
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li> 
           <li class="menu-has-children"><a href="#">Events</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="home">Business</a></li>
-              <li><a class="dropdown-item" href="musicshow">Music</a></li>
-              <li><a class="dropdown-item" href="concert">Concerts</a></li>
-              <li><a class="dropdown-item" href="dance">Dances</a></li>
-              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
-            </ul>
+           <ul class="dropdown-menu">
+            <c:forEach items="${allevent }" var="s">
+                 <li><a class="dropdown-item" href="${s.eventType }">${s.eventType }</a></li>
+               </c:forEach>
+          </ul>
           </li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#" onclick="openPopup()">Rate Us</a></li>
+         <!--  <li><a href="#" onclick="openPopup()">Rate Us</a></li> -->
           <li class="buy-tickets"><a href="logout" class="logout" >LogIn</a></li>
           <li class="buy-tickets att"><img src="img/user-img.png" alt="" 
            style="width: 40px; height: 40px;  border-radius: 50%; object-fit: cover; border: 2px solid rgb(255, 0, 0);"></li>

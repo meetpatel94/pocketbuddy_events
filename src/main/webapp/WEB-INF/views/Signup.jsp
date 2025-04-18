@@ -270,18 +270,34 @@
             animation: fadeIn 0.5s 1s both;
         }
 
-        .btn-submit:hover {
+        .btn-submit:hover:not(:disabled) {
             background-color: #152857;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(13, 25, 54, 0.2);
         }
 
-        .btn-submit:hover i {
+        .btn-submit:hover:not(:disabled) i {
             transform: translateX(5px);
         }
 
         .btn-submit i {
             transition: transform 0.3s ease;
+        }
+
+        .btn-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* PASSWORD MISMATCH MESSAGE */
+        .password-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            display: none;
         }
 
         /* FOOTER */
@@ -354,16 +370,17 @@
             </div>
             
             <div class="input-box">
-                <input type="password" class="input-field" id="password" name="password" placeholder=" " >
+                <input type="password" class="input-field" id="password" name="password" placeholder=" " required >
                 <label for="password" class="label">Password</label>
                 <i class='bx bx-lock-alt icon'></i>
             </div>
             
             <div class="input-box">
-                <input type="password" class="input-field" id="confitmpassword" name="confirmpassword" placeholder=" " >
+                <input type="password" class="input-field" id="confirmpassword" name="confirmpassword" placeholder=" " required >
                 <label for="confirmpassword" class="label">Confirm Password</label>
                 <i class='bx bx-lock-alt icon'></i>
             </div>
+            <div id="password-message" class="password-message">Passwords do not match!</div>
 
             <div class="input-box">
                 <input type="date" class="input-field" id="bornYear" name="bornYear" placeholder=" " >
@@ -377,7 +394,7 @@
                 <i class='bx bxs-phone icon'></i>
             </div>
             
-              <div class="input-box file-input-container">
+            <div class="input-box file-input-container">
                 <div class="file-input-wrapper">
                     <label class="file-input-label"></label>
                     <input type="file" id="profilePic" name="profilePic" accept="image/*" >
@@ -387,7 +404,7 @@
                 <div class="file-input-note">*Upload Photo</div>
             </div>
 
-            <button type="submit" class="btn-submit">
+            <button type="submit" class="btn-submit" disabled>
                 Submit <i class='bx bx-log-in'></i>
             </button>
         </form><br>
@@ -399,33 +416,62 @@
     </footer>
 
     <script>
-        // File input display
-        document.getElementById('profilePic').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
-            document.getElementById('fileDisplay').textContent = fileName;
-        });
-
-        // Input field interactions
-        document.querySelectorAll('.input-field').forEach(input => {
-            // Focus/blur effects
-            input.addEventListener('focus', function() {
-                this.parentNode.querySelector('.icon').style.color = 'var(--primary-color)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentNode.querySelector('.icon').style.color = 'var(--secondary-color)';
-            });
-            
-            // Initialize labels for pre-filled values
-            if(input.value) {
-                const event = new Event('input');
-                input.dispatchEvent(event);
-            }
-        });
-
-        // Add animation class to body to prevent flash of unstyled content
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.opacity = '1';
+            const passwordField = document.getElementById('password');
+            const confirmPasswordField = document.getElementById('confirmpassword');
+            const submitButton = document.querySelector('.btn-submit');
+            const passwordMessage = document.getElementById('password-message');
+            
+            // Function to validate password match
+            function validatePasswords() {
+                const password = passwordField.value;
+                const confirmPassword = confirmPasswordField.value;
+                
+                // Check if passwords match and meet minimum length
+                const isValid = password === confirmPassword && password.length >= 3;
+                
+                // Update button state
+                submitButton.disabled = !isValid;
+                
+                // Show/hide error message
+                if (confirmPassword.length > 0 && password !== confirmPassword) {
+                    passwordMessage.style.display = 'block';
+                    passwordField.style.borderColor = 'red';
+                    confirmPasswordField.style.borderColor = 'red';
+                } else {
+                    passwordMessage.style.display = 'none';
+                    passwordField.style.borderColor = '';
+                    confirmPasswordField.style.borderColor = '';
+                }
+            }
+            
+            // Add event listeners for real-time validation
+            passwordField.addEventListener('input', validatePasswords);
+            confirmPasswordField.addEventListener('input', validatePasswords);
+            
+            // File input display
+            document.getElementById('profilePic').addEventListener('change', function(e) {
+                const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+                document.getElementById('fileDisplay').textContent = fileName;
+            });
+            
+            // Input field interactions
+            document.querySelectorAll('.input-field').forEach(input => {
+                // Focus/blur effects
+                input.addEventListener('focus', function() {
+                    this.parentNode.querySelector('.icon').style.color = 'var(--primary-color)';
+                    if (this === passwordField || this === confirmPasswordField) {
+                        this.style.borderColor = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentNode.querySelector('.icon').style.color = 'var(--secondary-color)';
+                });
+            });
+            
+            // Initial validation
+            validatePasswords();
         });
     </script>
 </body>

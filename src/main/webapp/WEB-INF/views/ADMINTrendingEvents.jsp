@@ -631,19 +631,20 @@ main {
         <div class="section-header">
           <h2>Event Management Dashboard</h2>
           <div class="filter-controls">
-              <select id="eventTypeDropdown" onchange="filterEvents()">
-                  <option value="all">All Event Types</option>
-                  <option value="music">Music</option>
-                  <option value="concerts">Concerts</option>
-                  <option value="dance">Dance</option>
-                  <option value="business">Business</option>
-                  <option value="comedy">Comedy</option>
-              </select>
+              
+              <select name="eventType" id="eventTypeDropdown" onchange="filterEvents()">
+                  <option value="all">All Event Types</option>        
+                <c:forEach items="${allevent}" var="s">
+                   <option value="${s.eventType}" style="text-transform: capitalize;">${s.eventType}</option>     
+                </c:forEach> 
+             </select>        
+                      
+                      
                       
               <select name="staName" id="stateFilter" onchange="filterEvents()">
                   <option value="all">All States</option>        
                 <c:forEach items="${allstate}" var="s">
-                   <option value="${s.staName}">${s.staName}</option>
+                   <option value="${s.staName}">${s.staName}</option>     
                 </c:forEach> 
              </select>  
                   

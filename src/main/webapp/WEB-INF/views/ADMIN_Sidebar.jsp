@@ -107,6 +107,13 @@
                   <span class="sub-item">UpComing Events List</span>
                 </a>
               </li>
+              
+               <li>
+                <a href="eventtype">
+                  <span class="sub-item">Add Events</span>
+                </a>
+              </li>
+              
               <!-- <li>
                 <a href="listbuyers">
                   <span class="sub-item">Event Participant Users</span>

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.entity.CityEntity;
+import com.example.entity.EventTypeEntity;
 import com.example.entity.StaEntity;
 
 import com.example.repository.CityRepository;
+import com.example.repository.EventRepository;
 import com.example.repository.StaRepository;
 
 
@@ -27,6 +29,9 @@ public class CityController {
 	
 	@Autowired
 	CityRepository repocity;
+	
+	@Autowired
+	EventRepository repoevent;
 	
 	
 	@GetMapping("newcity")
@@ -47,7 +52,10 @@ public class CityController {
 		model.addAttribute("allstate", allsta);
 		
 		List<CityEntity> allcity = repocity.findAll();
-		model.addAttribute("allcity", allcity); 
+		model.addAttribute("allcity", allcity);
+		
+		List<EventTypeEntity> events = repoevent.findAll();
+		model.addAttribute("allevent", events);
 		
 		return "ADMINcreateEvents";  
 	}
@@ -63,6 +71,9 @@ public class CityController {
 		
 		List<CityEntity> allcity = repocity.findAll();
 		model.addAttribute("allcity", allcity); 
+		
+		List<EventTypeEntity> events = repoevent.findAll();
+		model.addAttribute("allevent", events);
 		
 		return "redirect:/viewcities";  
 	}

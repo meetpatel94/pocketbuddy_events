@@ -273,7 +273,6 @@
       
       <!-- Filter Controls -->
       <div class="filter-controls row g-3">
-       
         <div class="col-md-3">
           <label for="genre-filter" class="form-label">Filter by Genre</label>
           <select id="genre-filter" class="form-select">
@@ -767,7 +766,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Get all filter elements
-      const dateFilter = document.getElementById('date-filter');
       const genreFilter = document.getElementById('genre-filter');
       const priceFilter = document.getElementById('price-filter');
       const resetButton = document.getElementById('reset-filters');
@@ -775,7 +773,6 @@
       const noResults = document.getElementById('no-results');
       
       // Add event listeners to filters
-      dateFilter.addEventListener('change', filterEvents);
       genreFilter.addEventListener('change', filterEvents);
       priceFilter.addEventListener('change', filterEvents);
       resetButton.addEventListener('click', resetFilters);
@@ -791,23 +788,20 @@
       
       // Filter events based on selected filters
       function filterEvents() {
-        const selectedDate = dateFilter.value;
         const selectedGenre = genreFilter.value;
         const selectedPrice = priceFilter.value;
         
         let visibleCount = 0;
         
         eventRows.forEach(row => {
-          const rowDate = row.getAttribute('data-date');
           const rowGenre = row.getAttribute('data-genre');
           const rowPrice = parseFloat(row.getAttribute('data-price'));
           
           // Check if row matches all selected filters
-          const dateMatch = selectedDate === 'all' || checkDateMatch(selectedDate, rowDate);
           const genreMatch = selectedGenre === 'all' || rowGenre === selectedGenre;
           const priceMatch = selectedPrice === 'all' || checkPriceMatch(selectedPrice, rowPrice);
           
-          if (dateMatch && genreMatch && priceMatch) {
+          if (genreMatch && priceMatch) {
             row.style.display = '';
             visibleCount++;
           } else {
@@ -823,32 +817,6 @@
         }
       }
       
-      // Check if row date matches selected date filter
-      function checkDateMatch(selectedDate, rowDate) {
-        const today = new Date();
-        const eventDate = new Date(rowDate);
-        
-        switch(selectedDate) {
-          case 'today':
-            return eventDate.toDateString() === today.toDateString();
-          case 'this-week':
-            const nextWeek = new Date();
-            nextWeek.setDate(today.getDate() + 7);
-            return eventDate >= today && eventDate <= nextWeek;
-          case 'next-week':
-            const nextWeekStart = new Date();
-            nextWeekStart.setDate(today.getDate() + 7);
-            const nextWeekEnd = new Date();
-            nextWeekEnd.setDate(today.getDate() + 14);
-            return eventDate >= nextWeekStart && eventDate <= nextWeekEnd;
-          case 'this-month':
-            const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-            return eventDate >= today && eventDate <= endOfMonth;
-          default:
-            return true;
-        }
-      }
-      
       // Check if row price matches selected price filter
       function checkPriceMatch(selectedPrice, rowPrice) {
         switch(selectedPrice) {
@@ -857,8 +825,8 @@
           case '30-50':
             return rowPrice >= 30 && rowPrice <= 50;
           case '50-100':
-            return rowPrice > 50
-                case 'over-100':
+            return rowPrice > 50 && rowPrice <= 100;
+          case 'over-100':
             return rowPrice > 100;
           default:
             return true;
@@ -867,7 +835,6 @@
       
       // Reset all filters to default values
       function resetFilters() {
-        dateFilter.value = 'all';
         genreFilter.value = 'all';
         priceFilter.value = 'all';
         filterEvents();

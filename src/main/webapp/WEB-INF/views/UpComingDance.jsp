@@ -270,7 +270,16 @@
       </div>
       
       <div class="filter-controls row g-3">
-        
+        <div class="col-md-4">
+          <label for="date-filter" class="form-label">Filter by Date</label>
+          <select id="date-filter" class="form-select">
+            <option value="all">All Dates</option>
+            <option value="today">Today</option>
+            <option value="this-week">This Week</option>
+            <option value="next-week">Next Week</option>
+            <option value="this-month">This Month</option>
+          </select>
+        </div>
         <div class="col-md-4">
           <label for="city-filter" class="form-label">Filter by City</label>
           <select id="city-filter" class="form-select">
@@ -308,7 +317,7 @@
               <th>Price</th>
               <th>Rating</th>
               <th>Status</th>
-              
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="dance-table-body">
@@ -557,7 +566,6 @@
         button.addEventListener('click', function() {
           const eventName = this.closest('tr').querySelector('.dance-name').textContent;
           alert(`Booking initiated for: ${eventName}`);
-          // Here you would typically redirect to a booking page or open a booking modal
         });
       });
       
@@ -580,13 +588,10 @@
           const priceMatch = selectedPrice === 'all' || checkPriceMatch(selectedPrice, rowPrice);
           
           if (dateMatch && cityMatch && priceMatch) {
-            row.style.display = ''; // Show row
-             if (window.innerWidth <= 768) { // Adjust display for mobile view
-               row.style.display = 'block';
-             }
+            row.style.display = '';
             visibleCount++;
           } else {
-            row.style.display = 'none'; // Hide row
+            row.style.display = 'none';
           }
         });
         
@@ -600,37 +605,40 @@
       
       // Check if row date matches selected date filter
       function checkDateMatch(selectedDate, rowDate) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Normalize today's date to start of day
-        const showDate = new Date(rowDate);
-        showDate.setHours(0, 0, 0, 0); // Normalize show date
+        // Since all dates in the table are from 2023 (in the past), 
+        // we'll modify the logic to work with these static dates for demonstration
         
-        // Note: The dates in the HTML (2023) are in the past relative to the current assumed date (2025).
-        // The logic below works, but for a real application, you'd likely filter for future dates.
-        // I'm keeping the logic as requested based on the provided HTML.
-
+        // Convert row date string to Date object
+        const showDate = new Date(rowDate);
+        
+        // For demonstration purposes, we'll pretend today is June 1, 2023
+        const today = new Date('2023-06-01');
+        today.setHours(0, 0, 0, 0);
+        
+        // Calculate dates for filters
+        const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - dayOfWeek); // Start of current week (Sunday)
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6); // End of current week (Saturday)
+        
+        const startOfNextWeek = new Date(endOfWeek);
+        startOfNextWeek.setDate(endOfWeek.getDate() + 1); // Start of next week (Sunday)
+        const endOfNextWeek = new Date(startOfNextWeek);
+        endOfNextWeek.setDate(startOfNextWeek.getDate() + 6); // End of next week (Saturday)
+        
+        const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
         switch(selectedDate) {
           case 'today':
-            // This will likely show no results as the dates are in 2023.
             return showDate.toDateString() === today.toDateString();
           case 'this-week':
-            const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
-            const startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - dayOfWeek); // Start of current week (Sunday)
-            const endOfWeek = new Date(startOfWeek);
-            endOfWeek.setDate(startOfWeek.getDate() + 6); // End of current week (Saturday)
             return showDate >= startOfWeek && showDate <= endOfWeek;
           case 'next-week':
-            const startOfNextWeek = new Date(today);
-            startOfNextWeek.setDate(today.getDate() + (7 - today.getDay())); // Start of next week (Sunday)
-            const endOfNextWeek = new Date(startOfNextWeek);
-            endOfNextWeek.setDate(startOfNextWeek.getDate() + 6); // End of next week (Saturday)
             return showDate >= startOfNextWeek && showDate <= endOfNextWeek;
           case 'this-month':
-            const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-             // Show dates from today to end of month. Use startOfMonth if you want the whole month regardless of today.
-            return showDate >= today && showDate <= endOfMonth;
+            return showDate >= startOfMonth && showDate <= endOfMonth;
           default:
             return true; // 'all' dates
         }
@@ -662,9 +670,6 @@
       
       // Initial filter on page load
       filterDanceShows();
-
-      // Re-apply filters on window resize to handle responsive table changes
-      window.addEventListener('resize', filterDanceShows);
     });
   </script>
 </body>

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -30,7 +30,6 @@
       background-color: #432e543b;
     }
 
-    /* City Dropdown Styling */
     .city-dropdown {
       position: relative;
       display: inline-block;
@@ -99,7 +98,6 @@
       margin-top: 10px;
     }
     
-    /* Profile Dropdown Styles */
     .profile-dropdown {
       position: relative;
       display: inline-block;
@@ -169,7 +167,6 @@
       transform: rotate(180deg);
     }
     
-    /* Modal Styles - Improved */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -323,7 +320,6 @@
       color: #d81a3f;
     }
     
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .modal-content {
         width: 95%;
@@ -346,44 +342,75 @@
     .att:hover{
     background-color: #6c1cad3b;
     }
+    /*  */
+    .form-control {    
+    padding: 0.375rem 2.75rem !important;
+    }
+    
+    /* Toast Notification Styles */
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #4BB543;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 99999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-notification.profile-update {
+      background-color: #432E54;
+    }
+
+    .toast-icon {
+      margin-right: 15px;
+      font-size: 24px;
+    }
+
+    .toast-message {
+      font-size: 16px;
+      font-weight: 500;
+    }
   </style>
 </head>
 
 <body>
 
-  <!--==========================
-    Header
-  ============================-->
   <header id="header">
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <!-- Logo and app title -->
         <h2 style="color: red;">
           <img src="img/logo.png" alt="" title="">
           Pocket<span>B</span>uddy
         </h2>
-
-        <!-- City Dropdown Menu using UL with Icons -->
-       
-
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li> 
           <li class="menu-has-children"><a href="#">Events</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="home">Business</a></li>
-              <li><a class="dropdown-item" href="musicshow">Music</a></li>
-              <li><a class="dropdown-item" href="concert">Concerts</a></li>
-              <li><a class="dropdown-item" href="dance">Dances</a></li>
-              <li><a class="dropdown-item" href="comedy">Comedy</a></li>
-            </ul>
+           <ul class="dropdown-menu">
+               <c:forEach items="${allevent }" var="s">
+                 <li><a class="dropdown-item" href="${s.eventType }" style="text-transform: capitalize;">${s.eventType }</a></li>
+               </c:forEach>
+           </ul>
+           
           </li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#about">About</a></li>
           <li><a href="#" onclick="openPopup()">Rate Us</a></li>
           <li class="profile-dropdown" id="profileDropdown">
             <div class="profile-container" onclick="toggleProfileDropdown()">
@@ -393,54 +420,50 @@
               <i class="fas fa-chevron-down dropdown-arrow"></i>
             </div>
             <div class="profile-menu">
-              <!-- <a href="profile"><i class="fas fa-user"></i> My Profile</a>
-             
-              <a href="#" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change Password</a> -->
-               <a href="#" onclick="openUpdateProfileModal()"><i class="fas fa-cog"></i> Update Profile</a>
+              <a href="#" onclick="openUpdateProfileModal()"><i class="fas fa-cog"></i> Update Profile</a>
+              <a href="#" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change Password</a>
               <a href="logout" class="att"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
           </li>
         </ul>
-      </nav><!-- #nav-menu-container -->
+      </nav>
 
     </div>
-  </header><!-- #header -->
+  </header>
 
   <!-- Update Profile Modal -->
-  <div id="updateProfileModal" class="modal-overlay" >
-    <div class="modal-content" style="background-color:white;" >
+  <div id="updateProfileModal" class="modal-overlay">
+    <div class="modal-content" style="background-color:white;">
       <div class="modal-header">
         <h3 class="modal-title">Update Profile</h3>
         <span class="close-btn" onclick="closeModal('updateProfileModal')">&times;</span>
       </div>
       <div class="modal-body">
-        <form id="updateProfileForm" action="update" method="post">
-          <div class="profile-pic-container">
-            <img id="profilePicPreview" src="${user.profilePicPath}" class="profile-pic-preview" alt="Profile Picture">
+        <form id="updateProfileForm" action="update" method="post" enctype="multipart/form-data">
+         <div class="profile-pic-container">
+           <%--  <img id="profilePicPreview" src="${user.profilePicPath}" class="profile-pic-preview" alt="Profile Picture"> --%>
             <div class="profile-pic-upload">
-              <label for="profilePicUpload" class="profile-pic-upload-btn">
-                <i class="fas fa-camera"></i> Change Photo
-              </label>
-              <input type="file" id="profilePicUpload" accept="image/*" style="display: none;" onchange="previewProfilePic(this)">
+              
+              <input type="file" id="profilePicUpload" name="profilePic" onchange="previewProfilePic(this)">
               <span class="profile-pic-remove" onclick="removeProfilePic()">
                 <i class="fas fa-times"></i> Remove
               </span>
             </div>
           </div>
-          
+        
           <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" value="${user.firstName}" required>
+            <input type="text" class="form-control" id="firstName" name="firstName" value="${user.firstName}" required>
           </div>
           
           <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" value="${user.lastName}" required>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="${user.lastName}" required>
           </div>
           
           <div class="form-group">
             <label for="gender">Gender</label>
-            <select class="form-control" id="gender" required>
+            <select class="form-control" id="gender" name="gender" required>
               <option value="">Select Gender</option>
               <option value="male" ${user.gender == 'male' ? 'selected' : ''}>Male</option>
               <option value="female" ${user.gender == 'female' ? 'selected' : ''}>Female</option>
@@ -450,143 +473,216 @@
           
           <div class="form-group">
             <label for="dob">Date of Birth</label>
-            <input type="date" class="form-control" id="dob" value="${user.bornYear}" required>
+            <input type="date" class="form-control" id="dob" name="bornYear" value="${user.bornYear}" required>
           </div>
+          
+          <input type="hidden" class="form-control" id="dob" name="userId" value="${user.userId}" required>
+          <input type="hidden" class="form-control" id="dob" name="password" value="${user.password}" required>
+          <input type="hidden" class="form-control" id="dob" name="email" value="${user.email}" required>
+          <input type="hidden" class="form-control" id="dob" name="city" value="${user.city}" required>
+          <input type="hidden" class="form-control" id="dob" name="role" value="${user.role}" required>
           
           <div class="form-group">
             <label for="contactNo">Contact Number</label>
-            <input type="tel" class="form-control" id="contactNo" value="${user.contactNum}" required>
+            <input type="tel" class="form-control" id="contactNo" name="contactNum" value="${user.contactNum}" required>
           </div>
-          <input type="submit"  class="btn-primary">
+          <button type="submit" class="btn-primary">Update Profile</button>
         </form>
       </div>
     </div>
   </div>
+  
 
-  <!-- Change Password Modal -->
-  <div id="changePasswordModal" class="modal-overlay">
-    <div class="modal-content" style="background-color:white;">
-      <div class="modal-header">
-        <h3 class="modal-title">Change Password</h3>
-        <span class="close-btn" onclick="closeModal('changePasswordModal')">&times;</span>
-      </div>
-      <div class="modal-body">
-        <form action="updatepass" method="post" id="changePasswordForm">
-          <div class="form-group">
-            <label for="currentPassword">Current Password</label>
-            <input type="password" class="form-control" id="currentPassword" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="newPassword">New Password</label>
-            <input type="password" class="form-control" id="newPassword" name="password" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="confirmPassword">Confirm New Password</label>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-          </div>
-          
-          <input type="submit" value="Change Password" class="btn-primary">
-        </form>
-      </div>
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal-overlay">
+  <div class="modal-content" style="background-color:white;">
+    <div class="modal-header">
+      <h3 class="modal-title">Change Password</h3>
+      <span class="close-btn" onclick="closeModal('changePasswordModal')">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form action="updatepass" method="post" id="changePasswordForm" onsubmit="return validatePasswordAndShowToast()">
+      
+        <!-- <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input type="password" class="form-control" id="currentPassword" name="currentpassword" required > minlength="8"
+        </div> -->
+        
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" class="form-control" id="newPassword" name="password" required ><!--  minlength="8" -->
+          <small class="form-text text-muted">Password must be at least 8 characters long</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+          <small id="passwordError" class="text-danger" style="display:none;">Passwords don't match!</small>
+        </div>
+        <input type="hidden" name="email" value="${user.email}">
+        <input type="hidden" name="userId" value="${user.userId}">
+        
+       <%--  <div class="form-group" style="visibility:hidden;">
+          <label for="oldPassword">Old Password</label>
+          <input type="hidden" class="form-control" id="oldPassword" value="${user.password }" name="oldpassword" required ><!--  minlength="8" -->
+        </div> --%>
+        
+        <button type="submit" class="btn-primary">Change Password</button>
+      </form>
     </div>
   </div>
+</div>
 
-  <!-- JavaScript -->
-  <script>
-    // Dropdown functions
-    function toggleCityDropdown() {
-      document.getElementById('cityDropdown').classList.toggle('open');
-    }
+<!-- Toast Notification -->
+<div id="toast" class="toast-notification">
+  <div class="toast-icon">
+    <i class="fas fa-check-circle"></i>
+  </div>
+  <div class="toast-message" id="toastMessage"></div>
+</div>
 
-    function selectCity(city) {
-      const btn = document.querySelector('.city-btn');
-      btn.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + city;
-      document.getElementById('cityDropdown').classList.remove('open');
-      console.log("Selected city:", city);
+<script>
+  // Toast notification function
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    // Reset classes
+    toast.className = 'toast-notification';
+    
+    // Set message and type
+    toastMessage.textContent = message;
+    
+    // Add type-specific class
+    if (type === 'profile') {
+      toast.classList.add('profile-update');
     }
     
-    function toggleProfileDropdown() {
-      document.getElementById('profileDropdown').classList.toggle('open');
-    }
+    toast.classList.add('show');
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
 
-    // Modal functions
-    function openUpdateProfileModal() {
-      document.getElementById('updateProfileModal').style.display = 'block';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-      document.getElementById('profileDropdown').classList.remove('open');
+  // Check for success messages on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // For password change
+    if (urlParams.has('passwordChanged')) {
+      showToast('Password changed successfully!');
+      cleanUrl();
     }
     
-    function openChangePasswordModal() {
-      document.getElementById('changePasswordModal').style.display = 'block';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-      document.getElementById('profileDropdown').classList.remove('open');
+    // For profile update
+    if (urlParams.has('profileUpdated')) {
+      showToast('Profile updated successfully!', 'profile');
+      cleanUrl();
     }
+  });
+
+  // Clean URL parameters
+  function cleanUrl() {
+    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+
+  // Password validation function
+  function validatePassword() {
+    const newPassword = document.getElementById('newPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+    const submitBtn = document.querySelector('#changePasswordForm button[type="submit"]');
     
-    function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    // Check if passwords match
+    if (newPassword.value !== confirmPassword.value) {
+      confirmPassword.style.borderColor = '#f82249';
+      passwordError.style.display = 'block';
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+      submitBtn.style.cursor = 'not-allowed';
+      return false;
+    } else {
+      confirmPassword.style.borderColor = '#ddd';
+      passwordError.style.display = 'none';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.style.cursor = 'pointer';
+      return true;
     }
-    
-    // Close modals when clicking outside
-    window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal-overlay');
-      modals.forEach(modal => {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
-        }
-      });
-      
-      // Close dropdowns when clicking outside
-      const dropdowns = document.querySelectorAll('.city-dropdown, .profile-dropdown');
-      dropdowns.forEach(dropdown => {
-        if (!dropdown.contains(event.target)) {
-          dropdown.classList.remove('open');
-        }
-      });
+  }
+
+  function validatePasswordAndShowToast() {
+    if (validatePassword()) {
+      return true;
     }
+    return false;
+  }
+
+  // Add real-time validation as user types
+  document.addEventListener('DOMContentLoaded', function() {
+    const newPassword = document.getElementById('newPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
     
-    // Profile picture preview
-    function previewProfilePic(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('profilePicPreview').src = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
+    if (newPassword && confirmPassword) {
+      newPassword.addEventListener('input', validatePassword);
+      confirmPassword.addEventListener('input', validatePassword);
+    }
+  });
+
+  // Dropdown functions
+  function toggleCityDropdown() {
+    document.getElementById('cityDropdown').classList.toggle('open');
+  }
+
+  function selectCity(city) {
+    const btn = document.querySelector('.city-btn');
+    btn.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + city;
+    document.getElementById('cityDropdown').classList.remove('open');
+    console.log("Selected city:", city);
+  }
+  
+  function toggleProfileDropdown() {
+    document.getElementById('profileDropdown').classList.toggle('open');
+  }
+
+  // Modal functions
+  function openUpdateProfileModal() {
+    document.getElementById('updateProfileModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('profileDropdown').classList.remove('open');
+  }
+  
+  function openChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('profileDropdown').classList.remove('open');
+  }
+  
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+  
+  // Close modals when clicking outside
+  window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal-overlay');
+    modals.forEach(modal => {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
       }
-    }
-    
-    function removeProfilePic() {
-      document.getElementById('profilePicPreview').src = 'img/default-profile.png';
-      document.getElementById('profilePicUpload').value = '';
-    }
-    
-    // Form submissions
-    document.getElementById('updateProfileForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Add your update profile logic here
-      alert('Profile updated successfully!');
-      closeModal('updateProfileModal');
     });
     
-    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const newPassword = document.getElementById('newPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      
-      if (newPassword !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+    const dropdowns = document.querySelectorAll('.city-dropdown, .profile-dropdown');
+    dropdowns.forEach(dropdown => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('open');
       }
-      
-      // Add your change password logic here
-      alert('Password changed successfully!');
-      closeModal('changePasswordModal');
     });
-  </script>
-
+  }
+</script>
 </body>
 </html>

@@ -13,7 +13,7 @@
       <p class="mb-4 pb-0">10-12 December, Downtown Conference Center, New York</p>
       <a href="https://www.youtube.com" class="venobox play-btn mb-4" data-vbtype="video"
         data-autoplay="true"></a>
-      <a href="#about" class="about-btn scrollto">About The Event</a>
+      <a href="#about" class="about-btn scrollto" style="text-decoration:none;">About The Event</a>
     </div>
   </section>
 </body>

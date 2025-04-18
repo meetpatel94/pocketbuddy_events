@@ -335,10 +335,49 @@ h1 {
 #intro {
  background: url(../img/intro-bg.jpg) top center;
 }
+/* Toast Notification Styles */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4BB543;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 99999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.toast-message {
+    font-size: 16px;
+    font-weight: 500;
+}
 </style>
 </head>
 <body>
 
+<!-- Toast Notification -->
+<div id="loginToast" class="toast-notification">
+  <div class="toast-icon">
+    <i class="fas fa-check-circle"></i>
+  </div>
+  <div class="toast-message">Login Successful!</div>
+</div>
     <!--========================== Header ============================-->
     <jsp:include page="Header.jsp"></jsp:include>
     
@@ -399,7 +438,32 @@ h1 {
 
   <!-- JavaScript Libraries -->
   <jsp:include page="JS.jsp"></jsp:include>
-  
+  <script>
+// Function to show toast notification
+function showLoginToast() {
+    const toast = document.getElementById('loginToast');
+    toast.classList.add('show');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Check for login success parameter in URL
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loginSuccess = urlParams.get('login');
+    
+    if (loginSuccess === 'success') {
+        showLoginToast();
+        
+        // Clean the URL (remove the parameter)
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+});
+</script>
   
 </body>
 </html>

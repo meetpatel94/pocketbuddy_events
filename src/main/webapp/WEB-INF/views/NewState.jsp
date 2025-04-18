@@ -220,6 +220,9 @@
     main {
         margin-left:20px;
     }
+    div.dt-container div.dt-search input {
+        display:none;
+    }
 </style>
 </head>
 <body>

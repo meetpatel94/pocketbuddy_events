@@ -364,7 +364,7 @@
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">My Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
@@ -379,3 +379,108 @@
           <!-- End Navbar -->
         </div>
 
+<!-- Add this modal HTML right before the closing </div> of the main-panel div -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="updateProfileForm" action="update" method="post" enctype="multipart/form-data">
+          <div class="profile-pic-container text-center mb-4">
+            <img id="profilePicPreview" src="${user.profilePicPath}" class="profile-pic-preview rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+            <div class="profile-pic-upload mt-3">
+              <label for="profilePicUpload" class="btn btn-sm btn-primary">
+                <i class="fas fa-upload"></i> Change Photo
+              </label>
+              <input type="file" id="profilePicUpload" name="profilePic" onchange="previewProfilePic(this)" style="display: none;">
+              <button type="button" class="btn btn-sm btn-danger" onclick="removeProfilePic()">
+                <i class="fas fa-times"></i> Remove
+              </button>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" value="${user.firstName}" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" value="${user.lastName}" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="male" ${user.gender == 'male' ? 'selected' : ''}>Male</option>
+                  <option value="female" ${user.gender == 'female' ? 'selected' : ''}>Female</option>
+                  <option value="other" ${user.gender == 'other' ? 'selected' : ''}>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="bornYear" value="${user.bornYear}" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactNo">Contact Number</label>
+            <input type="tel" class="form-control" id="contactNo" name="contactNum" value="${user.contactNum}" required>
+          </div>
+          
+          <input type="hidden" name="userId" value="${user.userId}">
+          <input type="hidden" name="password" value="${user.password}">
+          <input type="hidden" name="email" value="${user.email}">
+          <input type="hidden" name="city" value="${user.city}">
+          <input type="hidden" name="role" value="${user.role}">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="updateProfileForm" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Profile picture preview function
+function previewProfilePic(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('profilePicPreview').src = e.target.result;
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// Remove profile picture function
+function removeProfilePic() {
+  document.getElementById('profilePicPreview').src = 'default-profile-pic.jpg'; // Set default image
+  document.getElementById('profilePicUpload').value = ''; // Clear file input
+}
+
+// Update the "My Profile" link in the dropdown to trigger the modal
+document.querySelector('.dropdown-item[href="#"]').addEventListener('click', function(e) {
+  e.preventDefault();
+  var modal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+  modal.show();
+});
+</script>

@@ -125,7 +125,7 @@
         
         .text-main .p1 i {
             animation: pulse 2s infinite 1s;
-            color: var(--primary-color); /* Red color for the icon to make it stand out */
+            color: var(--primary-color);
         }
 
         .text-main .p2 {
@@ -277,6 +277,7 @@
             transform: translateY(-50%);
             font-size: 20px;
             color: var(--secondary-color);
+            cursor: pointer;
         }
 
         /* FORGOT PASSWORD & TERMS AND CONDITIONS */
@@ -347,6 +348,7 @@
             padding: 0;
         }
 
+       
         /* FOOTER */
         footer{
             position: fixed;
@@ -406,9 +408,49 @@
                 font-size: 14px;
             }
         }
+        /* Toast Notification Styles */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4BB543;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 99999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.toast-message {
+    font-size: 16px;
+    font-weight: 500;
+}
+        
     </style>
 </head>
 <body>
+<!-- Toast Notification -->
+<div id="loginToast" class="toast-notification">
+  <div class="toast-icon">
+    <i class="fas fa-check-circle"></i>
+  </div>
+  <div class="toast-message">Password Updated!</div>
+</div>
     <div class="text-main">
         <p class="p1"><i class="fa-solid fa-location-dot"></i> Pocket Buddy</p>
         <p class="p2">&emsp;Your go-to site for discovering nearby events,</p>
@@ -433,10 +475,10 @@
             <div class="input-box">
                 <input type="password" class="input-field" id="log-pass" name="password" required>
                 <label for="log-pass" class="label">Password</label>
-                <i class='bx bx-lock-alt icon'></i>
+                <i class='bx bx-hide icon' id="togglePassword"></i>
             </div>
             <span style="color:red">${error }</span>
-            <div class="input-box"><!--  -->
+            <div class="input-box">
                 <button class="btn-submit" id="SignInBtn">Login <i class='bx bx-log-in'></i> </button>
             </div>
             <div class="form-cols">
@@ -451,6 +493,9 @@
             </div>
         </form>
     </div>
+    
+    <!-- Toast Notification -->
+    
     
     <footer id="footer" class="footer">
         © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights Reserved
@@ -476,6 +521,47 @@
         document.querySelector('.btn-submit').addEventListener('mouseleave', function() {
             this.querySelector('i').style.transform = 'translateX(0)';
         });
+
+        // Toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#log-pass');
+
+        togglePassword.addEventListener('click', function() {
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Toggle the eye icon between show/hide states
+            this.classList.toggle('bx-show');
+            this.classList.toggle('bx-hide');
+        });
+
     </script>
+    <script>
+// Function to show toast notification
+function showLoginToast() {
+    const toast = document.getElementById('loginToast');
+    toast.classList.add('show');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Check for login success parameter in URL
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loginSuccess = urlParams.get('login');
+    
+    if (loginSuccess === 'success') {
+        showLoginToast();
+        
+        // Clean the URL (remove the parameter)
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+});
+</script>
 </body>
-</html> 
+</html>
