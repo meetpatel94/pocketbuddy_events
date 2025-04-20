@@ -334,48 +334,6 @@ public class AdminController {
    		return "redirect:/businessevents";
    	}
     
-//    @PostMapping("update")
-//   	public String update(UserEntity entity, MultipartFile profilePic) {  		
-//   		
-//   		Optional<UserEntity> op = repoUser.findById(entity.getUserId());
-//   		
-//   		if(op.isPresent()) {
-//   			
-//   			UserEntity dbuser = op.get();
-//   			dbuser.setFirstName(entity.getFirstName());
-//   			dbuser.setLastName(entity.getLastName());
-//   			dbuser.setGender(entity.getGender());
-//   			dbuser.setEmail(entity.getEmail());
-//   			dbuser.setBornYear(entity.getBornYear());
-//   			dbuser.setContactNum(entity.getContactNum());
-//   			dbuser.setProfilePicPath(entity.getProfilePicPath());
-//   			dbuser.setRole(entity.getRole());
-//   			
-//   			if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-//   			   profilePic.getOriginalFilename().endsWith(".png") ||
-//   			   profilePic.getOriginalFilename().endsWith(".webp")) {
-//   				
-//   			} else {
-//   				return "Home";
-//   				
-//   			} try {
-//   				
-//   			Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
-////   			System.out.println(result);
-////   			System.out.println(result.get("url"));
-//   			
-//   			entity.setProfilePicPath(result.get("url").toString());
-//   			
-//   			} catch (IOException e) {
-//   				// TODO Auto-generated catch block
-//   				e.printStackTrace();
-//   			}
-//   			
-//   		}	
-//   		repoUser.save(entity);
-//   		return "redirect:/home?profileUpdated=true";
-//   	}
-    
     @PostMapping("update")
     public String update(UserEntity entity, MultipartFile profilePic) {
 
@@ -413,7 +371,7 @@ public class AdminController {
             if (dbuser.getRole().equals("USER")) {
                 return "redirect:/home?profileUpdated=true";
             } else if (dbuser.getRole().equals("ADMIN")) {
-                return "redirect:/admindashboard";
+                return "redirect:/admindashboard?profileUpdated=true";
             }
         }
 

@@ -383,6 +383,33 @@
       font-size: 16px;
       font-weight: 500;
     }
+    /*  */
+    .forbtn{
+    color:#432E54;
+    }
+    .forbtn:hover{
+    color: red;
+    }
+    <style>
+.password-field {
+  position: relative;
+}
+
+.input-group {
+  display: flex;
+}
+
+.toggle-password {
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-left: none;
+  padding: 0.375rem 0.75rem;
+}
+
+.toggle-password:hover {
+  background-color: #e9ecef;
+}
   </style>
 </head>
 
@@ -503,32 +530,44 @@
     <div class="modal-body">
       <form action="updatepass" method="post" id="changePasswordForm" onsubmit="return validatePasswordAndShowToast()">
       
-        <!-- <div class="form-group">
+        <div class="form-group password-field">
           <label for="currentPassword">Current Password</label>
-          <input type="password" class="form-control" id="currentPassword" name="currentpassword" required > minlength="8"
-        </div> -->
+          <div class="input-group">
+            <input type="password" class="form-control" id="currentPassword" name="currentpassword" required>
+            <span class="input-group-text toggle-password" onclick="togglePassword('currentPassword', this)">
+              <i class="fas fa-eye-slash"></i> <!-- Starts closed (password hidden) -->
+            </span>
+          </div>
+        </div>
         
-        <div class="form-group">
+        <div class="form-group password-field">
           <label for="newPassword">New Password</label>
-          <input type="password" class="form-control" id="newPassword" name="password" required ><!--  minlength="8" -->
+          <div class="input-group">
+            <input type="password" class="form-control" id="newPassword" name="password" required>
+            <span class="input-group-text toggle-password" onclick="togglePassword('newPassword', this)">
+              <i class="fas fa-eye-slash pass"></i> <!-- Starts closed -->
+            </span>
+          </div>
           <small class="form-text text-muted">Password must be at least 8 characters long</small>
         </div>
         
-        <div class="form-group">
+        <div class="form-group password-field">
           <label for="confirmPassword">Confirm New Password</label>
-          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+          <div class="input-group">
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            <span class="input-group-text toggle-password" onclick="togglePassword('confirmPassword', this)">
+              <i class="fas fa-eye-slash"></i> <!-- Starts closed -->
+            </span>
+          </div>
           <small id="passwordError" class="text-danger" style="display:none;">Passwords don't match!</small>
         </div>
+        
         <input type="hidden" name="email" value="${user.email}">
         <input type="hidden" name="userId" value="${user.userId}">
         
-       <%--  <div class="form-group" style="visibility:hidden;">
-          <label for="oldPassword">Old Password</label>
-          <input type="hidden" class="form-control" id="oldPassword" value="${user.password }" name="oldpassword" required ><!--  minlength="8" -->
-        </div> --%>
-        
         <button type="submit" class="btn-primary">Change Password</button>
       </form>
+      <p style="margin-left:455px;"> <a href="forgetpassword" class="forbtn">Forgot Password?</a></p>
     </div>
   </div>
 </div>
@@ -540,6 +579,46 @@
   </div>
   <div class="toast-message" id="toastMessage"></div>
 </div>
+
+<script>
+// Toggle password visibility with correct eye states
+function togglePassword(fieldId, toggleElement) {
+  const passwordField = document.getElementById(fieldId);
+  const icon = document.querySelector('.pass');
+  
+  if (passwordField.type === "password") {
+    // Show password
+    passwordField.type = "text";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  } else {
+    // Hide password
+    passwordField.type = "password";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  }
+}
+
+// Rest of your existing functions
+function validatePasswordAndShowToast() {
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  const errorElement = document.getElementById('passwordError');
+  
+  if (newPassword !== confirmPassword) {
+    errorElement.style.display = "block";
+    return false;
+  }
+  
+  errorElement.style.display = "none";
+  return true;
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+</script>
+
 
 <script>
   // Toast notification function

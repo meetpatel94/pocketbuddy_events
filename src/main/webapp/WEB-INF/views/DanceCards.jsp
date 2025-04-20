@@ -1208,6 +1208,11 @@ $(document).ready(function() {
                   <span>${n.keynote}</span> 
                 </div>
                 
+                <div class="seminar-meta">
+                 <i class="fas fa-clock"></i>
+                  <span>${n.stime} To ${n.etime }</span> 
+                </div>
+                
                 <p class="seminar-description">${n.description}</p>
                 
                 <div class="speaker-info">

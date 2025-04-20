@@ -367,9 +367,20 @@ h1 {
     font-size: 16px;
     font-weight: 500;
 }
+ body{
+ overflow-x:hidden;
+ }
 </style>
 </head>
 <body>
+
+<!-- Toast Notification for Incorrect Password -->
+<div id="passwordErrorToast" class="toast-notification error" style="background-color:red;">
+  <div class="toast-icon">
+    <i class="fas fa-exclamation-circle"></i>
+  </div>
+  <div class="toast-message">Current password is incorrect!</div>
+</div>
 
 <!-- Toast Notification -->
 <div id="loginToast" class="toast-notification">
@@ -459,6 +470,31 @@ document.addEventListener('DOMContentLoaded', function() {
         showLoginToast();
         
         // Clean the URL (remove the parameter)
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+});
+</script>
+<script>
+// Function to show error toast
+function showErrorToast() {
+    const toast = document.getElementById('passwordErrorToast');
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Check for password error on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const passwordError = urlParams.get('error');
+    
+    if (passwordError === 'incorrect_password') {
+        showErrorToast();
+        
+        // Clean the URL
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
     }

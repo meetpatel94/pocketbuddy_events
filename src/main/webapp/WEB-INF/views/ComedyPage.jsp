@@ -350,8 +350,8 @@ h1 {
    <!--======================== Concerts Section ==========================-->
     <jsp:include page="ComedyEvents.jsp"></jsp:include>
 
-   <!--======================== Up Coming Concerts List Section ==========================-->
-    <jsp:include page="UpComingConcert.jsp"></jsp:include>
+   <!--======================== Up Coming Comedy Events List Section ==========================-->
+    <jsp:include page="UpComingComedyEventsPage.jsp"></jsp:include>
 
     <!--======================== Event Schedule Section ==========================-->
     <jsp:include page="EventSchedule.jsp"></jsp:include>

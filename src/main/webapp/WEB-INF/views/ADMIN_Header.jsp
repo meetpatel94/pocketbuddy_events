@@ -354,11 +354,11 @@
                           <div class="u-text">
                             <h4>${user.firstName }&nbsp;${user.lastName}</h4>
                             <p class="text-muted">${user.email }</p>
-                            <a
+                            <!-- <a
                               href="#"
                               class="btn btn-xs btn-secondary btn-sm"
                               >View Profile</a
-                            >
+                            > -->
                           </div>
                         </div>
                       </li>
@@ -366,7 +366,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">My Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <a class="dropdown-item" href="#">Change Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout">Logout</a>
                       </li>
@@ -385,8 +385,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="visibility: hidden;">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -460,27 +460,178 @@
 </div>
 
 <script>
-// Profile picture preview function
-function previewProfilePic(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById('profilePicPreview').src = e.target.result;
+// Make sure Bootstrap JS is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Profile picture functions
+  function previewProfilePic(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profilePicPreview').src = e.target.result;
+      }
+      reader.readAsDataURL(input.files[0]);
     }
-    reader.readAsDataURL(input.files[0]);
   }
-}
 
-// Remove profile picture function
-function removeProfilePic() {
-  document.getElementById('profilePicPreview').src = 'default-profile-pic.jpg'; // Set default image
-  document.getElementById('profilePicUpload').value = ''; // Clear file input
-}
+  function removeProfilePic() {
+    document.getElementById('profilePicPreview').src = '${user.profilePicPath}';
+    document.getElementById('profilePicUpload').value = '';
+  }
 
-// Update the "My Profile" link in the dropdown to trigger the modal
-document.querySelector('.dropdown-item[href="#"]').addEventListener('click', function(e) {
-  e.preventDefault();
-  var modal = new bootstrap.Modal(document.getElementById('editProfileModal'));
-  modal.show();
+  // Initialize event listeners
+  document.getElementById('profilePicUpload').addEventListener('change', function() {
+    previewProfilePic(this);
+  });
+
+  // Initialize modal properly
+  const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+  
+  // Handle My Profile click
+  document.querySelector('.dropdown-item[data-bs-target="#editProfileModal"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    editProfileModal.show();
+  });
 });
+</script>
+
+<!-- Add this modal HTML right after the editProfileModal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="visibility: hidden;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="changePasswordForm" action="updatepass" method="post">
+          <!-- <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+          </div> -->
+          
+          <div class="form-group mt-3">
+            <label for="newPassword">New Password</label>
+            <input type="password" class="form-control" id="newPassword" name="password" required>
+            <small class="form-text text-muted">Password must be at least 8 characters long</small>
+          </div>
+          
+          <div class="form-group mt-3">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmpassword" required>
+            <div id="passwordMatchError" class="invalid-feedback" style="display: none;">
+              Passwords do not match
+            </div>
+          </div>
+          <input type="hidden" name="email" value="${user.email}">
+          <input type="hidden" name="userId" value="${user.userId}">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" id="submitPasswordChange" form="changePasswordForm" class="btn btn-primary" disabled>Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Add this to your existing script
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the change password modal
+  const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+  
+  // Handle Change Password click
+  document.querySelector('.dropdown-item[href="#"]:not([data-bs-toggle])').addEventListener('click', function(e) {
+    e.preventDefault();
+    changePasswordModal.show();
+  });
+
+  // Password validation logic
+  const newPassword = document.getElementById('newPassword');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const passwordMatchError = document.getElementById('passwordMatchError');
+  const submitBtn = document.getElementById('submitPasswordChange');
+
+  function validatePasswords() {
+    if (newPassword.value.length < 3) {
+      submitBtn.disabled = true;
+      return;
+    }
+    
+    if (newPassword.value !== confirmPassword.value) {
+      confirmPassword.classList.add('is-invalid');
+      passwordMatchError.style.display = 'block';
+      submitBtn.disabled = true;
+    } else {
+      confirmPassword.classList.remove('is-invalid');
+      passwordMatchError.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  }
+
+  // Add event listeners for password validation
+  newPassword.addEventListener('input', validatePasswords);
+  confirmPassword.addEventListener('input', validatePasswords);
+
+  // Form submission handler
+  document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+    if (newPassword.value !== confirmPassword.value) {
+      e.preventDefault();
+      alert('Passwords do not match!');
+    }
+  });
+});
+</script>
+
+<div id="toast" class="toast-notification">
+  <div class="toast-icon">
+    <i class="fas fa-check-circle"></i>
+  </div>
+  <div class="toast-message" id="toastMessage"></div>
+</div>
+
+<script>
+  // Toast notification function
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    // Reset classes
+    toast.className = 'toast-notification';
+    
+    // Set message and type
+    toastMessage.textContent = message;
+    
+    // Add type-specific class
+    if (type === 'profile') {
+      toast.classList.add('profile-update');
+    }
+    
+    toast.classList.add('show');
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+
+  // Check for success messages on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // For password change
+    if (urlParams.has('passwordChanged')) {
+      showToast('Password changed successfully!');
+      cleanUrl();
+    }
+    
+    // For profile update
+    if (urlParams.has('profileUpdated')) {
+      showToast('Profile updated successfully!', 'profile');
+      cleanUrl();
+    }
+  });
+  
 </script>
