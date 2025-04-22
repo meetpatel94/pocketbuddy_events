@@ -633,7 +633,7 @@
             <div class="card-wrapper">
               <div class="image-container">
                 <img data-src="${n.profilePicPath}" alt="Business Seminar" class="img-fluid lazy">
-                <span class="seminar-badge">BUSINESS</span>
+                <span class="seminar-badge" style="background: #FDCB6E;">BUSINESS</span>
                 <span class="city-tag">${n.city}</span>
               </div>
               <div class="info-box">

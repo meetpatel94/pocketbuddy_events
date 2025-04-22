@@ -13,7 +13,7 @@
             </nav>
             <div class="copyright">
               2025, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">Meet Patel</a>
+              <a href="#">Meet Patel</a>
             </div>
             
           </div>

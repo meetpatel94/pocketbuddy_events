@@ -350,6 +350,42 @@
             margin: 0;
         }
 
+        /* LOADER STYLES */
+        .otp-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(13, 25, 54, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loader-text {
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* RESPONSIVE STYLES */
         @media only screen and (max-width: 992px) {
             body {
@@ -389,6 +425,12 @@
     </style>
 </head>
 <body> 
+    <!-- OTP Loader -->
+    <div class="otp-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Sending OTP...</div>
+    </div>
+    
     <div class="wrapper">
         <div class="form-header">
             <div class="titles">
@@ -399,18 +441,16 @@
         <p class="instruction-text">Enter Your Email To Send OTP</p>
         
         <!-- FORGOT PASSWORD FORM -->
-        <form action="sendOtp" method="post" class="login-form">
+        <form action="sendOtp" method="post" class="login-form" onsubmit="showLoader()">
             <div class="input-box">
                 <input type="text" class="input-field" id="log-email" name="email" required>
                 <label for="log-email" class="label">Email</label>
                 <i class='bx bx-envelope icon'></i>
             </div>
             <div class="input-box">
-                <button class="btn-submit" id="SignInBtn">Send OTP <i class='bx bxs-bell-ring'></i></button>
+                <button class="btn-submit" id="SignInBtn" type="submit">Send OTP <i class='bx bxs-bell-ring'></i></button>
             </div>
             <span class="error-msg">${error}</span>
-            
-            
             
             <div class="switch-form">
                 <span>Don't have an account? <a href="signup">SignUp Here</a></span>
@@ -441,6 +481,16 @@
         
         document.querySelector('.btn-submit').addEventListener('mouseleave', function() {
             this.querySelector('i').style.transform = 'translateX(0)';
+        });
+        
+        // Show loader when form is submitted
+        function showLoader() {
+            document.querySelector('.otp-loader').style.display = 'flex';
+        }
+        
+        // Hide loader when page is fully loaded (fallback)
+        window.addEventListener('load', function() {
+            document.querySelector('.otp-loader').style.display = 'none';
         });
     </script>
 </body>

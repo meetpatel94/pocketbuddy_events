@@ -6,6 +6,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Create Event</title>
+
+<!-- CSS Files -->
+<link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
+<link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
+
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="aset/assets/css/demo.css" />
+<link rel="icon" href="img/logo.png" type="image/x-icon" />
+
+<!-- Fonts and icons -->
+<script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: { families: ["Public Sans:300,400,500,600,700"] },
+    custom: {
+      families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+      ],
+      urls: ["aset/assets/css/fonts.min.css"],
+    },
+    active: function () {
+      sessionStorage.fonts = true;
+    },
+  });
+</script>
+
 <style>
 .container{
   margin-left:20px !important;
@@ -102,37 +132,6 @@ input[type="file"]:focus {
     max-height: 200px;
     display: none;
 }
-</style>
-<link rel="icon" href="img/logo.png" type="image/x-icon" />
-
-<!-- Fonts and icons -->
-<script src="aset/assets/js/plugin/webfont/webfont.min.js"></script>
-<script>
-  WebFont.load({
-    google: { families: ["Public Sans:300,400,500,600,700"] },
-    custom: {
-      families: [
-        "Font Awesome 5 Solid",
-        "Font Awesome 5 Regular",
-        "Font Awesome 5 Brands",
-        "simple-line-icons",
-      ],
-      urls: ["aset/assets/css/fonts.min.css"],
-    },
-    active: function () {
-      sessionStorage.fonts = true;
-    },
-  });
-</script>
-
-<!-- CSS Files -->
-<link rel="stylesheet" href="aset/assets/css/bootstrap.min.css" />
-<link rel="stylesheet" href="aset/assets/css/plugins.min.css" />
-<link rel="stylesheet" href="aset/assets/css/kaiadmin.min.css" />
-
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="aset/assets/css/demo.css" />
-<style>
 main{
  margin-left:20px;
 }
@@ -146,9 +145,63 @@ main{
 .btn-secondary {
  border-radius: 10px 10px 10px 10px !important;
 }
+
+/* Loader Styles */
+.event-loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  display: none;
+}
+
+.event-loader-text {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #514b82;
+  font-weight: bold;
+}
+
+.event-spinner-loader {
+  width: 40px;
+  aspect-ratio: 1;
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.event-spinner-loader:before,
+.event-spinner-loader:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50% 50% 0 50%;
+  background: #514b82;
+  -webkit-mask: radial-gradient(circle 10px at 50% 50%,#0000 94%,#000);
+}
+
+.event-spinner-loader:after {
+  animation: event-spin-animation 1s infinite;
+  transform: perspective(300px) translateZ(0px)
+}
+
+@keyframes event-spin-animation {
+  to {transform: perspective(300px) translateZ(150px);opacity:0}
+}
 </style>
 </head>
 <body>
+   <!-- Loader -->
+   <div class="event-loader-container">
+     <div class="event-loader-text">Processing To Create Event...</div>
+     <div class="event-spinner-loader"></div>
+   </div>
    
    <!-- sidebar -->
    <div class="wrapper">
@@ -156,8 +209,6 @@ main{
    
    <!-- header -->
    <jsp:include page="ADMIN_Header.jsp"></jsp:include>
-
-
 
    <!-- container  -->
     <div class="container">
@@ -175,7 +226,7 @@ main{
 
         <section class="section dashboard">
             <div class="form-container">
-                <form action="savebusinessevent" method="post" enctype="multipart/form-data">
+                <form action="savebusinessevent" method="post" enctype="multipart/form-data" onsubmit="showEventLoader()">
                     <div class="event-type">
                         <label>Event Type:</label>
                           <select name="eventType" id="eventTypeDropdown" onchange="filterEvents()">
@@ -292,6 +343,16 @@ main{
             }
             reader.readAsDataURL(file);
         }
+    });
+    
+    // Show loader when form is submitted
+    function showEventLoader() {
+        document.querySelector('.event-loader-container').style.display = 'flex';
+    }
+    
+    // Hide loader when page is fully loaded
+    window.addEventListener('load', function() {
+        document.querySelector('.event-loader-container').style.display = 'none';
     });
     </script>
 </body>

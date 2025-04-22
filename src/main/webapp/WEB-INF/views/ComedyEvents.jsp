@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Business Seminars</title>
+<title>Comedy Shows</title>
 
 <!-- Bootstrap & FontAwesome -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -633,7 +633,7 @@
             <div class="card-wrapper">
               <div class="image-container">
                 <img data-src="${n.profilePicPath}" alt="Business Seminar" class="img-fluid lazy">
-                <span class="seminar-badge">BUSINESS</span>
+                <span class="seminar-badge" style="background: #1cd4c2; color:#1a2035;">Comedy Show</span>
                 <span class="city-tag">${n.city}</span>
               </div>
               <div class="info-box">

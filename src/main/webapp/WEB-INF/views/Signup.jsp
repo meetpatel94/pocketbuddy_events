@@ -320,6 +320,43 @@
             opacity: 0;
             animation: fadeInUp 0.6s forwards 1.0s;
         }
+        
+        /* LOADER STYLES */
+        .signup-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(13, 25, 54, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loader-text {
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* RESPONSIVE */
         @media (max-width: 480px) {
             .wrapper {
@@ -333,12 +370,18 @@
     </style>
 </head>
 <body>
+    <!-- Loader Container -->
+    <div class="signup-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Creating your account...</div>
+    </div>
+    
     <div class="wrapper">
         <div class="form-header">
             <div class="title-login">SignUp</div>
         </div>
         
-        <form action="saveuser" class="login-form" method="post" enctype="multipart/form-data">
+        <form action="saveuser" class="login-form" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
             <div class="input-box">
                 <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " required >
                 <label for="firstName" class="label">First Name</label>
@@ -472,6 +515,16 @@
             
             // Initial validation
             validatePasswords();
+        });
+        
+        // Show loader when form is submitted
+        function showLoader() {
+            document.querySelector('.signup-loader').style.display = 'flex';
+        }
+        
+        // Hide loader when page is fully loaded (fallback)
+        window.addEventListener('load', function() {
+            document.querySelector('.signup-loader').style.display = 'none';
         });
     </script>
 </body>
