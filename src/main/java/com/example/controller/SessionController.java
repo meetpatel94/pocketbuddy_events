@@ -1,8 +1,7 @@
 package com.example.controller;
 
 import java.io.IOException;
-
-
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -272,23 +271,48 @@ public class SessionController {
 		return "DefaultPage";
 	}
 	
-	@GetMapping("home")
-	public String home(Model model) {
-		
-		List<CreateEventsEntity> event = repoevent.findAll();
-		model.addAttribute("newevent", event);
-		
-		List<StaEntity> allsta = reposta.findAll();
-		model.addAttribute("allstate", allsta);
-		
-		List<CityEntity> allcity = repocity.findAll();
-		model.addAttribute("allcity", allcity);
-		
-		List<EventTypeEntity> events = repoevents.findAll();
-		model.addAttribute("allevent", events);
-		
-		return "Home";
+//	@GetMapping("/home")
+//	public String home(Model model,  Principal principal) {
+//		
+//		List<CreateEventsEntity> event = repoevent.findAll();
+//		model.addAttribute("newevent", event);
+//		
+//		List<StaEntity> allsta = reposta.findAll();
+//		model.addAttribute("allstate", allsta);
+//		
+//		List<CityEntity> allcity = repocity.findAll();
+//		model.addAttribute("allcity", allcity);
+//		
+//		List<EventTypeEntity> events = repoevents.findAll();
+//		model.addAttribute("allevent", events);
+//		
+//		return "Home";
+//	}
+	
+	@GetMapping("/home")
+	public String home(Model model, HttpSession session) {
+
+	    List<CreateEventsEntity> event = repoevent.findAll();
+	    model.addAttribute("newevent", event);
+
+	    List<StaEntity> allsta = reposta.findAll();
+	    model.addAttribute("allstate", allsta);
+
+	    List<CityEntity> allcity = repocity.findAll();
+	    model.addAttribute("allcity", allcity);
+
+	    List<EventTypeEntity> events = repoevents.findAll();
+	    model.addAttribute("allevent", events);
+
+	    // ✅ Get user from session (NOT principal)
+	    UserEntity user = (UserEntity) session.getAttribute("user");
+	    model.addAttribute("user", user);
+
+	    return "Home";
 	}
+
+
+	
 	
 	@GetMapping("business")
 	public String business(Model model) {
@@ -381,30 +405,6 @@ public class SessionController {
 		return "ComedyPage";
 	}
 	
-//	@PostMapping("updatepass")
-//	public String updatePass(String email, String password, Model model) {
-//	    Optional<UserEntity> op = repositoryUser.findByEmail(email);
-//	    
-//	    if(op.isEmpty()) {
-//	        model.addAttribute("error", "Invalid Email");
-//	        return "ChangePassword";
-//	    } else {
-//	        UserEntity user = op.get();
-//	        String encPwd = encoder.encode(password);
-//	        user.setPassword(encPwd);
-//	        repositoryUser.save(user);
-//	        
-//	        // Role-based redirection
-//	        if(user.getRole().equals("USER")) {
-//	            return "redirect:/home?passwordChanged=true";
-//	        } else if(user.getRole().equals("ADMIN")) {
-//	            return "redirect:/admindashboard?passwordChanged=true";
-//	        }
-//	    }
-//	    
-//	    // Default return if role doesn't match expected values
-//	    return "redirect:/login";
-//	}
 	@PostMapping("/updatepass")
 	public String updatePass(
 	    @RequestParam String email,
@@ -421,18 +421,18 @@ public class SessionController {
 		    
 		    UserEntity user = op.get();
 		    
-		    // ✅ Checks if current password matches (server-side)
+		    //-----> Checks if current password matches (server-side)
 		    if(!encoder.matches(currentPassword, user.getPassword())) {
 		        model.addAttribute("error", "Current password is incorrect");
 		        return "redirect:/home?error=incorrect_password";
 		    }
 		    
-		    // ✅ Updates password only if validation passes
+		    //-----> Updates password only if validation passes
 		    String encPwd = encoder.encode(password);
 		    user.setPassword(encPwd);
 		    repositoryUser.save(user);
 		    
-		    // ✅ Role-based redirection
+		    //------> Role-based redirection
 		    if(user.getRole().equals("USER")) {
 		        return "redirect:/home?passwordChanged=true";
 		    } else if(user.getRole().equals("ADMIN")) {

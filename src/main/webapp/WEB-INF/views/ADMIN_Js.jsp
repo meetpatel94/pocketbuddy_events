@@ -62,6 +62,15 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
       
+      $("#lineChart4").sparkline([108, 103, 12, 188, 95, 122, 115], {
+          type: "line",
+          height: "70",
+          width: "100%",
+          lineWidth: "2",
+          lineColor: "green",
+          fillColor: "red",
+        });
+      
       
    // Disable all window.open() calls
       window.open = function(){ return null; };

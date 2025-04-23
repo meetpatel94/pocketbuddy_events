@@ -1,5 +1,8 @@
 package com.example.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +19,8 @@ public class CommentEntity {
 //	private Integer userId;
 	private Integer commentUserId;
 	private String name;
+	private LocalDate date;
+	private LocalTime time;
 	private String email;
 	private String subject;
 	private String message;
@@ -55,6 +60,18 @@ public class CommentEntity {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	public LocalTime getTime() {
+		return time;
+	}
+	public void setTime(LocalTime time) {
+		this.time = time;
 	}
 	
 

@@ -63,6 +63,8 @@ public class CommentController {
 		return "CommentsPage";
 	}
 	
+	
+	
 	@GetMapping("deletecomments")
 	public String deletecomments(Integer commentUserId) {
 		repoComment.deleteById(commentUserId);

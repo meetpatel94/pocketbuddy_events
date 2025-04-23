@@ -61,10 +61,32 @@
               <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message" required></textarea>
               <div class="validation"></div>
             </div>
+            <input type="date" name="date" id="commentDate" style="display: none;" />
+            <input type="time" name="time" id="commentTime" style="display: none;" />
+            
             <div class="text-center"><input type="submit" value="Send Message"></div>
+            
           </form>
         </div>
       </div>
     </section><!-- #contact -->
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('commentDate');
+    const timeInput = document.getElementById('commentTime');
+
+    const now = new Date();
+
+    // Format date as YYYY-MM-DD
+    const dateStr = now.toISOString().split('T')[0];
+
+    // Format time as HH:MM
+    const timeStr = now.toTimeString().split(' ')[0].slice(0, 5);
+
+    dateInput.value = dateStr;
+    timeInput.value = timeStr;
+  });
+</script>
+    
 </body>
 </html>

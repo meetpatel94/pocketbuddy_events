@@ -15,20 +15,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.Services.MailService;
 import com.example.entity.CityEntity;
+import com.example.entity.CommentEntity;
 import com.example.entity.CreateEventsEntity;
 import com.example.entity.EventTypeEntity;
 import com.example.entity.StaEntity;
 import com.example.entity.UserEntity;
 import com.example.repository.CityRepository;
+import com.example.repository.CommentRepository;
 import com.example.repository.CreateEventsRepository;
 import com.example.repository.EventRepository;
 import com.example.repository.MemberRepository;
 import com.example.repository.StaRepository;
 import com.example.repository.UserRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AdminController {
+	
+	@Autowired
+	MailService serviceMail;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -54,8 +62,14 @@ public class AdminController {
 	@Autowired
 	EventRepository repoevents;
 	
+	@Autowired
+	CommentRepository repoComment;
+	
     @GetMapping("admindashboard")
 	public  String admindashboard(Model model) {
+    	
+    	List<CommentEntity> commentList = repoComment.findAll();
+		model.addAttribute("comments", commentList);
     	
     	//====> Users
     	//total users
@@ -108,8 +122,8 @@ public class AdminController {
 		repoUser.save(userEntity);
 		
 		//send welcome main after user signup
-//		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
-		return "ADMIN_Dashboard";
+		serviceMail.sendWelcomeMail(userEntity.getEmail(), userEntity.getFirstName());
+		return "redirect:/listuser";
 	}
     
     
@@ -333,14 +347,13 @@ public class AdminController {
    		}	
    		return "redirect:/businessevents";
    	}
-    
+       
     @PostMapping("update")
-    public String update(UserEntity entity, MultipartFile profilePic) {
+    public String update(UserEntity entity, MultipartFile profilePic, HttpSession session) {
 
         Optional<UserEntity> op = repoUser.findById(entity.getUserId());
 
-        if(op.isPresent()) {
-
+        if (op.isPresent()) {
             UserEntity dbuser = op.get();
             dbuser.setFirstName(entity.getFirstName());
             dbuser.setLastName(entity.getLastName());
@@ -350,24 +363,28 @@ public class AdminController {
             dbuser.setContactNum(entity.getContactNum());
             dbuser.setRole(entity.getRole());
 
-            if(profilePic.getOriginalFilename().endsWith(".jpg") ||
-               profilePic.getOriginalFilename().endsWith(".png") ||
-               profilePic.getOriginalFilename().endsWith(".webp")) {
+            if (profilePic != null && !profilePic.isEmpty()) {
+                if (profilePic.getOriginalFilename().endsWith(".jpg") ||
+                    profilePic.getOriginalFilename().endsWith(".png") ||
+                    profilePic.getOriginalFilename().endsWith(".webp")) {
 
-                try {
-                    Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
-                    dbuser.setProfilePicPath(result.get("url").toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        Map result = cloudinary.uploader().upload(profilePic.getBytes(), ObjectUtils.emptyMap());
+                        dbuser.setProfilePicPath(result.get("url").toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    return "Home";
                 }
-
-            } else {
-                return "Home";
             }
 
             repoUser.save(dbuser);
 
-            // Redirect based on role
+            //-=-> Refresh user in session
+            session.setAttribute("user", dbuser);
+
+            //-=-> Redirect based on role
             if (dbuser.getRole().equals("USER")) {
                 return "redirect:/home?profileUpdated=true";
             } else if (dbuser.getRole().equals("ADMIN")) {
@@ -375,8 +392,9 @@ public class AdminController {
             }
         }
 
-        return "redirect:/error"; // fallback in case user not found
-    }    
+        return "redirect:/error"; 
+    }
+
     
  
 }

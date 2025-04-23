@@ -166,6 +166,7 @@ section, .pan {
                   <option value="date">Sort By Date</option>
                   <option value="name">Sort By Name</option>
                   <option value="subject">Sort By Subject</option>
+                  <option value="email">Sort By Email</option>
               </select>
               <select id="sortOrder" class="sort-dropdown">
                   <option value="asc">Ascending</option>
@@ -180,7 +181,12 @@ section, .pan {
             <c:choose>
               <c:when test="${not empty comments}">
                 <c:forEach items="${comments}" var="c">
-                  <div class="col-md-6 col-lg-4 mb-4">
+                  <div class="col-md-6 col-lg-4 mb-4 comment-item" 
+                       data-name="${c.name}"
+                       data-email="${c.email}"
+                       data-subject="${c.subject}"
+                       data-date="${c.date}"
+                       data-time="${c.time}">
                     <div class="card shadow-sm border-0 comment-card">
                       <div class="card-body">
                         <h5 class="card-title mb-2 text-primary">
@@ -195,9 +201,17 @@ section, .pan {
                           <i class="fas fa-tag me-2 text-muted"></i>
                           <strong>Subject:</strong> ${c.subject}
                         </p>
-                        <p>
+                        <p class="mb-1">
                           <i class="fas fa-comment-dots me-2 text-muted"></i>
                           <strong>Description:</strong> ${c.message}
+                        </p>
+                        <p class="mb-1">
+                         <i class="fa fa-calendar-alt me-2 text-muted"></i>
+                          <strong>Date:</strong> ${c.date}
+                        </p>
+                        <p>
+                          <i class="fa fa-clock me-2 text-muted"></i>
+                          <strong>Time:</strong> ${c.time}
                         </p>
                       </div>
                       <div class="card-footer text-end bg-white border-0">
@@ -234,54 +248,79 @@ section, .pan {
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const applySortBtn = document.getElementById('applySort');
+        const commentsContainer = document.getElementById('commentsContainer');
         
         applySortBtn.addEventListener('click', function() {
             const sortField = document.getElementById('sortField').value;
             const sortOrder = document.getElementById('sortOrder').value;
             
-            // You can implement either client-side or server-side sorting here
-            
-            // For client-side sorting (if all data is already loaded):
-            sortCommentsClientSide(sortField, sortOrder);
-            
-            // For server-side sorting (recommended for large datasets):
-            // window.location.href = `comments?sortField=${sortField}&sortOrder=${sortOrder}`;
+            sortComments(sortField, sortOrder);
         });
         
-        function sortCommentsClientSide(field, order) {
-            const container = document.getElementById('commentsContainer');
-            const commentCards = Array.from(container.querySelectorAll('.col-md-6'));
+        function sortComments(field, order) {
+            const commentItems = Array.from(document.querySelectorAll('.comment-item'));
             
-            commentCards.sort((a, b) => {
+            commentItems.sort((a, b) => {
                 let valueA, valueB;
                 
+                // Get the values from data attributes
                 switch(field) {
                     case 'name':
-                        valueA = a.querySelector('.card-title').textContent.trim();
-                        valueB = b.querySelector('.card-title').textContent.trim();
+                        valueA = a.dataset.name.toLowerCase();
+                        valueB = b.dataset.name.toLowerCase();
+                        break;
+                    case 'email':
+                        valueA = a.dataset.email.toLowerCase();
+                        valueB = b.dataset.email.toLowerCase();
                         break;
                     case 'subject':
-                        valueA = a.querySelector('p:nth-of-type(3)').textContent.replace('Subject:', '').trim();
-                        valueB = b.querySelector('p:nth-of-type(3)').textContent.replace('Subject:', '').trim();
+                        valueA = a.dataset.subject.toLowerCase();
+                        valueB = b.dataset.subject.toLowerCase();
                         break;
                     case 'date':
-                        valueA = a.querySelector('p:nth-of-type(2)').textContent.replace('Date:', '').trim();
-                        valueB = b.querySelector('p:nth-of-type(2)').textContent.replace('Date:', '').trim();
+                        // Convert dates to comparable format (YYYY-MM-DD)
+                        const dateA = convertDateToComparable(a.dataset.date);
+                        const dateB = convertDateToComparable(b.dataset.date);
+                        valueA = dateA + a.dataset.time; // Include time for more precise sorting
+                        valueB = dateB + b.dataset.time;
                         break;
                     default:
                         return 0;
                 }
                 
-                if (order === 'asc') {
-                    return valueA.localeCompare(valueB);
-                } else {
-                    return valueB.localeCompare(valueA);
+                if (valueA < valueB) {
+                    return order === 'asc' ? -1 : 1;
                 }
+                if (valueA > valueB) {
+                    return order === 'asc' ? 1 : -1;
+                }
+                return 0;
             });
             
-            // Re-append sorted cards
-            commentCards.forEach(card => container.appendChild(card));
+            // Clear the container
+            commentsContainer.innerHTML = '';
+            
+            // Re-append sorted items
+            commentItems.forEach(item => {
+                commentsContainer.appendChild(item);
+            });
         }
+        
+        // Helper function to convert date strings to comparable format
+        function convertDateToComparable(dateStr) {
+            if (!dateStr) return '';
+            
+            // Assuming date is in format DD-MM-YYYY or similar
+            // Adjust this based on your actual date format
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert to YYYY-MM-DD
+            }
+            return dateStr;
+        }
+        
+        // Initial sort by date descending
+        sortComments('date', 'desc');
     });
     </script>
 </body>
