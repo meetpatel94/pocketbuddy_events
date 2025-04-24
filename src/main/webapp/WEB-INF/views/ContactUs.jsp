@@ -44,12 +44,12 @@
           <div id="errormessage"></div>
           <form action="savecomments" method="post" role="form" >
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-14">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required />
                 <div class="validation"></div>
               </div>
-              <div class="form-group col-md-6">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required />
+              <div class="form-group ">
+                <input type="hidden" class="form-control" name="email" id="email" value="${user.email}" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required />
                 <div class="validation"></div>
               </div>
             </div>

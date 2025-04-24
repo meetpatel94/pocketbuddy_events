@@ -169,8 +169,8 @@ section, .pan {
                   <option value="email">Sort By Email</option>
               </select>
               <select id="sortOrder" class="sort-dropdown">
-                  <option value="asc">Ascending</option>
-                  <option value="desc">Descending</option>
+                  <option value="desc">Newest First</option>
+                  <option value="asc">Oldest First</option>
               </select>
               <button id="applySort" class="sort-btn">
                   <i class="fas fa-sort me-2"></i>Apply Sort
@@ -186,7 +186,8 @@ section, .pan {
                        data-email="${c.email}"
                        data-subject="${c.subject}"
                        data-date="${c.date}"
-                       data-time="${c.time}">
+                       data-time="${c.time}"
+                       data-datetime="${c.date} ${c.time}">
                     <div class="card shadow-sm border-0 comment-card">
                       <div class="card-body">
                         <h5 class="card-title mb-2 text-primary">
@@ -250,20 +251,55 @@ section, .pan {
         const applySortBtn = document.getElementById('applySort');
         const commentsContainer = document.getElementById('commentsContainer');
         
-        applySortBtn.addEventListener('click', function() {
-            const sortField = document.getElementById('sortField').value;
-            const sortOrder = document.getElementById('sortOrder').value;
+        // Parse date from string (handles multiple formats)
+        function parseDate(dateStr) {
+            if (!dateStr) return new Date();
             
-            sortComments(sortField, sortOrder);
-        });
+            // Try different date formats
+            const formats = [
+                { regex: /(\d{2})-(\d{2})-(\d{4})/, parts: [3, 2, 1] }, // dd-MM-yyyy
+                { regex: /(\d{4})-(\d{2})-(\d{2})/, parts: [1, 2, 3] }, // yyyy-MM-dd
+                { regex: /(\d{2})\/(\d{2})\/(\d{4})/, parts: [3, 2, 1] }, // dd/MM/yyyy
+                { regex: /(\d{4})\/(\d{2})\/(\d{2})/, parts: [1, 2, 3] }, // yyyy/MM/dd
+                { regex: /(\d{2})-(\d{2})-(\d{2})/, parts: [3, 2, 1] }  // dd-MM-yy (last resort)
+            ];
+            
+            for (const format of formats) {
+                const match = dateStr.match(format.regex);
+                if (match) {
+                    const year = parseInt(match[format.parts[0]]);
+                    const month = parseInt(match[format.parts[1]]) - 1;
+                    const day = parseInt(match[format.parts[2]]);
+                    return new Date(year, month, day);
+                }
+            }
+            
+            // Fallback to current date if parsing fails
+            return new Date();
+        }
         
+        // Parse time from string (HH:mm or HH:mm:ss)
+        function parseTime(timeStr, dateObj) {
+            if (!timeStr) return dateObj;
+            
+            const timeParts = timeStr.split(':');
+            if (timeParts.length >= 2) {
+                dateObj.setHours(parseInt(timeParts[0]));
+                dateObj.setMinutes(parseInt(timeParts[1]));
+                if (timeParts.length >= 3) {
+                    dateObj.setSeconds(parseInt(timeParts[2]));
+                }
+            }
+            return dateObj;
+        }
+        
+        // Sort comments function
         function sortComments(field, order) {
             const commentItems = Array.from(document.querySelectorAll('.comment-item'));
             
             commentItems.sort((a, b) => {
                 let valueA, valueB;
                 
-                // Get the values from data attributes
                 switch(field) {
                     case 'name':
                         valueA = a.dataset.name.toLowerCase();
@@ -278,11 +314,11 @@ section, .pan {
                         valueB = b.dataset.subject.toLowerCase();
                         break;
                     case 'date':
-                        // Convert dates to comparable format (YYYY-MM-DD)
-                        const dateA = convertDateToComparable(a.dataset.date);
-                        const dateB = convertDateToComparable(b.dataset.date);
-                        valueA = dateA + a.dataset.time; // Include time for more precise sorting
-                        valueB = dateB + b.dataset.time;
+                        // Parse dates and times
+                        const dateA = parseTime(a.dataset.time, parseDate(a.dataset.date));
+                        const dateB = parseTime(b.dataset.time, parseDate(b.dataset.date));
+                        valueA = dateA.getTime();
+                        valueB = dateB.getTime();
                         break;
                     default:
                         return 0;
@@ -297,29 +333,19 @@ section, .pan {
                 return 0;
             });
             
-            // Clear the container
+            // Clear and re-append sorted items
             commentsContainer.innerHTML = '';
-            
-            // Re-append sorted items
-            commentItems.forEach(item => {
-                commentsContainer.appendChild(item);
-            });
+            commentItems.forEach(item => commentsContainer.appendChild(item));
         }
         
-        // Helper function to convert date strings to comparable format
-        function convertDateToComparable(dateStr) {
-            if (!dateStr) return '';
-            
-            // Assuming date is in format DD-MM-YYYY or similar
-            // Adjust this based on your actual date format
-            const parts = dateStr.split('-');
-            if (parts.length === 3) {
-                return `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert to YYYY-MM-DD
-            }
-            return dateStr;
-        }
+        // Apply sort button click handler
+        applySortBtn.addEventListener('click', function() {
+            const sortField = document.getElementById('sortField').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+            sortComments(sortField, sortOrder);
+        });
         
-        // Initial sort by date descending
+        // Initial sort by date (newest first)
         sortComments('date', 'desc');
     });
     </script>
