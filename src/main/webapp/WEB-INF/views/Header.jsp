@@ -567,7 +567,7 @@
         
         <button type="submit" class="btn-primary">Change Password</button>
       </form>
-      <p style="margin-left:455px;"> <a href="forgetpassword" class="forbtn">Forgot Password?</a></p>
+      <p style="margin-left:455px;"> <a href="userforgetpassword?userId=${user.userId}" class="forbtn">Forgot Password?</a></p>
     </div>
   </div>
 </div>

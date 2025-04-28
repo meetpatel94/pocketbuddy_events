@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -442,6 +441,74 @@ public class SessionController {
 		    return "redirect:/login";
 	   
 	}
+	
+	@GetMapping("userforgetpassword")
+	public String userforgetPassword(Integer userId, Model model) {
+		
+		Optional<UserEntity> op = repositoryUser.findById(userId);
+		if(op.isEmpty()) {
+			
+		}else {
+			UserEntity user = op.get();
+			model.addAttribute("users", user);
+		}
+		
+	
+		
+		return "UserForgotPassword";
+	}
+	
+	@PostMapping("sendLink")
+	public String sendLink(String email, Model model, Integer userId) {
+		Optional<UserEntity> op = repositoryUser.findByEmail(email);
+		
+		if(op.isEmpty()) {
+			
+			model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Email Not Found");
+			return "redirect:/sendLink";
+		}else {
+			
+			UserEntity user = op.get();
+			repositoryUser.save(user);
+			serviceMail.sendLinkForForgetPassword(email, user.getFirstName(), user.getUserId() );
+			return "redirect:/home";
+		} 		
+	}
+	
+	@GetMapping("userpass") 
+	public String userpassword(String email,Integer userId, String password, Model model) {
+
+    model.addAttribute("userId", userId);
+    return "UserChangePassword";
+		    
+	}
+	
+	@PostMapping("userupdatepassword")
+	public String updatePass(Integer userId, String password, String Confirmpassword, Model model) {
+
+	    if (!password.equals(Confirmpassword)) {
+	        model.addAttribute("error", "Passwords do not match");
+	        return "redirect:/userpass?userId=" + userId;
+	    }
+
+	    Optional<UserEntity> op = repositoryUser.findById(userId);
+	    
+	    if (op.isEmpty()) {
+	        model.addAttribute("error", "Invalid User");
+	        return "redirect:/userpass?userId=" + userId;
+	    } else {
+	        UserEntity user = op.get();
+	        String encPwd = encoder.encode(password);
+	        user.setPassword(encPwd);
+	        repositoryUser.save(user);
+	       
+	        return "redirect:/home";
+	    }
+	}
+
+	
+	
+		
 	
 }
 

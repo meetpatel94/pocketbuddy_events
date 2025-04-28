@@ -99,6 +99,15 @@
 			<artifactId>cloudinary-http44</artifactId>
 			<version>1.33.0</version>
 		</dependency>
+
+<!--SMS Twilio-->
+<dependency>
+  <groupId>com.twilio.sdk</groupId>
+  <artifactId>twilio</artifactId>
+  <version>9.17.0</version>
+</dependency>
+
+
 		
 	</dependencies>
 

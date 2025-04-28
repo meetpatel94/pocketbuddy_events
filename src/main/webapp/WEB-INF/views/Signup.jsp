@@ -39,7 +39,9 @@
             align-items: center;
             min-height: 100vh;
             background-color: var(--background-color);
-            padding: 20px;
+            padding: 68px;
+            padding-top: 5px !important;
+            
         }
 
         /* ANIMATIONS */
@@ -89,15 +91,19 @@
         /* WRAPPER */
         .wrapper {
             position: relative;
-            width: 430px;
+            width: 590px;
             max-width: 100%;
             background-color: var(--white-color);
             border-radius: 15px;
-            padding: 120px 32px 70px;
+            padding: 120px 32px 24px;
             border: 1px solid var(--primary-color);
             box-shadow: 0 8px 15px var(--shadow-color);
-            margin: 43px 0;
+            margin: 4px 4px;
             animation: fadeIn 0.8s ease-out;
+        }
+        
+        .gender{
+               width: 100% !important;
         }
 
         /* FORM HEADER */
@@ -132,6 +138,9 @@
             opacity: 0;
             transform: translateY(20px);
             animation: slideInUp 0.5s ease-out forwards;
+        }
+        input[type="email"]{
+            width: 100%;
         }
 
         /* Staggered animations for input fields */
@@ -250,6 +259,30 @@
             animation: fadeIn 0.5s 1.1s both;
         }
 
+        /* NAME FIELDS CONTAINER */
+        .name-fields {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+        
+        .name-field {
+            position: relative;
+            flex: 1;
+        }
+        
+        /* PASSWORD FIELDS CONTAINER */
+        .password-fields {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+        
+        .password-field {
+            position: relative;
+            flex: 1;
+        }
+
         /* SUBMIT BUTTON */
         .btn-submit {
             width: 100%;
@@ -366,6 +399,12 @@
             .input-field {
                 height: 50px;
             }
+            
+            .name-fields,
+            .password-fields {
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -383,19 +422,23 @@
         
         <form action="saveuser" class="login-form" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
             <div class="input-box">
-                <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " required >
-                <label for="firstName" class="label">First Name</label>
-                <i class='bx bx-user icon'></i>
+                <div class="name-fields">
+                    <div class="name-field">
+                        <input type="text" class="input-field" id="firstName" name="firstName" placeholder=" " required>
+                        <label for="firstName" class="label">First Name</label>
+                        <i class='bx bx-user icon'></i>
+                    </div>
+                    <div class="name-field">
+                        <input type="text" class="input-field" id="lastName" name="lastName" placeholder=" ">
+                        <label for="lastName" class="label">Last Name</label>
+                        <i class='bx bx-user icon'></i>
+                    </div>
+                </div>
             </div>
+            
 
             <div class="input-box">
-                <input type="text" class="input-field" id="lastName" name="lastName" placeholder=" " >
-                <label for="lastName" class="label">Last Name</label>
-                <i class='bx bx-user icon'></i>
-            </div>
-
-            <div class="input-box">
-                <select class="input-field" id="gender" name="gender" >
+                <select class="input-field gender" id="gender" name="gender">
                     <option value="">--Select Gender--</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -407,40 +450,45 @@
             </div>
             
             <div class="input-box">
-                <input type="email" class="input-field" id="email" name="email" placeholder=" " >
+                <input type="email" class="input-field" id="email" name="email" placeholder=" ">
                 <label for="email" class="label">Email</label>
                 <i class='bx bx-envelope icon'></i>
             </div>
             
             <div class="input-box">
-                <input type="password" class="input-field" id="password" name="password" placeholder=" " required >
-                <label for="password" class="label">Password</label>
-                <i class='bx bx-lock-alt icon'></i>
+                <div class="password-fields">
+                    <div class="password-field">
+                        <input type="password" class="input-field" id="password" name="password" placeholder=" " required>
+                        <label for="password" class="label">Password</label>
+                        <i class='bx bx-lock-alt icon'></i>
+                    </div>
+                    <div class="password-field">
+                        <input type="password" class="input-field" id="confirmpassword" name="confirmpassword" placeholder=" " required>
+                        <label for="confirmpassword" class="label">Confirm Password</label>
+                        <i class='bx bx-lock-alt icon'></i>
+                    </div>
+                </div>
+                <div id="password-message" class="password-message">Passwords do not match!</div>
             </div>
             
             <div class="input-box">
-                <input type="password" class="input-field" id="confirmpassword" name="confirmpassword" placeholder=" " required >
-                <label for="confirmpassword" class="label">Confirm Password</label>
-                <i class='bx bx-lock-alt icon'></i>
-            </div>
-            <div id="password-message" class="password-message">Passwords do not match!</div>
-
-            <div class="input-box">
-                <input type="date" class="input-field" id="bornYear" name="bornYear" placeholder=" " >
-                <label for="bornYear" class="label">Date of Birth</label>
-                
-            </div>
-
-            <div class="input-box">
-                <input type="tel" class="input-field" id="contactNum" name="contactNum" placeholder=" " >
-                <label for="contactNum" class="label">Contact No.</label>
-                <i class='bx bxs-phone icon'></i>
+                <div class="name-fields">
+                    <div class="name-field">
+                        <input type="tel" class="input-field" id="contactNum" name="contactNum" placeholder=" ">
+                        <label for="contactNum" class="label">Contact No.</label>
+                        <i class='bx bxs-phone icon'></i>
+                    </div>
+                    <div class="name-field">
+                        <input type="date" class="input-field" id="bornYear" name="bornYear" placeholder=" ">
+                        <label for="bornYear" class="label">Date of Birth</label>
+                    </div>
+                </div>
             </div>
             
             <div class="input-box file-input-container">
                 <div class="file-input-wrapper">
                     <label class="file-input-label"></label>
-                    <input type="file" id="profilePic" name="profilePic" accept="image/*" >
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*">
                     <span class="file-input-text" id="fileDisplay">No file chosen</span>
                     <i class='bx bx-upload icon'></i>
                 </div>

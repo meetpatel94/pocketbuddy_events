@@ -273,16 +273,7 @@
       
       <!-- Filter Controls -->
       <div class="filter-controls row g-3">
-        <div class="col-md-3">
-          <label for="date-filter" class="form-label">Filter by Date</label>
-          <select id="date-filter" class="form-select">
-            <option value="all">All Dates</option>
-            <option value="today">Today</option>
-            <option value="this-week">This Week</option>
-            <option value="next-week">Next Week</option>
-            <option value="this-month">This Month</option>
-          </select>
-        </div>
+        
         <div class="col-md-3">
           <label for="category-filter" class="form-label">Filter by Category</label>
           <select id="category-filter" class="form-select">
@@ -307,7 +298,7 @@
             <option value="over-2000">Over $200</option>
           </select>
         </div>
-        <div class="col-md-3 d-flex align-items-end">
+        <div class="col-md-3 d-flex align-items-end" style="margin-top:48px;">
           <button id="reset-filters" class="btn btn-outline-secondary w-100">Reset Filters</button>
         </div>
       </div>

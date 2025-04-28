@@ -366,7 +366,7 @@ h1 {
     <jsp:include page="MusicSpeaker.jsp"></jsp:include>
     
     <!--======================== Trending Music Shows Section ==========================-->
-    <jsp:include page="MusicTrendingShows.jsp"></jsp:include>
+     <jsp:include page="MusicTrendingShows.jsp"></jsp:include>
     
     <!--========================  Music Shows Section ==========================-->
     <jsp:include page="MusicShows.jsp"></jsp:include>

@@ -96,6 +96,8 @@
                 </a>
               </li>
               
+              
+              
               <!-- <li>
                 <a href="trendingevent">
                   <span class="sub-item">Trending Events</span>
@@ -114,6 +116,8 @@
                 </a>
               </li>
               
+              
+              
               <!-- <li>
                 <a href="listbuyers">
                   <span class="sub-item">Event Participant Users</span>
@@ -123,6 +127,29 @@
             </ul>
           </div>
         </li>
+        
+        <li class="nav-item">
+  <a data-bs-toggle="collapse" href="#locations">
+    <i class="fas fa-map-marker-alt"></i>
+    <p>Manage Locations</p>
+    <span class="caret"></span>
+  </a>
+  <div class="collapse" id="locations">
+    <ul class="nav nav-collapse">
+      
+      <li>
+        <a href="newsta">
+          <span class="sub-item">State Manage</span>
+        </a>
+      </li>
+      <li>
+        <a href="viewcities">
+          <span class="sub-item">City Manage</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
 
         <!-- Simple Links Section -->
         <li class="nav-section">

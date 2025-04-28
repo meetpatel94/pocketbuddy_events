@@ -9,6 +9,9 @@
 # General
 --------------------------------------------------------------*/
 /* Enable smooth scrolling for the entire page */
+.fa-angle-up{
+	margin-top:11px;
+}
 html {
   scroll-behavior: smooth;
 }

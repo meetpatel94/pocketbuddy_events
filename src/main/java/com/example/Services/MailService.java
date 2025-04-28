@@ -48,6 +48,24 @@ public class MailService {
 		mailSender.send(message);
 
 	}
+	
+	public void sendLinkForForgetPassword(String email, String firstName, Integer userId) {
+		String subject = "Link for Resetpassword";
+		String body = "Hey " + firstName
+				+ ",  Your Link is:"+ "http://localhost:9999/userpass?userId="+userId;
+		String from = "meetpatel96645@gmail.com";
+
+		// logic
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setFrom(from);
+		message.setTo(email);
+		message.setSubject(subject);
+		message.setText(body);
+
+		mailSender.send(message);
+
+	}
 
 }
 

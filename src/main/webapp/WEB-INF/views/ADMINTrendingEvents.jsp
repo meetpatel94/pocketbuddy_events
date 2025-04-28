@@ -610,7 +610,14 @@ main {
 .state-cancel-btn:hover {
   background-color: #e0e0e0;
 }
-
+.state-submit-btn{
+  position: fixed;
+  top: 132px;
+  right: 28px;
+}
+.state-form-group select {
+    padding: 17px !important;
+}
 </style>
 
 </head>
@@ -679,10 +686,10 @@ main {
                     </div>
                 </div>
                 <div class="event-card-footer">
-                    <a href="editevent?createeventId=${n.createeventId}" class="btn-edit">
+                    <a href="editevent?createeventId=${n.createeventId}"  id="btnFirst" class="btn-edit">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
-                    <button class="btn-details" 
+                    <button class="btn-details"  id="btnTwo"
                             onclick="showEventDetails({
                                 title: '${n.title}',
                                 date: '${n.date}',
@@ -695,8 +702,9 @@ main {
                         View Details
                     </button>
                     <button class="btn-cancel" onclick="cancelEvent(this)">Cancel Event</button>
-                    <button class="btn-undo" onclick="undoCancel(this)">Undo</button>
-                    <a href="deleteevent?createeventId=${n.createeventId}" class="btn-delete">🗑️ Delete</a>
+                    <a href="deleteevent?createeventId=${n.createeventId}" class="btn-delete"><i class="bi bi-trash"></i> Delete</a>
+                    <button class="btn-undo" onclick="undoCancel(this)"><i class="bi bi-arrow-counterclockwise"></i> Undo</button>
+                    
                 </div>
             </div>
         </c:forEach>
@@ -754,7 +762,7 @@ main {
         
          <div class="state-form-group">
           <label for="citySelect">Enter City Name:</label>
-          <input type="text" name="cityName" id="citySelect" class="form-control">&nbsp;&nbsp;
+          <input type="text" name="cityName" id="citySelect" class="form-control">
           <span><a href="viewcities" class="state-submit-btn" style="background-color:blue; color:white;">View Cities</a></span>
         </div>
         <div class="state-modal-footer">
@@ -909,14 +917,21 @@ main {
        document.body.style.overflow = 'auto';
    }
     
+   //const btnFirst = document.getElementById('btnFirst');
+   //const btnTwo = document.getElementById('btnTwo');
+   
    function cancelEvent(button) {
        const card = button.closest('.event-card');
        card.classList.add('cancelled');
+       btnFirst.style.display = 'none';
+       btnTwo.style.display = 'none';
    }
 
    function undoCancel(button) {
        const card = button.closest('.event-card');
        card.classList.remove('cancelled');
+       btnFirst.style.display = 'block';
+       btnTwo.style.display = 'block'; 
    }
    </script>
 
