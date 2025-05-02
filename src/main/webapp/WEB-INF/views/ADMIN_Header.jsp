@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.input-group-text{
+    font-size: 19px;
+    padding: 11px;
+}
+</style>
 </head>
 <body>
     <div class="main-panel">
@@ -412,28 +418,49 @@ document.addEventListener('DOMContentLoaded', function() {
         </button>
       </div>
       <div class="modal-body">
-        <form id="changePasswordForm" action="updatepass" method="post">
-          <!-- <div class="form-group">
-            <label for="currentPassword">Current Password</label>
-            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
-          </div> -->
-          
-          <div class="form-group mt-3">
-            <label for="newPassword">New Password</label>
-            <input type="password" class="form-control" id="newPassword" name="password" required>
-            <small class="form-text text-muted">Password must be at least 8 characters long</small>
-          </div>
-          
-          <div class="form-group mt-3">
-            <label for="confirmPassword">Confirm New Password</label>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmpassword" required>
-            <div id="passwordMatchError" class="invalid-feedback" style="display: none;">
-              Passwords do not match
-            </div>
-          </div>
-          <input type="hidden" name="email" value="${user.email}">
-          <input type="hidden" name="userId" value="${user.userId}">
-        </form>
+      <form id="changePasswordForm" action="updatepass" method="post">
+  <div class="form-group">
+    <label for="currentPassword">Current Password</label>
+    <div class="input-group">
+      <input type="password" class="form-control" id="currentPassword" name="currentpassword" required>
+      <div class="input-group-append">
+        <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword('currentPassword', 'currentPasswordToggle')">
+          <i id="currentPasswordToggle" class="fas fa-eye-slash"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group mt-3">
+    <label for="newPassword">New Password</label>
+    <div class="input-group">
+      <input type="password" class="form-control" id="newPassword" name="password" required>
+      <div class="input-group-append">
+        <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword('newPassword', 'newPasswordToggle')">
+          <i id="newPasswordToggle" class="fas fa-eye-slash"></i>
+        </span>
+      </div>
+    </div>
+    <small class="form-text text-muted">Password must be at least 8 characters long</small>
+  </div>
+  
+  <div class="form-group mt-3">
+    <label for="confirmPassword">Confirm New Password</label>
+    <div class="input-group">
+      <input type="password" class="form-control" id="confirmPassword" name="confirmpassword" required>
+      <div class="input-group-append">
+        <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword('confirmPassword', 'confirmPasswordToggle')">
+          <i id="confirmPasswordToggle" class="fas fa-eye-slash"></i>
+        </span>
+      </div>
+    </div>
+    <div id="passwordMatchError" class="invalid-feedback" style="display: none;">
+      Passwords do not match
+    </div>
+  </div>
+  <input type="hidden" name="email" value="${user.email}">
+  <input type="hidden" name="userId" value="${user.userId}">
+</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -443,6 +470,55 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 
+
+
+<script>
+// Toggle password visibility
+function togglePassword(inputId, toggleIconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(toggleIconId);
+  
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  }
+}
+
+// Password validation
+document.addEventListener('DOMContentLoaded', function() {
+  const newPassword = document.getElementById('newPassword');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const passwordMatchError = document.getElementById('passwordMatchError');
+  
+  function validatePasswords() {
+    if (newPassword.value !== confirmPassword.value && confirmPassword.value.length > 0) {
+      confirmPassword.classList.add('is-invalid');
+      passwordMatchError.style.display = 'block';
+      return false;
+    } else {
+      confirmPassword.classList.remove('is-invalid');
+      passwordMatchError.style.display = 'none';
+      return true;
+    }
+  }
+  
+  // Real-time validation
+  newPassword.addEventListener('input', validatePasswords);
+  confirmPassword.addEventListener('input', validatePasswords);
+  
+  // Form submission validation
+  document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+    if (!validatePasswords()) {
+      e.preventDefault();
+    }
+  });
+});
+</script>
 <script>
 // Add this to your existing script
 document.addEventListener('DOMContentLoaded', function() {

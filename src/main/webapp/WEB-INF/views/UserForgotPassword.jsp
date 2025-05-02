@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -15,10 +13,8 @@
     <link href="img/logo.png" rel="icon">
     <title>PocketBuddy-Forgot Password</title>
     <style>
-        /* IMPORT FONT */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-        /* COLOR VARIABLES */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
         :root {
             --primary-color: #0D1936;
             --secondary-color: #535354;
@@ -31,25 +27,14 @@
             --error-color: #ff4444;
         }
 
-        /* GLOBAL STYLES */
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
-        /* REUSABLE ELEMENTS */
-        a{
-            text-decoration: none;
-            color: var(--black-color);
-            transition: var(--transition-3s);
-        }
-        a:hover{
-            text-decoration: underline;
-        }
-
-        body{
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,79 +42,7 @@
             background-color: var(--background-color);
         }
 
-        /* ANIMATIONS */
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* TEXT MAIN SECTION */
-        .text-main {
-            position: fixed;
-            left: 60px;
-            opacity: 0;
-            animation: fadeInLeft 0.8s forwards 0.3s;
-        }
-
-        .text-main .p1 {
-            font-size: 55px;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .text-main .p1 i {
-            animation: pulse 2s infinite 1s;
-            color: var(--primary-color);
-        }
-
-        /* WRAPPER */
-        .wrapper{
+        .wrapper {
             position: relative;
             width: 430px;
             height: 400px;
@@ -138,239 +51,122 @@
             padding: 120px 32px 64px;
             border: 1px solid var(--primary-color);
             box-shadow: 0 8px 15px var(--shadow-color);
-            transition: var(--transition-3s);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s forwards 0.5s;
         }
 
-        /* FORM HEADER */
-        .form-header{
+        .form-header {
             position: absolute;
             top: 0;
             left: 25%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: 230px;
             height: 70px;
             background-color: var(--primary-color);
             border-radius: 0 0 20px 20px;
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .form-header::before, .form-header::after{
+
+        .form-header::before, .form-header::after {
             content: "";
             position: absolute;
             top: 0;
             width: 30px;
             height: 30px;
         }
-        .form-header::before{
+
+        .form-header::before {
             left: -30px;
             border-top-right-radius: 50%;
             box-shadow: 15px 0 0 var(--primary-color);
         }
-        .form-header::after{
+
+        .form-header::after {
             right: -30px;
             border-top-left-radius: 50%;
             box-shadow: -15px 0 0 var(--primary-color);
         }
 
-        /* TITLES */
-        .titles{
-            position: relative;
-        }
-        .title-login, .title-register{
-            position: absolute;
-            top: 50%;
-            
-            transform: translate(-50%,-50%);
+        .title-login {
             color: var(--white-color);
             font-size: 24px;
-            transition: var(--transition-3s);
-        }
-        .title-register{
-            top: 50px;
         }
 
-        /* FORMS */
-        .login-form, .register-form{
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            transition: var(--transition-3s);
-        }
-        .register-form{
-            left: 150%;
-        }
-
-        /* INPUT FIELDS */
-        .input-box{
+        .input-box {
             position: relative;
-            display: flex;
-            flex-direction: column;
             margin: 20px 0;
-            opacity: 0;
-            transform: translateY(20px);
         }
 
-        .input-box:nth-child(1) { animation: fadeInUp 0.6s forwards 0.8s; }
-        .input-box:nth-child(2) { animation: fadeInUp 0.6s forwards 1.0s; }
-
-        .input-field{
+        .input-field {
             width: 100%;
             height: 55px;
-            font-size: 16px;
-            background: transparent;
-            color: var(--black-color);
             padding: 0 20px;
             border: 1px solid var(--input-border-color);
             border-radius: 30px;
             outline: none;
-            transition: var(--transition-3s);
         }
-        .input-field:focus{
+
+        .input-field:focus {
             border: 1px solid var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(13, 25, 54, 0.1);
         }
-        .input-field.error {
-            border-color: var(--error-color);
-        }
-        .label{
+
+        .label {
             position: absolute;
             top: 50%;
             left: 20px;
             transform: translateY(-50%);
             color: var(--secondary-color);
-            transition: 0.2s;
-            cursor: text;
         }
+
         .input-field:focus ~ .label,
-        .input-field:valid ~ .label{
+        .input-field:valid ~ .label {
             top: 0;
             font-size: 14px;
             background-color: var(--white-color);
-            color: var(--primary-color);
             padding: 0 10px;
         }
-        .input-field:valid ~ .label{
-            color: var(--secondary-color);
-        }
-        .icon{
+
+        .icon {
             position: absolute;
             top: 50%;
             right: 25px;
             transform: translateY(-50%);
-            font-size: 20px;
-            color: var(--secondary-color);
         }
 
-        /* FORGOT PASSWORD & TERMS AND CONDITIONS */
-        .form-cols{
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 1.2s;
-        }
-        .col-1{
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* SUBMIT BUTTON */
-        .btn-submit{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .btn-submit {
             width: 100%;
             height: 50px;
             background-color: var(--primary-color);
-            color: var(--white-color);
-            font-size: 16px;
-            font-weight: 500;
+            color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            transition: var(--transition-3s);
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 1.4s;
+            transition: all 0.3s;
         }
-        .btn-submit:hover{
-            gap: 15px;
+
+        .btn-submit:hover {
             background-color: #152857;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 25, 54, 0.2);
         }
+
         .btn-submit:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
         }
-        .btn-submit:disabled:hover {
-            gap: 10px;
-            transform: none;
-            box-shadow: none;
-        }
-        .btn-submit i{
-            font-size: 20px;
-        }
 
-        /* SWITCH FORM */
-        .switch-form{
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 1.6s;
-        }
-        .switch-form a{
-            font-weight: 500;
-        }
-
-        /* ERROR MESSAGE */
-        .error-msg{
+        .error-msg {
             color: var(--error-color);
             text-align: center;
-            margin-bottom: 15px;
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 1.0s;
-        }
-        
-        .validation-error {
-            color: var(--error-color);
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
         }
 
-        /* INSTRUCTION TEXT */
-        .instruction-text {
-            text-align: center;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 0.6s;
-        }
-
-        footer{
+        footer {
             position: fixed;
             bottom: 0;
-            left: 0;
             width: 100%;
             background-color: var(--primary-color);
-            color: var(--white-color);
+            color: white;
             text-align: center;
-            padding: 1px 0;
-            opacity: 0;
-            animation: fadeInUp 0.6s forwards 1.8s;
-        }
-        #footer{
-            padding: 15px;
-            margin: 0;
+            padding: 15px 0;
         }
 
-        /* LOADER STYLES */
         .otp-loader {
             position: fixed;
             top: 0;
@@ -378,191 +174,166 @@
             width: 100%;
             height: 100%;
             background-color: rgba(255, 255, 255, 0.9);
-            display: flex;
-            flex-direction: column;
+            display: none;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             z-index: 1000;
-            display: none;
         }
-        
+
         .loader-spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(13, 25, 54, 0.2);
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
             border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
         }
-        
+
         .loader-text {
+            margin-top: 20px;
             color: var(--primary-color);
             font-size: 18px;
-            font-weight: 500;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* RESPONSIVE STYLES */
-        @media only screen and (max-width: 992px) {
-            body {
-                flex-direction: column;
-                height: auto;
-                padding: 40px 20px;
-            }
-            
-            .text-main {
-                position: relative;
-                left: 0;
-                text-align: center;
-                margin-bottom: 40px;
-                width: 100%;
-            }
-            
-            .text-main .p1 {
-                font-size: 40px;
-            }
-            
+        @media (max-width: 768px) {
             .wrapper {
-                margin-top: 20px;
-            }
-        }
-
-        @media only screen and (max-width: 564px){
-            .wrapper{
-                width: 100%;
-                max-width: 380px;
-                margin: 20px;
-            }
-            
-            .text-main .p1 {
-                font-size: 32px;
+                width: 90%;
+                padding: 100px 20px 40px;
             }
         }
     </style>
 </head>
-<body> 
-    <!-- OTP Loader -->
+<body>
     <div class="otp-loader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">Sending OTP...</div>
+        <div class="loader-text">Sending Link...</div>
     </div>
-    
+
     <div class="wrapper">
         <div class="form-header">
-            <div class="titles">
-                <div class="title-login">&nbsp;&nbsp;&nbsp;Forgot Password</div>
-            </div>
+            <div class="title-login">Forgot Password</div>
         </div>
         
-        <p class="instruction-text">Enter Your Email or Phone No. To Send Update Password Link</p>
+        <p style="text-align:center;margin-bottom:20px;">Enter Your Email or Phone No. To Send Update Password Link</p>
         
-        <!-- FORGOT PASSWORD FORM -->
         <form action="sendLink" method="post" class="login-form" onsubmit="return validateForm()">
             <div class="input-box">
-                <input type="text" class="input-field" id="log-email" name="contactInfo" required>
+                <input type="text" class="input-field" id="log-email" name="input" required>
                 <label for="log-email" class="label">Email Or Phone No.</label>
                 <i class='bx bx-envelope icon'></i>
-                <div class="validation-error" id="email-error">The entered email or phone number doesn't match our records</div>
+                <div style="color:#ff4444;font-size:12px;display:none;" id="email-error">Invalid email or phone number</div>
             </div>
             
-            <input type="hidden" name="contactNum" value="${users.contactNum}" />
-            <input type="hidden" name="email" value="${users.email}" />
+            <input type="hidden" name="contactNum" value="${users.contactNum}">
+            <input type="hidden" name="email" value="${users.email}">
+            <input type="hidden" id="formattedPhone" name="formattedPhone">
             
-            <div class="input-box" style="display: contents;">
-                <button class="btn-submit" id="SignInBtn" type="submit">Send Link Update Password <i class='bx bxs-link'></i></button>
+            <div style="margin-top:30px;">
+                <button class="btn-submit" id="SignInBtn" type="submit">
+                    Send Link <i class='bx bxs-link'></i>
+                </button>
             </div>
-            <span class="error-msg">${error}</span>
+            <div class="error-msg">${error}</div>
         </form>
     </div>
-    
-    <footer id="footer" class="footer">
-        © Copyright <strong><span>Pocketbuddy</span></strong>. All Rights Reserved
+
+    <footer>
+        © Copyright <strong>Pocketbuddy</strong>. All Rights Reserved
     </footer>
 
     <script>
-        // Get DOM elements
-        const contactInfoInput = document.getElementById('log-email');
+        const contactInput = document.getElementById('log-email');
         const submitBtn = document.getElementById('SignInBtn');
         const emailError = document.getElementById('email-error');
-        const hiddenEmail = document.querySelector('input[name="email"]').value;
-        const hiddenContactNum = document.querySelector('input[name="contactNum"]').value;
-        
-        // Initially disable the submit button
+        const formattedPhone = document.getElementById('formattedPhone');
+        const storedContact = document.querySelector('[name="contactNum"]').value;
+        const storedEmail = document.querySelector('[name="email"]').value;
+        const loader = document.querySelector('.otp-loader');
+
         submitBtn.disabled = true;
-        
-        // Add input validation
-        contactInfoInput.addEventListener('input', function() {
+
+        contactInput.addEventListener('input', function() {
             validateInput();
         });
-        
+
+        function isPhoneNumber(input) {
+            return /^[\d+]+$/.test(input);
+        }
+
+        function formatPhone(input) {
+            let digits = input.replace(/\D/g, '');
+            
+            if (digits.length >= 6) {
+                if (digits.startsWith('91') && digits.length >= 10) {
+                    return '+' + digits;
+                }
+                return '+91' + digits;
+            }
+            return digits;
+        }
+
         function validateInput() {
-            const enteredValue = contactInfoInput.value.trim();
+            const input = contactInput.value.trim();
             let isValid = false;
             
-            // Check if entered value matches either email or phone number
-            if (enteredValue === hiddenEmail || enteredValue === hiddenContactNum) {
+            if (isPhoneNumber(input)) {
+                const formatted = formatPhone(input);
+                const digitsOnly = formatted.replace(/\D/g, '');
+                const storedDigits = storedContact.replace(/\D/g, '');
+                
+                if (digitsOnly === storedDigits) {
+                    isValid = true;
+                    emailError.style.display = 'none';
+                    formattedPhone.value = formatted;
+                } else {
+                    emailError.style.display = 'block';
+                }
+            } 
+            else if (input === storedEmail) {
                 isValid = true;
                 emailError.style.display = 'none';
-                contactInfoInput.classList.remove('error');
-            } else {
+                formattedPhone.value = '';
+            }
+            else {
                 emailError.style.display = 'block';
-                contactInfoInput.classList.add('error');
             }
             
-            // Enable/disable submit button based on validation
             submitBtn.disabled = !isValid;
-            
             return isValid;
         }
-        
-        // Form validation on submit
+
         function validateForm() {
-            const isValid = validateInput();
+            const input = contactInput.value.trim();
             
-            if (isValid) {
-                showLoader();
-                return true;
+            if (validateInput()) {
+                if (isPhoneNumber(input)) {
+                    const formatted = formatPhone(input);
+                    contactInput.value = formatted;
+                    formattedPhone.value = formatted;
+                }
+                
+                // Show loader for 2 seconds before submitting
+                loader.style.display = 'flex';
+                
+                // Disable submit button during loading
+                submitBtn.disabled = true;
+                
+                // Submit form after 2 seconds
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.querySelector('form').submit();
+                }, 2000);
+                
+                return false; // Prevent immediate form submission
             }
-            
             return false;
         }
-        
-        // Add focus effects to input fields
-        document.querySelectorAll('.input-field').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.querySelector('.icon').style.color = 'var(--primary-color)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.querySelector('.icon').style.color = 'var(--secondary-color)';
-                validateInput();
-            });
-        });
-
-        // Button hover effect
-        submitBtn.addEventListener('mouseenter', function() {
-            if (!this.disabled) {
-                this.querySelector('i').style.transform = 'translateX(5px)';
-            }
-        });
-        
-        submitBtn.addEventListener('mouseleave', function() {
-            this.querySelector('i').style.transform = 'translateX(0)';
-        });
-        
-        // Show loader when form is submitted
-        function showLoader() {
-            document.querySelector('.otp-loader').style.display = 'flex';
-        }
-        
-        // Hide loader when page is fully loaded (fallback)
-        window.addEventListener('load', function() {
-            document.querySelector('.otp-loader').style.display = 'none';
-        });
     </script>
 </body>
 </html>

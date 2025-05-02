@@ -195,6 +195,7 @@
             transform: translateY(-50%);
             color: var(--secondary-color);
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
         .input-field:focus ~ .icon {
@@ -460,12 +461,12 @@
                     <div class="password-field">
                         <input type="password" class="input-field" id="password" name="password" placeholder=" " required>
                         <label for="password" class="label">Password</label>
-                        <i class='bx bx-lock-alt icon'></i>
+                        <i class='bx bx-hide icon toggle-password'></i>
                     </div>
                     <div class="password-field">
                         <input type="password" class="input-field" id="confirmpassword" name="confirmpassword" placeholder=" " required>
                         <label for="confirmpassword" class="label">Confirm Password</label>
-                        <i class='bx bx-lock-alt icon'></i>
+                        <i class='bx bx-hide icon toggle-password'></i>
                     </div>
                 </div>
                 <div id="password-message" class="password-message">Passwords do not match!</div>
@@ -512,6 +513,7 @@
             const confirmPasswordField = document.getElementById('confirmpassword');
             const submitButton = document.querySelector('.btn-submit');
             const passwordMessage = document.getElementById('password-message');
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
             
             // Function to validate password match
             function validatePasswords() {
@@ -539,6 +541,18 @@
             // Add event listeners for real-time validation
             passwordField.addEventListener('input', validatePasswords);
             confirmPasswordField.addEventListener('input', validatePasswords);
+            
+            // Toggle password visibility
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const inputField = this.parentElement.querySelector('input');
+                    const isPassword = inputField.type === 'password';
+                    
+                    inputField.type = isPassword ? 'text' : 'password';
+                    this.classList.toggle('bx-hide');
+                    this.classList.toggle('bx-show');
+                });
+            });
             
             // File input display
             document.getElementById('profilePic').addEventListener('change', function(e) {

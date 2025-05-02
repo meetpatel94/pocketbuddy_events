@@ -239,45 +239,6 @@ body {
   background-color: #e9ecef;
 }
 
-.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255,255,255,0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.loader {
-  width: 40px;
-  aspect-ratio: 1;
-  position: relative;
-  transform: rotate(45deg);
-}
-
-.loader:before,
-.loader:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50% 50% 0 50%;
-  background: var(--primary);
-  -webkit-mask: radial-gradient(circle 10px at 50% 50%,#0000 94%,#000);
-}
-
-.loader:after {
-  animation: l6 1s infinite;
-  transform: perspective(300px) translateZ(0px)
-}
-
-@keyframes l6 {
-  to {transform: perspective(300px) translateZ(150px);opacity:0}
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -365,7 +326,7 @@ body {
                  <img src="${user.profilePicPath}" alt="Current Profile" class="current-image" id="currentImage">
                </c:if>
                <c:if test="${empty user.profilePicPath}">
-                 <img src="img/default-profile.png" alt="Default Profile" class="current-image" id="defaultImage" style="display: none;">
+                 <img src="img/default-profile.png" alt="Default Profile" class="current-image" id="defaultImage">
                </c:if>
              </div>
              <div class="image-upload">
@@ -376,6 +337,10 @@ body {
                </div>
              </div>
            </div>
+           <!-- Hidden field to track if profile pic was cleared -->
+           <input type="hidden" id="clearProfilePic" name="clearProfilePic" value="false">
+           <!-- Hidden field to keep existing profile pic path -->
+           <input type="hidden" name="existingProfilePic" value="${user.profilePicPath}">
          </div>
           
          <div class="form-group">
@@ -399,20 +364,10 @@ body {
    <jsp:include page="ADMIN_Footer.jsp"></jsp:include>
    </div>
    
-   <!-- Loader -->
-   <div class="loader-container" id="loader">
-     <div class="loader"></div>
-   </div>
-   
    <!-- JS -->
    <jsp:include page="ADMIN_Js.jsp"></jsp:include>
    
    <script>
-   // Show loader on form submission
-   document.getElementById('userForm').addEventListener('submit', function() {
-     document.getElementById('loader').style.display = 'flex';
-   });
-   
    // Preview image when selected
    document.getElementById('profilePic').addEventListener('change', function(e) {
      const file = e.target.files[0];
@@ -424,14 +379,11 @@ body {
          
          if (currentImage) {
            currentImage.src = event.target.result;
-           currentImage.style.display = 'block';
          } else if (defaultImage) {
            defaultImage.src = event.target.result;
-           defaultImage.style.display = 'block';
-         } else {
-           const container = document.querySelector('.current-image-container');
-           container.innerHTML = `<img src="${event.target.result}" alt="Preview" class="current-image" id="currentImage">`;
          }
+         // Reset clear flag when new image is selected
+         document.getElementById('clearProfilePic').value = 'false';
        };
        reader.readAsDataURL(file);
      }
@@ -446,13 +398,21 @@ body {
      // Clear the file input
      fileInput.value = '';
      
-     // Hide the current image and show default if available
-     if (currentImage) {
-       currentImage.style.display = 'none';
-     }
+     // Set the clear flag
+     document.getElementById('clearProfilePic').value = 'true';
+     
+     // Show default image if available
      if (defaultImage) {
        defaultImage.style.display = 'block';
      }
+     if (currentImage) {
+       currentImage.style.display = 'none';
+     }
+   });
+
+   // Form submission handling
+   document.getElementById('userForm').addEventListener('submit', function(e) {
+     // You can add any additional validation here if needed
    });
    </script>
 </body>

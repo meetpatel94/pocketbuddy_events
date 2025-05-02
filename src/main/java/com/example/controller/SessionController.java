@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.Services.MailService;
+import com.example.Services.TwilioService;
 import com.example.entity.CityEntity;
 import com.example.entity.CreateEventsEntity;
 import com.example.entity.EventTypeEntity;
@@ -27,6 +29,7 @@ import com.example.repository.CreateEventsRepository;
 import com.example.repository.EventRepository;
 import com.example.repository.StaRepository;
 import com.example.repository.UserRepository;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -57,6 +60,10 @@ public class SessionController {
 	
 	@Autowired
 	EventRepository repoevents;
+	
+	@Autowired
+	TwilioService twilioService;
+
 
 	@GetMapping( "login" )
 	public String login(String email, String password) {
@@ -459,21 +466,41 @@ public class SessionController {
 	}
 	
 	@PostMapping("sendLink")
-	public String sendLink(String email, Model model, Integer userId) {
-		Optional<UserEntity> op = repositoryUser.findByEmail(email);
-		
-		if(op.isEmpty()) {
-			
-			model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Email Not Found");
-			return "redirect:/sendLink";
-		}else {
-			
-			UserEntity user = op.get();
-			repositoryUser.save(user);
-			serviceMail.sendLinkForForgetPassword(email, user.getFirstName(), user.getUserId() );
-			return "redirect:/home";
-		} 		
+	public String sendLink(String input, Model model) {
+	    // Check input is email or phone number
+	    if (input.contains("@")) {
+	        // Email case
+	        Optional<UserEntity> op = repositoryUser.findByEmail(input);
+	        if (op.isEmpty()) {
+	            model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Email Not Found");
+	            return "redirect:/sendLink";
+	        } else {
+	            UserEntity user = op.get();
+	            repositoryUser.save(user);
+	            serviceMail.sendLinkForForgetPassword(user.getEmail(), user.getFirstName(), user.getUserId());
+	            return "redirect:/home";
+	        }
+	    } else {
+	        // Phone case
+	        Optional<UserEntity> op = repositoryUser.findByContactNum(input);
+	        if (op.isEmpty()) {
+	            model.addAttribute("error", "<i class='bx bxs-error-circle'></i>Phone Number Not Found");
+	            return "redirect:/sendLink";
+	        } else {
+	            UserEntity user = op.get();
+	            repositoryUser.save(user);
+	            twilioService.sendLinkForForgetPassword(user.getContactNum(), user.getUserId());
+	            return "redirect:/home";
+	        }
+	    }
 	}
+
+
+
+	
+	
+	
+	
 	
 	@GetMapping("userpass") 
 	public String userpassword(String email,Integer userId, String password, Model model) {
@@ -489,7 +516,7 @@ public class SessionController {
 	    if (!password.equals(Confirmpassword)) {
 	        model.addAttribute("error", "Passwords do not match");
 	        return "redirect:/userpass?userId=" + userId;
-	    }
+	    }    
 
 	    Optional<UserEntity> op = repositoryUser.findById(userId);
 	    

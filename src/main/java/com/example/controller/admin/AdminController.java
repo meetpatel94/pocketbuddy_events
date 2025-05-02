@@ -88,7 +88,6 @@ public class AdminController {
     	
     	model.addAttribute("totalMembers", totalMembers);
     	
-		//return "AdminDashboard";
     	return "ADMIN_Dashboard";
 	}
     
@@ -155,8 +154,7 @@ public class AdminController {
     
     @PostMapping("updateuser")
 	public String updateuser(UserEntity entity, MultipartFile profilePic) {
-//		System.out.println(entity.getUserId());
-		
+//		System.out.println(entity.getUserId());	
 		
 		Optional<UserEntity> op = repoUser.findById(entity.getUserId());
 		
@@ -197,20 +195,19 @@ public class AdminController {
 		return "redirect:/listuser";
 	}
     
-    @GetMapping("contactUs")
+    @GetMapping("contactUs")                     // Contact us page
     public String contactus() {
     	return "ContactUsPage";
     }
-    @GetMapping("events")
+    @GetMapping("events")                        // Events page
     public String events() {
     	return "EventsPage";
-
     }
-    @GetMapping("eventshows")
+    @GetMapping("eventshows")                    // Events shows page
     public String eventshows() {
     	return "EventShows";
     }
-    @GetMapping("trendingevent")
+    @GetMapping("trendingevent")                 // Trending Events page
     public String trendingevent() {
     	return "TrendingEvents";
     }
@@ -381,11 +378,9 @@ public class AdminController {
 
             repoUser.save(dbuser);
 
-            //-=-> Refresh user in session
-            session.setAttribute("user", dbuser);
-
-            //-=-> Redirect based on role
-            if (dbuser.getRole().equals("USER")) {
+            session.setAttribute("user", dbuser);                   //-=-> Redirect based on role
+                                                                      
+            if (dbuser.getRole().equals("USER")) {                  //-=-> Redirect based on role
                 return "redirect:/home?profileUpdated=true";
             } else if (dbuser.getRole().equals("ADMIN")) {
                 return "redirect:/admindashboard?profileUpdated=true";
