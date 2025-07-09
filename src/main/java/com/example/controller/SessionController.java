@@ -430,7 +430,12 @@ public class SessionController {
 		    //-----> Checks if current password matches (server-side)
 		    if(!encoder.matches(currentPassword, user.getPassword())) {
 		        model.addAttribute("error", "Current password is incorrect");
-		        return "redirect:/home?error=incorrect_password";
+
+		        if(user.getRole().equals("USER")) {
+		            return "redirect:/home?error=incorrect_password";
+		        } else if(user.getRole().equals("ADMIN")) {
+		            return "redirect:/admindashboard?error=incorrect_password";
+		        }
 		    }
 		    
 		    //-----> Updates password only if validation passes
@@ -445,8 +450,7 @@ public class SessionController {
 		        return "redirect:/admindashboard?passwordChanged=true";
 		    }
 		    
-		    return "redirect:/login";
-	   
+		    return "redirect:/login";   
 	}
 	
 	@GetMapping("userforgetpassword")
@@ -459,9 +463,6 @@ public class SessionController {
 			UserEntity user = op.get();
 			model.addAttribute("users", user);
 		}
-		
-	
-		
 		return "UserForgotPassword";
 	}
 	
@@ -495,13 +496,6 @@ public class SessionController {
 	    }
 	}
 
-
-
-	
-	
-	
-	
-	
 	@GetMapping("userpass") 
 	public String userpassword(String email,Integer userId, String password, Model model) {
 
@@ -510,6 +504,28 @@ public class SessionController {
 		    
 	}
 	
+//	@PostMapping("userupdatepassword")
+//	public String updatePass(Integer userId, String password, String Confirmpassword, Model model) {
+//
+//	    if (!password.equals(Confirmpassword)) {
+//	        model.addAttribute("error", "Passwords do not match");
+//	        return "redirect:/userpass?userId=" + userId;
+//	    }    
+//
+//	    Optional<UserEntity> op = repositoryUser.findById(userId);
+//	    
+//	    if (op.isEmpty()) {
+//	        model.addAttribute("error", "Invalid User");
+//	        return "redirect:/userpass?userId=" + userId;
+//	    } else {
+//	        UserEntity user = op.get();
+//	        String encPwd = encoder.encode(password);
+//	        user.setPassword(encPwd);
+//	        repositoryUser.save(user);
+//	       
+//	        return "redirect:/home";
+//	    }
+//	}
 	@PostMapping("userupdatepassword")
 	public String updatePass(Integer userId, String password, String Confirmpassword, Model model) {
 
@@ -519,7 +535,7 @@ public class SessionController {
 	    }    
 
 	    Optional<UserEntity> op = repositoryUser.findById(userId);
-	    
+
 	    if (op.isEmpty()) {
 	        model.addAttribute("error", "Invalid User");
 	        return "redirect:/userpass?userId=" + userId;
@@ -528,10 +544,16 @@ public class SessionController {
 	        String encPwd = encoder.encode(password);
 	        user.setPassword(encPwd);
 	        repositoryUser.save(user);
-	       
-	        return "redirect:/home";
+
+	        // Role-based redirection
+	        if ("ADMIN".equals(user.getRole())) {
+	            return "redirect:/admindashboard";
+	        } else {
+	            return "redirect:/home";
+	        }
 	    }
 	}
+
 
 	
 	

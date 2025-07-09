@@ -324,6 +324,7 @@ body {
              <div class="current-image-container">
                <c:if test="${not empty user.profilePicPath}">
                  <img src="${user.profilePicPath}" alt="Current Profile" class="current-image" id="currentImage">
+                 <input type="hidden" name="existingProfilePic" value="${user.profilePicPath}">
                </c:if>
                <c:if test="${empty user.profilePicPath}">
                  <img src="img/default-profile.png" alt="Default Profile" class="current-image" id="defaultImage">
@@ -337,10 +338,6 @@ body {
                </div>
              </div>
            </div>
-           <!-- Hidden field to track if profile pic was cleared -->
-           <input type="hidden" id="clearProfilePic" name="clearProfilePic" value="false">
-           <!-- Hidden field to keep existing profile pic path -->
-           <input type="hidden" name="existingProfilePic" value="${user.profilePicPath}">
          </div>
           
          <div class="form-group">
@@ -382,8 +379,6 @@ body {
          } else if (defaultImage) {
            defaultImage.src = event.target.result;
          }
-         // Reset clear flag when new image is selected
-         document.getElementById('clearProfilePic').value = 'false';
        };
        reader.readAsDataURL(file);
      }
@@ -398,21 +393,13 @@ body {
      // Clear the file input
      fileInput.value = '';
      
-     // Set the clear flag
-     document.getElementById('clearProfilePic').value = 'true';
-     
-     // Show default image if available
-     if (defaultImage) {
-       defaultImage.style.display = 'block';
-     }
+     // Reset to default image
      if (currentImage) {
-       currentImage.style.display = 'none';
+       currentImage.src = 'img/default-profile.png';
      }
-   });
-
-   // Form submission handling
-   document.getElementById('userForm').addEventListener('submit', function(e) {
-     // You can add any additional validation here if needed
+     if (defaultImage) {
+       defaultImage.src = 'img/default-profile.png';
+     }
    });
    </script>
 </body>

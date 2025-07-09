@@ -11,6 +11,16 @@
     font-size: 19px;
     padding: 11px;
 }
+.toast-notification.error-toast {
+  background-color: #f44336; 
+}
+.forgotpass{
+  margin-left:23px;
+  
+}
+.forgotpass:hover{
+  color:red;
+}
 </style>
 </head>
 <body>
@@ -466,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit" id="submitPasswordChange" form="changePasswordForm" class="btn btn-primary" disabled>Save Changes</button>
       </div>
+      <p class="forgotpass"><a href="userforgetpassword?userId=${user.userId}" >Forgot Password ?</a></p>
     </div>
   </div>
 </div>
@@ -570,16 +581,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div id="toast" class="toast-notification">
   <div class="toast-icon">
-    <i class="fas fa-check-circle"></i>
+    <i class="fas fa-check-circle" style="display:none;" id="icon" ></i>
+    <i class="fas fa-exclamation-circle" style="display:none;" id="icon2" ></i> 
   </div>
   <div class="toast-message" id="toastMessage"></div>
 </div>
+
 
 <script>
   // Toast notification function
   function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
+    const icon = document.getElementById('icon');
+    const icon2 = document.getElementById('icon2');
     
     // Reset classes
     toast.className = 'toast-notification';
@@ -590,8 +605,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add type-specific class
     if (type === 'profile') {
       toast.classList.add('profile-update');
+    } else if (type === 'error') {
+      toast.classList.add('error-toast');
     }
-    
+
     toast.classList.add('show');
     
     // Hide toast after 3 seconds
@@ -600,23 +617,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
 
-  // Check for success messages on page load
+  // Clean URL function
+  function cleanUrl() {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // On page load, check for URL params
   document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // For password change
     if (urlParams.has('passwordChanged')) {
       showToast('Password changed successfully!');
+      icon.style.display = 'block';
       cleanUrl();
     }
-    
-    // For profile update
+
     if (urlParams.has('profileUpdated')) {
       showToast('Profile updated successfully!', 'profile');
+      icon.style.display = 'block';
+      
+      cleanUrl();
+    }
+
+    if (urlParams.get('error') === 'incorrect_password') {
+      showToast('Current password was wrong.', 'error');
+      icon2.style.display = 'block';
       cleanUrl();
     }
   });
-  
 </script>
+
 </body>
 </html>
