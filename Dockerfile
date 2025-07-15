@@ -1,11 +1,8 @@
-# Use Java 17 as base image
-FROM openjdk:17-jdk-slim
+# Base image: Use Tomcat 9 with JDK 17
+FROM tomcat:9.0-jdk17
 
-# Set working directory
-WORKDIR /app
+# Remove default web apps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy JAR file (assuming you build with Maven)
-COPY target/*.jar app.jar
-
-# Run the jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Copy WAR file into Tomcat webapps directory
+COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
